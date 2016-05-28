@@ -1,0 +1,61 @@
+{
+  "alfredtheme" : {
+    "result" : {
+      "textSpacing" : 8,
+      "subtext" : {
+        "size" : 14,
+        "colorSelected" : "#F9D00EFF",
+        "font" : "Lucida Grande",
+        "color" : "#888680FF"
+      },
+      "shortcut" : {
+        "size" : 16,
+        "colorSelected" : "#66635EFF",
+        "font" : "Lucida Grande",
+        "color" : "#66635EFF"
+      },
+      "backgroundSelected" : "#34322FFF",
+      "text" : {
+        "size" : 20,
+        "colorSelected" : "#F9D00EFF",
+        "font" : "Lucida Grande",
+        "color" : "#888680FF"
+      },
+      "iconPaddingHorizontal" : 5,
+      "paddingVertical" : 8,
+      "iconSize" : 40
+    },
+    "search" : {
+      "paddingVertical" : 2,
+      "background" : "#34322FFF",
+      "spacing" : 10,
+      "text" : {
+        "size" : 32,
+        "colorSelected" : "#FFFFFFFF",
+        "font" : "Lucida Grande",
+        "color" : "#E5E1D2FF"
+      },
+      "backgroundSelected" : "#667A8CFF"
+    },
+    "window" : {
+      "color" : "#34322FFF",
+      "paddingHorizontal" : 10,
+      "width" : 620,
+      "borderPadding" : 10,
+      "borderColor" : "#D6D6D600",
+      "blur" : 0,
+      "roundness" : 25,
+      "paddingVertical" : 10
+    },
+    "credit" : "Yorgos",
+    "separator" : {
+      "color" : "#34322FFF",
+      "thickness" : 1
+    },
+    "scrollbar" : {
+      "color" : "#AAAAAA00",
+      "thickness" : 2
+    },
+    "name" : "Pro Dark (v2)"
+  }
+}

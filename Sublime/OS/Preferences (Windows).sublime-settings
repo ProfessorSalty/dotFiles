@@ -1,0 +1,8 @@
+{
+    "ignored_packages":
+        [
+            "AAAPackageDev",
+            "SublimeFixMacPath",
+            "PackageDev"
+        ]
+}

@@ -1,0 +1,9 @@
+{
+    "font_size": 120,
+    "ignored_packages":
+        [
+            "AAAPackageDev",
+            "SublimeFixMacPath",
+            "PackageDev"
+        ]
+}
