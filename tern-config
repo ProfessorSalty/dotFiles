@@ -1,6 +1,33 @@
-{ "libs": ["jquery", "browser"],
+{
+  "ecmaVersions": {
+    "ecmaVersion5": false,
+    "ecmaVersion6": true
+  },
+  "libs": [
+    "browser",
+    "jquery"
+  ],
+  "loadEagerly": [],
+  "dontLoad": [],
   "plugins": {
-    "node": {},
-    "node-express": {}
+    "complete_strings": {
+      "maxLength": 15
+    },
+    "node": {
+      "dontLoad": false,
+      "load": false,
+      "modules": {}
+    },
+    "angular": {},
+    "lint": {},
+    "requirejs": {
+      "baseURL": "",
+      "paths": "",
+      "override": {}
+    },
+    "doc_comment": {
+      "strong": false,
+      "fullDocs": true
+    }
   }
 }

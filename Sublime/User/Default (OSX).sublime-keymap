@@ -1,5 +1,6 @@
 [
     {"keys" : ["shift+super+;"], "command": "run_macro_file", "args":{"file": "Packages/User/EOL Semi.sublime-macro"}},
     {"keys" : ["super+;"], "command": "run_macro_file", "args":{"file": "Packages/User/EOL Semi no return.sublime-macro"}},
-    {"keys" : ["shift+super+/"], "command": "run_macro_file", "args":{"file": "Packages/User/end jsx tag.sublime-macro"}}
+    {"keys" : ["shift+super+/"], "command": "run_macro_file", "args":{"file": "Packages/User/end jsx tag.sublime-macro"}},
+    { "keys": ["super+backquote"], "command": "show_panel", "args": {"panel": "console", "toggle": true} }
 ]

@@ -9,6 +9,7 @@
 		"ApacheConf.tmLanguage",
 		"AutoFileName",
 		"Babel",
+		"Boxy Theme",
 		"BracketHighlighter",
 		"C++ Starting Kit",
 		"Color Highlighter",
@@ -16,6 +17,7 @@
 		"Colorsublime",
 		"Console Wrap for js",
 		"CSS3",
+		"D3.js Snippets",
 		"DevDocs",
 		"DocBlockr",
 		"EditorConfig",
@@ -24,6 +26,7 @@
 		"Git",
 		"GitGutter",
 		"Handlebars",
+		"HTML-CSS-JS Prettify",
 		"JavaScriptNext - ES6 Syntax",
 		"Jest",
 		"LaTeXTools",
@@ -53,7 +56,6 @@
 		"Swift for F*ing Sublime",
 		"Terminal",
 		"tern_for_sublime",
-		"Theme - Otto",
 		"Themr",
 		"TrailingSpaces"
 	]
