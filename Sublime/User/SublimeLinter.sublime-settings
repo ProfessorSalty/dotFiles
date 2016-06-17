@@ -8,7 +8,7 @@
         "lint_mode": "background",
         "linters": {
             "csslint": {
-                "@disable": true,
+                "@disable": false,
                 "args": [],
                 "errors": "",
                 "excludes": [],
