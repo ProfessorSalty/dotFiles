@@ -11,7 +11,9 @@
                 "@disable": false,
                 "args": [],
                 "errors": "",
-                "excludes": [],
+                "excludes": [
+                    "*.scss"
+                ],
                 "ignore": "",
                 "warnings": ""
             },
@@ -20,16 +22,28 @@
                 "args": [],
                 "excludes": []
             },
-            "htmltidy": {
+            "haml": {
                 "@disable": false,
                 "args": [],
                 "excludes": []
+            },
+            "htmltidy": {
+                "@disable": false,
+                "args": [],
+                "excludes": [
+                    "*.erb"
+                ]
             },
             "json": {
                 "@disable": false,
                 "args": [],
                 "excludes": [],
                 "strict": true
+            },
+            "rubocop": {
+                "@disable": false,
+                "args": [],
+                "excludes": []
             },
             "scss": {
                 "@disable": false,
@@ -65,7 +79,7 @@
         "show_marks_in_minimap": true,
         "syntax_map": {
             "html (django)": "html",
-            "html (rails)": "html",
+            "html (rails)": "haml",
             "html 5": "html",
             "javascript (babel)": "javascript",
             "php": "html",

@@ -289,4 +289,7 @@ set -g message-attr bold
 set -g message-fg colour232
 set -g message-bg colour166
 
+bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"  
+bind -n WheelDownPane select-pane -t= \; send-keys -M 
+
 # }
