@@ -1,0 +1,16 @@
+{
+	"extensions":
+	[
+		"rabl",
+		"jbuilder",
+		"podspec",
+		"rake",
+		"simplecov",
+		"thor",
+		"ruby.rails"
+	],
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"word_separators": "./\\()\"'-:,.;<>~@#$%^&*|+=[]{}`~"
+}

@@ -69,6 +69,7 @@
 	"ignored_packages":
 	[
 		"AAAPackageDev",
+		"All Autocomplete",
 		"CSS",
 		"PackageDev"
 	],

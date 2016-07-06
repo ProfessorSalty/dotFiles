@@ -8,7 +8,9 @@
     "jquery"
   ],
   "loadEagerly": [],
-  "dontLoad": [],
+  "dontLoad": [
+    "*.rb"
+  ],
   "plugins": {
     "complete_strings": {
       "maxLength": 15
