@@ -1,9 +1,9 @@
 # This is the default configuration file. Enabling and disabling is configured
 # in separate files. This file adds all other parameters apart from Enabled.
 
-inherit_from:
-  - enabled.yml
-  - disabled.yml
+# inherit_from:
+#   - .dotFiles/enabled.yml
+#   - .dotFiles/disabled.yml
 
 # Common configuration.
 AllCops:
@@ -78,7 +78,7 @@ AllCops:
   # If a value is specified for TargetRubyVersion then it is used.
   # Else if .ruby-version exists and it contains an MRI version it is used.
   # Otherwise we fallback to the oldest officially supported Ruby version (2.0).
-  TargetRubyVersion: ~
+  # TargetRubyVersion: ~
 
 # Indent private/protected/public as deep as method definitions
 Style/AccessModifierIndentation:
@@ -1072,6 +1072,7 @@ Metrics/LineLength:
   Max: 80
   # To make it possible to copy or click on URIs in the code, we allow lines
   # containing a URI to be longer than Max.
+  Enabled: false
   AllowHeredoc: true
   AllowURI: true
   URISchemes:

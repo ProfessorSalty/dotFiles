@@ -42,7 +42,10 @@
             },
             "rubocop": {
                 "@disable": false,
-                "args": [],
+                "args": [
+                    "--config",
+                    "/Users/gregsmith/.rubocop.yml"
+                ],
                 "excludes": []
             },
             "scss": {
