@@ -33,7 +33,7 @@
 		"*.jar",
 		"*.zip"
 	],
-	"color_scheme": "Packages/User/SublimeLinter/Material Spacegray Eighties (SL).tmTheme",
+	"color_scheme": "Packages/Boxy Theme/schemes/Boxy Monokai.tmTheme",
 	"file_exclude_patterns":
 	[
 		"*.pyc",
@@ -75,7 +75,7 @@
 	],
 	"open_files_in_new_window": false,
 	"sidebar_font_big": true,
-	"theme": "Material Spacegray Eighties.sublime-theme",
+	"theme": "Boxy Monokai.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"word_wrap": "true"
 }

@@ -1,13 +1,14 @@
 {
 	"extensions":
 	[
-		"rabl",
 		"jbuilder",
 		"podspec",
-		"rake",
+		"rabl",
+		"ruby.rails",
 		"simplecov",
-		"thor",
-		"ruby.rails"
+		"rake",
+		"rb",
+		"thor"
 	],
 	"tab_size": 2,
 	"translate_tabs_to_spaces": true,
