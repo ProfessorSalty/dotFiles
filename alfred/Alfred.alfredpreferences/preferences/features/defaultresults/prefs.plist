@@ -4,5 +4,7 @@
 <dict>
 	<key>fallbacks</key>
 	<array/>
+	<key>showDocuments</key>
+	<true/>
 </dict>
 </plist>
