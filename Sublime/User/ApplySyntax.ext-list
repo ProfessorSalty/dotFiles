@@ -20,6 +20,16 @@
 	[
 		"rb"
 	],
+	"Shell-Unix-Generic":
+	[
+		"bash",
+		"sh",
+		"zsh"
+	],
+	"XML":
+	[
+		"xml.dist"
+	],
 	"YAML":
 	[
 		".gemrc",
