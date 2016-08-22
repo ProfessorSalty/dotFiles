@@ -410,6 +410,11 @@
 				<key>date</key>
 				<date>2016-08-12T18:03:01Z</date>
 			</dict>
+			<key>http://kapeli.com/feeds/Emmet.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2016-08-19T16:28:08Z</date>
+			</dict>
 			<key>http://kapeli.com/feeds/Express.xml</key>
 			<dict>
 				<key>date</key>
@@ -542,7 +547,7 @@
 	<key>isPinned</key>
 	<true/>
 	<key>menuIconBehavior</key>
-	<integer>1</integer>
+	<integer>0</integer>
 	<key>placeholderDelimiter</key>
 	<string>__</string>
 	<key>profiles</key>
@@ -588,8 +593,10 @@
 	<key>shouldSyncView</key>
 	<true/>
 	<key>showInDock</key>
-	<false/>
+	<true/>
 	<key>showSearchFallbacks</key>
+	<true/>
+	<key>sortDocsetsAlphabetically</key>
 	<true/>
 	<key>versionedDHCheatRepo</key>
 	<dict>
@@ -690,6 +697,6 @@
 		<dict/>
 	</dict>
 	<key>windowStyle</key>
-	<string>HUD</string>
+	<string>Standard</string>
 </dict>
 </plist>
