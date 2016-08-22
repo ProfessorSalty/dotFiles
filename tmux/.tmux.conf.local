@@ -190,7 +190,7 @@ bind m run "cut -c3- ~/.tmux.conf | sh -s toggle_mouse"
 # copy to Mac OSX pasteboard
 if -b 'which -s reattach-to-user-namespace' 'bind y run "tmux save-buffer - | reattach-to-user-namespace pbcopy"'
 
-
+bind -r C-S synchronize-panes
 
 ######################
 ### DESIGN CHANGES ###
@@ -202,7 +202,7 @@ set -g pane-active-border-fg brightred
 
 ## Status bar design
 # status line
-set -g status-utf8 on
+#set -g status-utf8 on
 set -g status-justify left
 set -g status-bg default
 set -g status-fg colour12
@@ -289,7 +289,10 @@ set -g message-attr bold
 set -g message-fg colour232
 set -g message-bg colour166
 
-bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"  
-bind -n WheelDownPane select-pane -t= \; send-keys -M 
+bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
+bind -n WheelDownPane select-pane -t= \; send-keys -M
 
 # }
+#set-window-option -g mode-mouse on
+#set-option -g mouse-select-pane on
+#set-option -g mouse-select-window on
