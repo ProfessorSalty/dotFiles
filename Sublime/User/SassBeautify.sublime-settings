@@ -5,5 +5,7 @@
   "path": false,
   "beautifyOnSave": true,
   "inlineComments": false,
-  "newlineBetweenSelectors": true
+  "newlineBetweenSelectors": true,
+  "path": "/Users/gregsmith/.rvm/gems/ruby-2.3.1@rails5.0/bin:/Users/gregsmith/.rvm/gems/ruby-2.3.1@global/bin:/Users/gregsmith/.rvm/rubies/ruby-2.3.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/Library/bin:/usr/local/lib:/Library/Frameworks/Python.framework/Versions/3.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/Users/gregsmith/.rvm/gems/ruby-2.3.1@rails5.0/bin:/Users/gregsmith/.rvm/gems/ruby-2.3.1@global/bin:/Users/gregsmith/.rvm/rubies/ruby-2.3.1/bin:/Library/bin:/usr/local/lib:/Library/Frameworks/Python.framework/Versions/3.4/bin:/Users/gregsmith/.rvm/bin:/Users/gregsmith/.rvm/bin",
+  "gemPath": "/Users/gregsmith/.rvm/gems/ruby-2.3.1@rails5.0:/Users/gregsmith/.rvm/gems/ruby-2.3.1@global"
 }
