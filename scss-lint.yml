@@ -41,7 +41,7 @@ linters:
     enabled: true
 
   DeclarationOrder:
-    enabled: true
+    enabled: false
 
   DisableLinterReason:
     enabled: false
@@ -79,8 +79,7 @@ linters:
     enabled: true
 
   IdSelector:
-    enabled: true
-
+    enabled: false
   ImportantRule:
     enabled: true
 
