@@ -31814,14 +31814,19 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1447 176 805 581 0 0 2560 1440 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>530 494 620 392 0 0 1680 1050 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1209 173 918 495 0 0 2560 1440 </string>
+	<string>989 182 918 495 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 786 2560 654 0 0 2560 1440 </string>
+	<string>0 316 2560 1124 0 0 2560 1440 </string>
 	<key>NeverWarnAboutShortLivedSessions_97C128AB-AAE1-4AB6-9605-49E35B0066A0</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_97C128AB-AAE1-4AB6-9605-49E35B0066A0_selection</key>
@@ -35446,7 +35451,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>MesloLGSDZ-RegularForPowerline 18</string>
+			<string>SauceCodePowerline-Light 24</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -35672,6 +35677,8 @@
 	<string></string>
 	<key>PasteSpecialUseRegexSubstitution</key>
 	<false/>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>

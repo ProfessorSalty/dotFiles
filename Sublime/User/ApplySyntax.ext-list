@@ -16,6 +16,11 @@
 		"php5",
 		"phtml"
 	],
+	"Python":
+	[
+		"py3",
+		"pyw"
+	],
 	"Ruby":
 	[
 		"rb"
