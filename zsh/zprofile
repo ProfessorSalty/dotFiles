@@ -1,5 +1,5 @@
 
 # Setting PATH for Python 3.4
 # The orginal version is saved in .zprofile.pysave
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/Library/bin:/usr/local/lib:/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
+export PATH="/opt/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/Library/bin:/usr/local/lib:/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
 

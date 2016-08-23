@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/gregsmith/.oh-my-zsh
+export ZSH=/Users/gregorysmith/.oh-my-zsh
 export EDITOR='subl -w'
 
 # Set name of the theme to load.
