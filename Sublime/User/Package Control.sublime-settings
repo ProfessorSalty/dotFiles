@@ -61,6 +61,7 @@
 		"SublimeERB",
 		"SublimeLinter",
 		"SublimeLinter-contrib-eslint",
+		"SublimeLinter-contrib-htmlhint",
 		"SublimeLinter-contrib-scss-lint",
 		"SublimeLinter-contrib-sublime-syntax",
 		"SublimeLinter-csslint",
