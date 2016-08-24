@@ -99,7 +99,7 @@ alias bowie="bower install --save"
 ####Development stuff####
 alias qmongo="
 mongod --port 27017 --dbpath=./data --nojournal"
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 alias gotonotes='cd /Volumes/Drive2/ownCloud/Programming\ stuff/skills'
 
 
