@@ -65,8 +65,9 @@
 		"AAAPackageDev",
 		"All Autocomplete",
 		"CSS",
+		"jsfmt",
 		"PackageDev",
-		"SublimeLinter-html-tidy"
+		"SassBeautify"
 	],
 	"open_files_in_new_window": false,
 	"sidebar_font_big": true,
