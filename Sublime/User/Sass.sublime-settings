@@ -4,6 +4,7 @@
 		"sass",
 		"sass.erb",
 		"sass.liquid",
-		"css"
+		"css",
+        "scss"
 	]
 }
