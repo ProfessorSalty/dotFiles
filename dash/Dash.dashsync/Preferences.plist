@@ -338,7 +338,87 @@
 	<key>DHUserRepo</key>
 	<dict>
 		<key>installed</key>
-		<dict/>
+		<dict>
+			<key>Flux</key>
+			<dict>
+				<key>date</key>
+				<date>2016-08-26T20:04:30Z</date>
+				<key>entry</key>
+				<dict>
+					<key>aliases</key>
+					<array>
+						<string>React</string>
+						<string>ReactNative</string>
+						<string>Facebook</string>
+						<string>JavaScript</string>
+						<string>Reactjs</string>
+						<string>UI</string>
+						<string>Flux</string>
+					</array>
+					<key>authorLinkHref</key>
+					<string>https://github.com/Kapeli/Dash-User-Contributions/tree/master/docsets/Flux#readme</string>
+					<key>authorLinkText</key>
+					<string>Michael Sharer</string>
+					<key>name</key>
+					<string>Flux</string>
+					<key>platform</key>
+					<string>usercontribFlux</string>
+					<key>uniqueIdentifier</key>
+					<string>Flux</string>
+				</dict>
+			</dict>
+			<key>Jest</key>
+			<dict>
+				<key>date</key>
+				<date>2016-08-26T20:04:43Z</date>
+				<key>entry</key>
+				<dict>
+					<key>aliases</key>
+					<array>
+						<string>Jest</string>
+						<string>React</string>
+						<string>Webpack</string>
+						<string>jQuery</string>
+						<string>CoffeeScript</string>
+						<string>Facebook</string>
+						<string>JavaScript</string>
+						<string>Reactjs</string>
+						<string>UI</string>
+						<string>Unit Test</string>
+					</array>
+					<key>authorLinkHref</key>
+					<string>https://github.com/Kapeli/Dash-User-Contributions/tree/master/docsets/Jest#readme</string>
+					<key>authorLinkText</key>
+					<string>Michael Sharer</string>
+					<key>name</key>
+					<string>Jest</string>
+					<key>platform</key>
+					<string>usercontribJest</string>
+					<key>uniqueIdentifier</key>
+					<string>Jest</string>
+				</dict>
+			</dict>
+			<key>Sublime_Text_Plugin_API</key>
+			<dict>
+				<key>date</key>
+				<date>2016-08-26T20:05:10Z</date>
+				<key>entry</key>
+				<dict>
+					<key>aliases</key>
+					<array/>
+					<key>authorLinkHref</key>
+					<string>https://github.com/Kapeli/Dash-User-Contributions/tree/master/docsets/Sublime_Text_Plugin_API#readme</string>
+					<key>authorLinkText</key>
+					<string>Leonid Shevtsov</string>
+					<key>name</key>
+					<string>Sublime Text Plugin API</string>
+					<key>platform</key>
+					<string>usercontribSublime_Text_Plugin_API</string>
+					<key>uniqueIdentifier</key>
+					<string>Sublime_Text_Plugin_API</string>
+				</dict>
+			</dict>
+		</dict>
 		<key>uninstalled</key>
 		<dict/>
 	</dict>
