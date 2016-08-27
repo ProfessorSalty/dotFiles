@@ -98,11 +98,12 @@ alias snig="sudo npm install -g "
 alias bowie="bower install --save"
 alias git="hub"
 ####Development stuff####
-alias qmongo="
-mongod --port 27017 --dbpath=./data --nojournal"
-#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-alias gotonotes='cd /Volumes/Drive2/ownCloud/Programming\ stuff/skills'
+alias ls="ls -al"
+alias tree="tree -afi"
 
-
+function take() {
+	mkdir $1
+	cd $1
+}
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
