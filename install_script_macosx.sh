@@ -24,7 +24,6 @@ curl -sSL https://get.rvm.io | bash -s stable --ruby
 brew install Caskroom/cask/sublime-text
 
 #Install globals for Sublime Text plugins
-npm i -g eslint eslint-plugin-react eslint-plugin-babel eslint-plugin-html babel-eslint
 gem install rubocop haml
 
 pip install powerline-status
