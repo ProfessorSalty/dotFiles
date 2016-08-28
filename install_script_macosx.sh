@@ -15,7 +15,12 @@ END
 
 #Install Homebrew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install tidy-html5 hub gpg-agent mongodb node macvim reattach-to-user-namespace tmux zsh python mas tree
+
+brew update
+brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb node macvim reattach-to-user-namespace tmux zsh python mas tree
+brew install wget --with-iri
+brew install brew install vim --override-system-vi
+brew cleanup
 #Install RVM & Ruby
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 curl -sSL https://get.rvm.io | bash -s stable --ruby
@@ -48,7 +53,7 @@ git config --global core.excludesfile ~/.gitignore_global
 #Get other apps
 cd ~/Downloads
 #Installs Chrome, Firefox, Handbrake, VLC, Transmission, Adium, Dropbox, Sublime Text 3, iterm2, Filezilla, LibreOffice, Audacity, Gimp, 1Password, Alfred, Skim, and Inkscape
-http://www.getmacapps.com/raw/1mgcplvwiffup | sh
+curl http://www.getmacapps.com/raw/1mgcplvwiffup | sh
 mas install 497799835 #xcode
 mas install 449589707 #dash
 mas install 715768417 #MS remote desktop
