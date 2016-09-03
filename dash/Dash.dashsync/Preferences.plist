@@ -560,6 +560,11 @@
 				<key>date</key>
 				<date>2016-08-23T14:12:16Z</date>
 			</dict>
+			<key>http://kapeli.com/feeds/NET_Framework.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2016-08-31T04:55:14Z</date>
+			</dict>
 			<key>http://kapeli.com/feeds/Nginx.xml</key>
 			<dict>
 				<key>date</key>
