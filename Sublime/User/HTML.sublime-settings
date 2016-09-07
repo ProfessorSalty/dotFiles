@@ -3,5 +3,12 @@
 	[
 		"htm",
 		"html"
-	]
+	],
+    "auto_complete_triggers":
+    [
+        {
+            "characters": "<",
+            "selector": "text.html"
+        }
+    ]
 }

@@ -1,5 +1,9 @@
 {
-	"extensions":
-	[
-	]
+	"auto_complete_triggers":
+    [
+        {
+            "characters": ".",
+            "selector": "source.js"
+        }
+    ],
 }
