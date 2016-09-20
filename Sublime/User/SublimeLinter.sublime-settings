@@ -11,9 +11,7 @@
                 "@disable": false,
                 "args": [],
                 "errors": "",
-                "excludes": [
-                    "*.scss"
-                ],
+                "excludes": [],
                 "ignore": "",
                 "warnings": ""
             },
@@ -27,17 +25,10 @@
                 "args": [],
                 "excludes": []
             },
-            "htmlhint": {
-                "@disable": false,
-                "args": [],
-                "excludes": []
-            },
             "htmltidy": {
                 "@disable": true,
-                "args": "-config /Users/gregorysmith/.htmlTidy.conf",
-                "excludes": [
-                    "*.erb"
-                ]
+                "args": ["-config", "/Users/gregorysmith/.htmltidy.conf"],
+                "excludes": []
             },
             "json": {
                 "@disable": false,
@@ -49,7 +40,7 @@
                 "@disable": false,
                 "args": [
                     "--config",
-                    "/Users/gregsmith/.rubocop.yml"
+                    "/Users/gregorysmith/.rubocop.yml"
                 ],
                 "excludes": []
             },
@@ -59,6 +50,14 @@
                 "exclude-linter": "",
                 "excludes": [],
                 "include-linter": ""
+            },
+            "stylelint_d": {
+                "@disable": false,
+                "args": [
+                    "--config",
+                    "/Users/gregorysmith/.stylelintrc.json"
+                ],
+                "excludes": []
             },
             "sublimesyntax": {
                 "@disable": false,
@@ -71,9 +70,7 @@
         "passive_warnings": false,
         "paths": {
             "linux": [],
-            "osx": [
-                "/usr/local/bin/node"
-            ],
+            "osx": [],
             "windows": []
         },
         "python_paths": {
@@ -86,6 +83,7 @@
         "show_errors_on_save": false,
         "show_marks_in_minimap": true,
         "syntax_map": {
+            "Ruby on Rails": "ruby",
             "html (django)": "html",
             "html (rails)": "haml",
             "html 5": "html",

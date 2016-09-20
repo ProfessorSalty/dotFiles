@@ -1,15 +1,4 @@
 {
-	"auto_complete_triggers":
-	[
-		{
-			"characters": "<",
-			"selector": "text.html"
-		},
-		{
-			"characters": ".",
-			"selector": "source.js"
-		}
-	],
 	"autocomplete_commit_on_tab": true,
 	"binary_file_patterns":
 	[
@@ -65,9 +54,9 @@
 		"AAAPackageDev",
 		"All Autocomplete",
 		"CSS",
+		"HTML-CSS-JS Prettify",
 		"jsfmt",
-		"PackageDev",
-		"SassBeautify"
+		"PackageDev"
 	],
 	"open_files_in_new_window": false,
 	"sidebar_font_big": true,

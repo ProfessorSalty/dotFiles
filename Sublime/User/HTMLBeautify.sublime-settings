@@ -1,0 +1,26 @@
+{
+    // first level will be indented but anything after that will become flatten
+    // (issue/23)
+    "ignored_tag_opening" : "<\\?php|<!--|{\\*|<style|<script",
+    "ignored_tag_closing" : "\\?>|-->|\\*}|</style|</script",
+
+    // any opening tag will be indented (including custom tags)
+    "tag_indent":
+    "\\{% (if|for|block|else|spaceless)|<.*",
+
+    // any closing tag will be un-indented (including custom tags)
+    "tag_unindent":
+    "\\{% end|</.*",
+
+    // here u just add the main tags that u want to be un-indent and indent its content
+    // check the below test
+    "tag_unindent_line" :
+    "\\{% else|@empty|@else|<html|<head",
+
+    // the tags that could be on one line + the self closing tags (add more when needed)
+    "tag_pos_inline":
+    "\\{% if.*endif %\\}|\\{% block.*endblock %\\}|<.*</.*>|<area.*>|<base.*>|<br.*>|<col.*>|<command.*>|<embed.*>|<hr.*>|<img.*>|<input.*>|<keygen.*>|<link.*>|<meta.*>|<param.*>|<source.*>|<track.*>|<wbr.*>|<!--.*-->",
+
+    "tag_raw_flat_opening" : "<pre",
+    "tag_raw_flat_closing" : "</pre",
+}

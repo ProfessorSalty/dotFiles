@@ -37,7 +37,7 @@
     // By default, nothing happens on save.
     // Set to true to trim trailing spaces before saving, with respect to the
     // other settings.
-    "trailing_spaces_trim_on_save": false,
+    "trailing_spaces_trim_on_save": true,
 
     // By default, deleting trailing spaces does not cause the document to be
     // saved.
