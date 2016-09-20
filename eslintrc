@@ -7,9 +7,9 @@
   "parserOptions": {
     "sourceType":"module",
     "ecmaFeatures": {
-      "jsx": true,  //Recognize JSX
-      "modules": true,  //ES6 imports
-      "classes": true   //ES7 class properties
+      "jsx": true,
+      "modules": true,
+      "classes": true
     }
   },
   "env": {
@@ -23,6 +23,6 @@
     "no-trailing-spaces": 0,
     "no-unused-vars": 0,
     "no-underscore-dangle": 0,
-    "one-var": ["warn", "never"]
+    "one-var": ["off", "never"]
   }
 }
