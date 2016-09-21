@@ -1,6 +1,7 @@
 #! /bin/bash
 #This script will eventually setup everything
 
+sudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" 'UPDATE access SET allowed = "1";'
 #Get the information we need first
 echo "Please enter your name (for git config): "
 read gitname
@@ -64,3 +65,4 @@ curl http://www.getmacapps.com/raw/1mgcplvwiffup | sh
 mas install 497799835 #xcode
 mas install 449589707 #dash
 mas install 715768417 #MS remote desktop
+sudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" 'UPDATE access SET allowed = "0";'
