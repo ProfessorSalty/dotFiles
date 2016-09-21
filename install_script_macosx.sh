@@ -10,7 +10,7 @@ read gitemail
 
 #XCode command line tools
 echo "Installing Xcode command line tools..."
-xcode-select --install
+xcode-select --install &
 pid=$!
 sleep 1
 osascript <<END
