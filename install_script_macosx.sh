@@ -11,7 +11,7 @@ read gitemail
 #XCode command line tools
 echo "Installing Xcode command line tools..."
 xcode-select --install
-$pid = $!
+$pid=$!
 sleep 1
 osascript <<END
 tell application "System Events"
@@ -22,7 +22,7 @@ tell application "System Events"
 end tell
 END
 wait $pid
-
+echo "Done"
 #Install Homebrew
 echo "Installing Homebrew..."
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
