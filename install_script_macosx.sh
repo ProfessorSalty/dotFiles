@@ -42,6 +42,8 @@ git config --global user.email "$gitemail"
 git config --global credential.helper osxkeychain
 #Setup hub to access Github account...?
 mkdir -p ~/Projects
+cd
+git clone https://github.com/PortableStick/dotFiles.git ~/.dotFiles
 mkdir -p ~/Library/Application\ Supprt/Sublime\ Text\ 3/Packages
 ln -s ./dotFiles/Sublime/User ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/
 ln -s ./dotFiles/Sublime/OS ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/
