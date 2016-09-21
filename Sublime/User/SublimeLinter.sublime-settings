@@ -25,9 +25,17 @@
                 "args": [],
                 "excludes": []
             },
+            "htmlhint": {
+                "@disable": false,
+                "args": [],
+                "excludes": []
+            },
             "htmltidy": {
                 "@disable": true,
-                "args": ["-config", "/Users/gregorysmith/.htmltidy.conf"],
+                "args": [
+                    "-config",
+                    "/Users/gregorysmith/.htmltidy.conf"
+                ],
                 "excludes": []
             },
             "json": {
@@ -45,7 +53,7 @@
                 "excludes": []
             },
             "scss": {
-                "@disable": false,
+                "@disable": true,
                 "args": [],
                 "exclude-linter": "",
                 "excludes": [],

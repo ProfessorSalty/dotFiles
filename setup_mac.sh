@@ -1,5 +1,5 @@
 #disable the sound effects on boot
-sudo nvram SystemAudioVolume=" "
+# sudo nvram SystemAudioVolume=" "
 
 #enable dark mode
 defaults write /Library/Preferences/.GlobalPreferences AppleInterfaceTheme Dark
