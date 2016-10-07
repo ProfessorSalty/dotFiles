@@ -10,9 +10,12 @@ read gitemail
 
 #XCode command line tools
 echo "Installing Xcode command line tools..."
-xcode-select --install &
-pid=$!
+check=$(xcode-select --install 2>&1)
+echo $check
+str="xcode-select: note: install requested for command line developer tools"
 sleep 1
+while [[ "$check" == "$str" ]];
+do
 osascript <<END
 tell application "System Events"
     tell process "Install Command Line Developer Tools"
@@ -21,7 +24,7 @@ tell application "System Events"
     end tell
 end tell
 END
-wait $pid
+done
 echo "Done"
 #Install Homebrew
 echo "Installing Homebrew..."
@@ -45,7 +48,7 @@ echo "Using gemset $(rvm gemset list)"
 
 #Install globals for Sublime Text plugins
 echo "Installing important gems..."
-gem install rubocop haml scss_lint rails bundler capistrano
+gem install rubocop haml scss_lint rails bundler capistrano tmuxinator
 
 echo "Installing powerline-status..."
 pip install powerline-status
