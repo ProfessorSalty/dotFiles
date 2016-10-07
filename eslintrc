@@ -23,6 +23,6 @@
     "no-trailing-spaces": 0,
     "no-unused-vars": 0,
     "no-underscore-dangle": 0,
-    "one-var": ["off", "never"]
+    "one-var": [0, "never"]
   }
 }
