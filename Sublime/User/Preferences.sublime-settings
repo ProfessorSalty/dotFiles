@@ -52,7 +52,6 @@
 	"ignored_packages":
 	[
 		"AAAPackageDev",
-		"All Autocomplete",
 		"CSS",
 		"HTML-CSS-JS Prettify",
 		"jsfmt",
