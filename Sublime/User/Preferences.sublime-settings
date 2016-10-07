@@ -14,7 +14,9 @@
 		"*.pdf",
 		"*.swf",
 		"*.jar",
-		"*.zip"
+		"*.zip",
+		"dist/*",
+		"node_modules/*"
 	],
 	"color_scheme": "Packages/Boxy Theme/schemes/Boxy Tomorrow.tmTheme",
 	"file_exclude_patterns":
