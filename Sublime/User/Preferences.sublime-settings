@@ -1,4 +1,9 @@
 {
+	"added_words":
+	[
+		"D3",
+		"online"
+	],
 	"autocomplete_commit_on_tab": true,
 	"binary_file_patterns":
 	[

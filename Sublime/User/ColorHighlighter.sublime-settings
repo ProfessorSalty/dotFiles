@@ -1,4 +1,5 @@
 {
-	"ha_style": "underlined_solid",
-	"style": "filled"
+	"ha_style": "filled",
+	"style": "none",
+    "ha_icons": true
 }
