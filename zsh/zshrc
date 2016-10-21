@@ -89,7 +89,7 @@ alias ls="gls -al --color=auto"
 alias gemset="rvm gemset"
 ####Remote logins####
 alias qlocal="ssh gregsmith@192.168.1.3 -p 55455"
-alias adminlogin='ssh admin@shadesofmarkup.com'
+alias adminlogin='ssh webadmin@gregoftheweb.com'
 alias bananapi="ssh root@192.168.1.38"
 alias qremote="ssh gregsmith@screamingmimi.no-ip.org -p 55455"
 ####Package managers####
