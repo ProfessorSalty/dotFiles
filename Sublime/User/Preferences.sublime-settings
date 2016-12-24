@@ -23,7 +23,7 @@
 		"dist/*",
 		"node_modules/*"
 	],
-	"color_scheme": "Packages/Boxy Theme/schemes/Boxy Tomorrow.tmTheme",
+	"color_scheme": "Packages/User/SublimeLinter/Afterglow-monokai (SL).tmTheme",
 	"file_exclude_patterns":
 	[
 		"*.pyc",
@@ -60,13 +60,12 @@
 	[
 		"AAAPackageDev",
 		"CSS",
-		"HTML-CSS-JS Prettify",
-		"jsfmt",
 		"PackageDev"
 	],
 	"open_files_in_new_window": false,
 	"sidebar_font_big": true,
-	"theme": "Boxy Tomorrow.sublime-theme",
+	"tabs_padding_small": true,
+	"theme": "Afterglow-green.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"word_wrap": "true"
 }

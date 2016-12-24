@@ -1,11 +1,11 @@
 {
-    "word_separators": "./\\()\"':,.;<>~!@#%^&*|+=[]{}`~?",
-	"extensions":
-	[
-		"sass",
-		"sass.erb",
-		"sass.liquid",
-		"css",
-        "scss"
-	]
+  "word_separators": "./\\()\"':,.;<>~!@#%^&*|+=[]{}`~?",
+  "extensions": [
+    "sass",
+    "sass.erb",
+    "sass.liquid",
+    "css",
+    "scss"
+  ],
+  "tab_size": 2
 }
