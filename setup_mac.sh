@@ -122,6 +122,9 @@ defaults write com.apple.dock autohide-time-modifier -float 0
 # Minimize into application icon
 defaults write com.apple.dock minimize-to-application -bool true
 
+# Make large
+defaults write com.apple.dock tilesize -int 256
+
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################

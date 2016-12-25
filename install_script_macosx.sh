@@ -53,7 +53,6 @@ git config --global user.email "$gitemail"
 git config --global credential.helper osxkeychain
 #Setup hub to access Github account...?
 mkdir -p ~/Projects
-cd
 echo "Now in $(pwd)"
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d ~/.dotFiles ]; then
@@ -93,13 +92,4 @@ sudo sh ~/.dotFiles/setup_mac.sh
 mas install 497799835 #xcode
 mas install 715768417 #MS remote desktop
 
-#TODO
-#Check known good dotFile configs to see how setup is accomplished
-
-
-
-
-
-
-
-#Set capslock as cntl
+echo "Install and setup complete.  Please log out and log in again."
