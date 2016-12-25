@@ -1,8 +1,10 @@
-#disable the sound effects on boot
-# sudo nvram SystemAudioVolume=" "
+killall 'System Preferences' &> /dev/null 
 
 #enable dark mode
-defaults write /Library/Preferences/.GlobalPreferences AppleInterfaceTheme Dark
+defaults write ~/Library/Preferences/.GlobalPreferences AppleInterfaceStyle Dark
+
+# Autohide menu bar
+defaults write ~/Library/Preferences/.GlobalPreferences _HIHideMenuBar 1
 
 #disable transparency in the menu bar and elsewhere on Yosemite
 defaults write com.apple.universalaccess reduceTransparency -bool true
@@ -42,11 +44,55 @@ sudo systemsetup -setrestartfreeze on
 # Never go into computer sleep mode
 sudo systemsetup -setcomputersleep Off > /dev/null
 
+# Disable hibernation
+sudo pmset -a hibernatemode 0
+# remove locked status beforehand
+sudo chflags nouchg /private/var/vm/sleepimage
+sudo rm -rf /private/var/vm/sleepimage
+# Create a zero-byte file instead
+sudo touch /private/var/vm/sleepimage
+# and make sure it can’t be rewritten
+sudo chflags uchg /private/var/vm/sleepimage
+
+# Disable the sudden motion sensor when both drives are SSD
+# sudo pmset -a sms 0
+
 # Disable smart quotes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # Disable smart dashes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+# Turn on the firewall (set -int 2 to block incoming requests)
+sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
+sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
+
+# Disable IR remote (requires reboot)
+defaults write /Library/Preferences/com.apple.driver.AppleIRController.plist DeviceEnabled -bool false
+
+# Set lock window message
+echo "We'll set a lock screen message for anyone who finds your laptop."
+echo "Please enter a valid phone number: "
+read phonebumer
+echo "Please enter a valid email: "
+read contactemail
+sudo write /Library/Preferences/com.apple.loginwindow LoginwindowText "If found, please call $phonenumber or email $contactemail"
+
+DEFAULT_PCNAME=`sudo scutil --get ComputerName`
+echo "Which name you want to give you Mac (sharing)? [$DEFAULT_PCNAME] " 
+read pcname
+if [[ ! $pcname ]];then
+  pcname=$DEFAULT_PCNAME
+fi
+# Set computer name (as done via System Preferences → Sharing)"
+sudo scutil --set ComputerName "$pcname"
+sudo scutil --set HostName "$pcname"
+sudo scutil --set LocalHostName "$pcname"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$pcname"
+dscacheutil -flushcache
+
+# Stop iTunes from responding to the keyboard media keys
+launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -76,10 +122,13 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Set a blazingly fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -float 0.000000000001
+defaults write NSGlobalDomain KeyRepeat -float 0.001
 
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+Turn off keyboard illumination when computer is not used for 5 minutes
+defaults write com.apple.BezelServices kDimTime -int 300
 
 # Multitouch settings
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -int 0
@@ -107,7 +156,11 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad USBMouseStopsT
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad UserPreferences -int 1
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad version -int 5
 
-
+# Three finger page navigation
+# Trackpad: swipe between pages with three fingers
+defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
 
 ###############################################################################
 # Dock                                                                        #
@@ -116,14 +169,36 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad version -int 5
 # Show active apps
 defaults write com.apple.dock static-only -bool true
 
-# Set autohide
+# Set autohide delay time
 defaults write com.apple.dock autohide-time-modifier -float 0
 
 # Minimize into application icon
 defaults write com.apple.dock minimize-to-application -bool true
 
 # Make large
-defaults write com.apple.dock tilesize -int 256
+defaults write com.apple.dock tilesize -int 105
+
+# Move dock to the left
+defaults write com.apple.dock orientation left
+
+# Change minimize animation to "genie"
+defaults write com.apple.dock mineffect -string "genie"
+
+# Make sure magnification isn't on
+defaults write com.apple.dock magnification -bool false
+
+# Enable autohide
+osascript -e "tell application \"System Events\" to set the autohide of the dock preferences to true"
+
+# Stop spaces from rearranging themselves
+defaults write com.apple.dock mru-spaces -bool false
+
+# Switch to space with open application
+defaults write com.apple.dock workspaces-auto-swoosh -bool true
+
+# Remove stacks
+defaults write com.apple.dock persistent-apps -array ""
+defaults write com.apple.dock persistent-others -array ""
 
 ###############################################################################
 # Screen                                                                      #
@@ -132,6 +207,9 @@ defaults write com.apple.dock tilesize -int 256
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+# Disable screensaver
+defaults read com.apple.screensaver
 
 # Save screenshots to the desktop
 defaults write com.apple.screencapture location -string "${HOME}/Desktop"
@@ -148,6 +226,9 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 # Enable HiDPI display modes (requires restart)
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 
+# Disable auto sleep when on A/C
+sudo pmset -c sleep 0
+
 ###############################################################################
 # Finder                                                                      #
 ###############################################################################
@@ -157,6 +238,51 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 
 # Finder: show hidden files by default
 defaults write com.apple.finder AppleShowAllFiles -bool true
+
+# Status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# Show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+
+# Show all filename extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# Allow text selection in quick look
+defaults write com.apple.finder QLEnableTextSelection -bool true
+
+# Do not show removable media on desktop
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+
+# Set finder window to user directory on open
+defaults write ~/Library/preferences/com.apple.finder NewWindowTargetPath "file://${HOME}/"
+
+# Display full POSIX path as Finder window title
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# When performing a search, search the current folder by default
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+# Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# Enable spring loading for directories
+defaults write NSGlobalDomain com.apple.springing.enabled -bool true
+
+# Remove the spring loading delay for directories
+defaults write NSGlobalDomain com.apple.springing.delay -float 0
+
+# Avoid creating .DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# Avoid creating .DS_Store files on USB volumes
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# Empty Trash securely by default
+defaults write com.apple.finder EmptyTrashSecurely -bool true
 
 ###############################################################################
 # Spotlight                                                                   #
@@ -205,6 +331,23 @@ killall mds > /dev/null 2>&1
 sudo mdutil -i on / > /dev/null
 # Rebuild the index from scratch
 sudo mdutil -E / > /dev/null
+
+# Remove keyboard shortcut
+{
+  /usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:64 dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:64:enabled bool" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:64:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:64:value dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:64:value:type string" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:64:value:type standard" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:64:value:parameters array" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:64:value:parameters:0 integer" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:64:value:parameters:1 integer" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:64:value:parameters:2 integer" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:64:value:parameters:0 65535" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:64:value:parameters:1 49" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:64:value:parameters:2 1048576" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+} &> /dev/null
 
 ###############################################################################
 # Terminal & iTerm 2                                                          #
@@ -305,6 +448,4 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 
 # Disable continuous spell checking
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
-
-killall Dock
 
