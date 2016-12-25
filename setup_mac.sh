@@ -110,6 +110,19 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad version -int 5
 
 
 ###############################################################################
+# Dock                                                                        #
+###############################################################################
+
+# Show active apps
+defaults write com.apple.dock static-only -bool true
+
+# Set autohide
+defaults write com.apple.dock autohide-time-modifier -float 0
+
+# Minimize into application icon
+defaults write com.apple.dock minimize-to-application -bool true
+
+###############################################################################
 # Screen                                                                      #
 ###############################################################################
 
@@ -289,4 +302,6 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 
 # Disable continuous spell checking
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
+
+killall Dock
 
