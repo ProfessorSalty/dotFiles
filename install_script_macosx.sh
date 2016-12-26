@@ -1,6 +1,3 @@
-#! /bin/bash
-#This script will eventually setup everything
-
 #Make sure we don't get blocked by xcode license
 sudo xcodebuild -license accept
 #Get the information we need first
@@ -23,7 +20,7 @@ brew cleanup
 
 #get oh-my-zsh
 echo "Installing oh-my-zsh..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
 echo "Initializing rbenv..."
 rbenv init
@@ -48,12 +45,12 @@ gem install rubocop haml scss_lint rails bundler capistrano tmuxinator
 
 echo "Installing powerline-status..."
 pip install powerline-status
-git clone https://github.com/powerline/fonts.git ~/Downloads/powerline-fonts
+git clone --depth=1 https://github.com/powerline/fonts.git ~/Downloads/powerline-fonts
 cd ~/Downloads/powerline-fonts
 chmod +x ./install.sh
 sh ./install.sh
-# cd
-# rm -rf ~/Downloads/powerline-fonts
+cd
+rm -rf ~/Downloads/powerline-fonts
 
 git config --global user.name "$gitname"
 git config --global user.email "$gitemail"
@@ -64,7 +61,7 @@ echo "Now in $(pwd)"
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d ~/.dotFiles ]; then
 	echo "Cloning dotFiles..."
-	git clone https://github.com/PortableStick/dotFiles.git ~/.dotFiles
+	git clone --depth=1 https://github.com/PortableStick/dotFiles.git ~/.dotFiles
 	wait $!
 fi
 
@@ -96,7 +93,7 @@ chsh -s $(which zsh)
 
 chmod +x ./.dotFiles/setup_mac.sh
 echo "Running additional setup..."
-# sh ~/.dotFiles/setup_mac.sh
+sh ~/.dotFiles/setup_mac.sh
 
 rbenv shell $rubyversion
 echo "Install and setup complete.  Please log out and log in again."
