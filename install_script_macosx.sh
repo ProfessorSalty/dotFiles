@@ -1,14 +1,22 @@
 #Make sure we don't get blocked by xcode license
 sudo xcodebuild -license accept
-#Get the information we need first
-echo "Please enter your name (for git config): "
-read gitname
-echo "Please enter your email (for git config): "
-read gitemail
+#Get the information we need first, if we need it
+if  [ -z "$(git config --global user.name)" ]; then
+    echo "Please enter your name (for git config): "
+    read gitname
+    git config --global user.name "$gitname"
+fi
+if  [ -z "$(git config --global user.email)" ]; then
+    echo "Please enter your email (for git config): "
+    read gitemail
+    git config --global user.email "$gitemail"
+fi
 
 #Install Homebrew
-echo "Installing Homebrew..."
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if [ -z $(which brew) ]; then
+    echo "Installing Homebrew..."
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 echo "Updating Homebrew..."
 brew update
 echo "Installing important packages..."
@@ -19,25 +27,30 @@ echo "Cleaning up..."
 brew cleanup
 
 #get oh-my-zsh
-echo "Installing oh-my-zsh..."
-git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+if [ ! -d ~/.oh-my-zsh ]; then
+    echo "Installing oh-my-zsh..."
+    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+fi
 
-echo "Initializing rbenv..."
-rbenv init
-rubyversion=$(rbenv install -l | grep -v - | tail -1)
-echo "Downloading Ruby $rubyversion..."
-rbenv install $rubyversion
-rbenv global $rubyversion
-
+if [ ! -d ~/.rbenv ]; then
+    echo "Initializing rbenv..."
+    rbenv init
+    rubyversion=$(rbenv install -l | grep -v - | tail -1)
+    echo "Downloading Ruby $rubyversion..."
+    rbenv install $rubyversion
+    rbenv global $rubyversion
+fi
 
 #dotNet
-mkdir -p /usr/local/lib
-ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
-ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/
-echo "Downloading dotNet Core to $(~/Downloads)..."
-wget -O ~/Downloads/dotnet.pkg https://go.microsoft.com/fwlink/?LinkID=835011
-echo "Installing dotNet Core..."
-sudo installer -pkg ~/Downloads/dotnet.pkg -target /
+if [ -z $(which dotnet) ]; then
+    mkdir -p /usr/local/lib
+    ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
+    ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/
+    echo "Downloading dotNet Core to $(~/Downloads)..."
+    wget -O ~/Downloads/dotnet.pkg https://go.microsoft.com/fwlink/?LinkID=835011
+    echo "Installing dotNet Core..."
+    sudo installer -pkg ~/Downloads/dotnet.pkg -target /
+fi
 
 #Install globals for Sublime Text plugins
 echo "Installing important gems..."
@@ -52,8 +65,6 @@ sh ./install.sh
 cd
 rm -rf ~/Downloads/powerline-fonts
 
-git config --global user.name "$gitname"
-git config --global user.email "$gitemail"
 git config --global credential.helper osxkeychain
 #Setup hub to access Github account...?
 mkdir -p ~/Projects
@@ -75,17 +86,38 @@ ln -s ~/.dotFiles/Sublime/User .
 ln -s ~/.dotFiles/Sublime/OS .
 cd
 
-for X in "gitignore_global" "eslintrc" "rubocop.yml" "rspec" "jsbeautifyrc" "stylelintrc.json" "gemrc"; do ln -s ~/.dotFiles/$X ~/.$X; echo "Linking $X..."; done
-echo "Linking tmux powerline theme file..."
-mkdir -p ~/.config/powerline/themes/tmux
+for X in "gitignore_global" "eslintrc" "rubocop.yml" "rspec" "jsbeautifyrc" "stylelintrc.json" "gemrc"; do
+        if [ -f ~/.$X ]; then
+            rm ~/.$X
+        fi
+        ln -s ~/.dotFiles/$X ~/.$X
+        echo "Linking $X...";
+    done
+
+if [ ! -d ~/.config/powerline/themes/tmux ]; then
+    echo "Linking tmux powerline theme file..."
+    mkdir -p ~/.config/powerline/themes/tmux
+fi
+if [ -f ~/.config/powerline/themes/tmux/default.json ]; then
+    rm ~/.config/powerline/themes/tmux/default.json
+fi
 ln -s ~/.dotFiles/tmux/config/powerline/themes/tmux/default.json ~/.config/powerline/themes/tmux/default.json
 echo "Linking tmux.conf..."
+if [ -f ~/.tmux.conf ]; then
+    rm ~/.tmux.conf
+fi
 ln -s ~/.dotFiles/tmux/tmux.conf ~/.tmux.conf
 echo "Linking zshrc..."
-rm ~/.zshrc
+if [ -f ~/.zshrc ]; then
+    rm ~/.zshrc
+fi
 ln -s ~/.dotFiles/zsh/zshrc ~/.zshrc
 echo "Linking zprofile..."
+if [ -f ~/.zprofile ]; then
+    rm ~/.zprofile
+fi
 ln -s ~/.dotFiles/zsh/zprofile ~/.zprofile
+
 git config --global core.excludesfile ~/.gitignore_global
 
 #set zsh as default
