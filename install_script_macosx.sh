@@ -52,6 +52,8 @@ git clone https://github.com/powerline/fonts.git ~/Downloads/powerline-fonts
 cd ~/Downloads/powerline-fonts
 chmod +x ./install.sh
 sh ./install.sh
+# cd
+# rm -rf ~/Downloads/powerline-fonts
 
 git config --global user.name "$gitname"
 git config --global user.email "$gitemail"
@@ -66,14 +68,15 @@ if [ ! -d ~/.dotFiles ]; then
 	wait $!
 fi
 
-sublimedirectory="${HOME}/Library/Application Support/Sublime Text 3/Packages"
-if [ -d $sublimedirectory ]; then
-	rm -rf $sublimedirectory
+if [ -d "${HOME}/Library/Application Support/Sublime Text 3/Packages" ]; then
+    rm -rf "${HOME}/Library/Application Support/Sublime Text 3/Packages"
 fi
-mkdir -p $sublimedirectory
+mkdir -p "${HOME}/Library/Application Support/Sublime Text 3/Packages"
+cd "${HOME}/Library/Application Support/Sublime Text 3/Packages"
 echo "Linking Sublime Text packages folders..."
-ln -s ./dotFiles/Sublime/Packages/User $sublimedirectory
-ln -s ./dotFiles/Sublime/Packages/OS $sublimedirectory
+ln -s ~/.dotFiles/Sublime/User .
+ln -s ~/.dotFiles/Sublime/OS .
+cd
 
 for X in "gitignore_global" "eslintrc" "rubocop.yml" "rspec" "jsbeautifyrc" "stylelintrc.json" "gemrc"; do ln -s ~/.dotFiles/$X ~/.$X; echo "Linking $X..."; done
 echo "Linking tmux powerline theme file..."
