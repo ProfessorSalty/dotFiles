@@ -1,3 +1,9 @@
+# TODO
+# Check for powerline fonts somehow
+# Install all dependencies for Sublime plugins (esp typescript)
+# Backup and retrieve applications somehow
+# Colorize the output
+
 #Make sure we don't get blocked by xcode license
 sudo xcodebuild -license accept
 #Get the information we need first, if we need it
@@ -58,6 +64,8 @@ gem install rubocop haml scss_lint rails bundler capistrano tmuxinator
 
 echo "Installing powerline-status..."
 pip install powerline-status
+
+echo "Installing powerline fonts..."
 git clone --depth=1 https://github.com/powerline/fonts.git ~/Downloads/powerline-fonts
 cd ~/Downloads/powerline-fonts
 chmod +x ./install.sh
@@ -66,9 +74,9 @@ cd
 rm -rf ~/Downloads/powerline-fonts
 
 git config --global credential.helper osxkeychain
-#Setup hub to access Github account...?
+
 mkdir -p ~/Projects
-echo "Now in $(pwd)"
+
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d ~/.dotFiles ]; then
 	echo "Cloning dotFiles..."
@@ -126,6 +134,13 @@ git config --global core.excludesfile ~/.gitignore_global
 
 #set zsh as default
 chsh -s $(which zsh)
+
+echo "We need to generate a RSA key and upload it to your GitHub account."
+read -p "What is your GitHub username? " gituser
+read -p "What is your GitHub password? " gitpass
+echo "Generating RSA keypair - you'll need to enter a passphrase..."
+ssh-keygen -t rsa -b 4096
+curl -u "portablestick:524a39aa5901891542c8be74cc2538bea9c52945" --data '{"title":"test-key","key":"ssh-rsa ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChv8taXdGFwisMDFp3YLlgJ/PwjZSiyXVyR0zAyKzphrBTooFV5gZXMflJSVgn/CQZwqRRrRQkobJIhqwSy9Rgn6sgUKmeHjgxhbfnoJ/vqVDwigEbbRuy/uQi2BTEOhg9jC4m2YTQrsgFoOEkchoo9Jo/DhQfA544pZSkEwwrzm9tZsvWBEOX1KKl+7U+NY2yd2EjuaCneBwXeFVXhnorLLVqNWA/BQ/F4Y1okRvBwcCdyd+3WnKc8D7tqWQDMXaI+s470Nf7YvKHkghOm7QjyBjA68Jbr2Otg2zHNEJv3R7TbRrYYmYL+udOtx9vV5MyIRavXLLoWUHxYeZ/Tokh gregorysmith@Gregorys-MacBook-Pro.local "}' https://api.github.com/user/keys
 
 chmod +x ./.dotFiles/setup_mac.sh
 
