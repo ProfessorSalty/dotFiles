@@ -1,4 +1,4 @@
-killall 'System Preferences' &> /dev/null 
+killall 'System Preferences' &> /dev/null
 
 #enable dark mode
 defaults write ~/Library/Preferences/.GlobalPreferences AppleInterfaceStyle Dark
@@ -71,15 +71,17 @@ sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
 sudo defaults write /Library/Preferences/com.apple.driver.AppleIRController.plist DeviceEnabled -bool false
 
 # Set lock window message
-echo "We'll set a lock screen message for anyone who finds your laptop."
-echo "Please enter a valid phone number: "
-read phonebumer
-echo "Please enter a valid email: "
-read contactemail
-sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "If found, please call $phonenumber or email $contactemail"
+if [ -z "$(defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText)" ]; then
+  echo "We'll set a lock screen message for anyone who finds your laptop."
+  echo "Please enter a valid phone number: "
+  read phonenumber
+  echo "Please enter a valid email: "
+  read contactemail
+  sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText 'If found, please call $phonenumber or email $contactemail'
+fi
 
 # DEFAULT_PCNAME=`sudo scutil --get ComputerName`
-# echo "Which name you want to give you Mac (sharing)? [$DEFAULT_PCNAME] " 
+# echo "Which name you want to give you Mac (sharing)? [$DEFAULT_PCNAME] "
 # read pcname
 # if [[ ! $pcname ]];then
 #   pcname=$DEFAULT_PCNAME
@@ -158,8 +160,8 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad version -int 5
 
 # Three finger page navigation
 # Trackpad: swipe between pages with three fingers
-defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1
+defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -int 0
+# defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
 
 ###############################################################################
@@ -182,7 +184,7 @@ defaults write com.apple.dock tilesize -int 105
 defaults write com.apple.dock orientation left
 
 # Change minimize animation to "genie"
-defaults write com.apple.dock mineffect -string "genie"
+defaults write com.apple.dock mineffect -string "scale"
 
 # Make sure magnification isn't on
 defaults write com.apple.dock magnification -bool false
@@ -450,5 +452,8 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 # Disable continuous spell checking
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
+echo "Setup UserShell to use brew zsh"
+sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
+
 # Kill the preference caching service
-killall cfprefsd
+# killall cfprefsd
