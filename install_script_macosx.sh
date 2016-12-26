@@ -135,12 +135,10 @@ git config --global core.excludesfile ~/.gitignore_global
 #set zsh as default
 chsh -s $(which zsh)
 
-echo "We need to generate a RSA key and upload it to your GitHub account."
-read -p "What is your GitHub username? " gituser
-read -p "What is your GitHub password? " gitpass
-echo "Generating RSA keypair - you'll need to enter a passphrase..."
-ssh-keygen -t rsa -b 4096
-curl -u "portablestick:524a39aa5901891542c8be74cc2538bea9c52945" --data '{"title":"test-key","key":"ssh-rsa ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChv8taXdGFwisMDFp3YLlgJ/PwjZSiyXVyR0zAyKzphrBTooFV5gZXMflJSVgn/CQZwqRRrRQkobJIhqwSy9Rgn6sgUKmeHjgxhbfnoJ/vqVDwigEbbRuy/uQi2BTEOhg9jC4m2YTQrsgFoOEkchoo9Jo/DhQfA544pZSkEwwrzm9tZsvWBEOX1KKl+7U+NY2yd2EjuaCneBwXeFVXhnorLLVqNWA/BQ/F4Y1okRvBwcCdyd+3WnKc8D7tqWQDMXaI+s470Nf7YvKHkghOm7QjyBjA68Jbr2Otg2zHNEJv3R7TbRrYYmYL+udOtx9vV5MyIRavXLLoWUHxYeZ/Tokh gregorysmith@Gregorys-MacBook-Pro.local "}' https://api.github.com/user/keys
+if [ ! -d ~/.ssh || ! -f ~/.ssh/id_rsa ]; then
+    echo "Generating RSA keypair - you'll need to enter a passphrase..."
+    ssh-keygen -t rsa -b 4096
+fi
 
 chmod +x ./.dotFiles/setup_mac.sh
 
