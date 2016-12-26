@@ -75,7 +75,11 @@ if [ ! -d ~/.dotFiles ]; then
 	git clone --depth=1 https://github.com/PortableStick/dotFiles.git ~/.dotFiles
 	wait $!
 fi
-
+if [ ! -d "${HOME}/Library/Application Support/Sublime Text 3/Installed Packages" ]; then
+    mkdir -p "${HOME}/Library/Application Support/Sublime Text 3/Installed Packages"
+fi
+cd "${HOME}/Library/Application Support/Sublime Text 3/Installed Packages"
+wget https://packagecontrol.io/Package%20Control.sublime-package
 if [ -d "${HOME}/Library/Application Support/Sublime Text 3/Packages" ]; then
     rm -rf "${HOME}/Library/Application Support/Sublime Text 3/Packages"
 fi
