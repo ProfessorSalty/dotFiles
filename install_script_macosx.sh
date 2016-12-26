@@ -92,8 +92,5 @@ git config --global core.excludesfile ~/.gitignore_global
 chsh -s $(which zsh)
 
 chmod +x ./.dotFiles/setup_mac.sh
-echo "Running additional setup..."
-sh ~/.dotFiles/setup_mac.sh
 
-rbenv shell $rubyversion
-echo "Install and setup complete.  Please log out and log in again."
+echo "Install and setup complete.  Now run the setup script."
