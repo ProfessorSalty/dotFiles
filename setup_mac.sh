@@ -68,7 +68,7 @@ sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
 sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
 
 # Disable IR remote (requires reboot)
-defaults write /Library/Preferences/com.apple.driver.AppleIRController.plist DeviceEnabled -bool false
+sudo defaults write /Library/Preferences/com.apple.driver.AppleIRController.plist DeviceEnabled -bool false
 
 # Set lock window message
 echo "We'll set a lock screen message for anyone who finds your laptop."
@@ -76,20 +76,20 @@ echo "Please enter a valid phone number: "
 read phonebumer
 echo "Please enter a valid email: "
 read contactemail
-sudo write /Library/Preferences/com.apple.loginwindow LoginwindowText "If found, please call $phonenumber or email $contactemail"
+sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "If found, please call $phonenumber or email $contactemail"
 
-DEFAULT_PCNAME=`sudo scutil --get ComputerName`
-echo "Which name you want to give you Mac (sharing)? [$DEFAULT_PCNAME] " 
-read pcname
-if [[ ! $pcname ]];then
-  pcname=$DEFAULT_PCNAME
-fi
-# Set computer name (as done via System Preferences → Sharing)"
-sudo scutil --set ComputerName "$pcname"
-sudo scutil --set HostName "$pcname"
-sudo scutil --set LocalHostName "$pcname"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$pcname"
-dscacheutil -flushcache
+# DEFAULT_PCNAME=`sudo scutil --get ComputerName`
+# echo "Which name you want to give you Mac (sharing)? [$DEFAULT_PCNAME] " 
+# read pcname
+# if [[ ! $pcname ]];then
+#   pcname=$DEFAULT_PCNAME
+# fi
+# # Set computer name (as done via System Preferences → Sharing)"
+# sudo scutil --set ComputerName "$pcname"
+# sudo scutil --set HostName "$pcname"
+# sudo scutil --set LocalHostName "$pcname"
+# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$pcname"
+# dscacheutil -flushcache
 
 # Stop iTunes from responding to the keyboard media keys
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
@@ -127,7 +127,7 @@ defaults write NSGlobalDomain KeyRepeat -float 0.001
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
-Turn off keyboard illumination when computer is not used for 5 minutes
+# Turn off keyboard illumination when computer is not used for 5 minutes
 defaults write com.apple.BezelServices kDimTime -int 300
 
 # Multitouch settings
@@ -209,7 +209,7 @@ defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 # Disable screensaver
-defaults read com.apple.screensaver
+defaults write com.apple.screensaver idleTime 0
 
 # Save screenshots to the desktop
 defaults write com.apple.screencapture location -string "${HOME}/Desktop"
@@ -236,8 +236,8 @@ sudo pmset -c sleep 0
 # Finder: disable window animations and Get Info animations
 defaults write com.apple.finder DisableAllAnimations -bool true
 
-# Finder: show hidden files by default
-defaults write com.apple.finder AppleShowAllFiles -bool true
+# Finder: show hidden files by default (disabled because it shows .localized and .DS_Store on the desktop)
+# defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # Status bar
 defaults write com.apple.finder ShowStatusBar -bool true
@@ -258,7 +258,8 @@ defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
 
 # Set finder window to user directory on open
-defaults write ~/Library/preferences/com.apple.finder NewWindowTargetPath "file://${HOME}/"
+defaults write com.apple.finder NewWindowTarget -string 'PfDe' && \
+defaults write com.apple.finder NewWindowTargetPath -string 'file://$HOME/Desktop/'
 
 # Display full POSIX path as Finder window title
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
@@ -449,3 +450,5 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 # Disable continuous spell checking
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
+# Kill the preference caching service
+killall cfprefsd

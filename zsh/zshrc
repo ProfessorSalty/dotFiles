@@ -58,7 +58,7 @@ plugins=(git git-flow sudo)
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
-source dnvm.sh
+# source dnvm.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -110,6 +110,8 @@ function cdf() { # short for `cdfinder`
 	    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
     }
 fpath=(~/.zsh/Completion $fpath)
+
+eval "$(rbenv init -)"
 
 # added by travis gem
 [ -f /Users/gregorysmith/.travis/travis.sh ] && source /Users/gregorysmith/.travis/travis.sh
