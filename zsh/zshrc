@@ -1,7 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export EDITOR='subl -w'
-
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -110,8 +109,6 @@ function cdf() { # short for `cdfinder`
 	    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
     }
 fpath=(~/.zsh/Completion $fpath)
-
-eval "$(rbenv init -)"
 
 # added by travis gem
 [ -f /Users/gregorysmith/.travis/travis.sh ] && source /Users/gregorysmith/.travis/travis.sh

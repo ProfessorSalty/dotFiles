@@ -2,5 +2,5 @@
   "tern_argument_hints": true,
   "tern_output_style": "tooltip",
   "tern_argument_completion": true,
-  "tern_command": "/usr/local/bin/tern"
+  "tern_command": ["node", "/usr/local/bin/tern"]
 }

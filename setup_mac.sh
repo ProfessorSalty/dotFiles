@@ -1,3 +1,5 @@
+#! /bin/bash
+
 killall 'System Preferences' &> /dev/null
 
 #enable dark mode

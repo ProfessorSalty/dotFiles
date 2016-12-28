@@ -1,109 +1,109 @@
 {
-  "user": {
-    "debug": true,
-    "delay": 0.25,
-    "error_color": "D02000",
-    "gutter_theme": "Packages/Edge Theme Addon - Linter Theme/Edge.gutter-theme",
-    "gutter_theme_excludes": [],
-    "lint_mode": "background",
-    "linters": {
-      "csslint": {
-        "@disable": false,
-        "args": [],
-        "errors": "",
-        "excludes": [],
-        "ignore": "",
-        "warnings": ""
-      },
-      "eslint": {
-        "@disable": false,
-        "args": [],
-        "excludes": []
-      },
-      "haml": {
-        "@disable": false,
-        "args": [],
-        "excludes": []
-      },
-      "htmlhint": {
-        "@disable": false,
-        "args": [],
-        "excludes": []
-      },
-      "htmltidy": {
-        "@disable": true,
-        "args": [
-          "-config",
-          "/Users/gregorysmith/.htmltidy.conf"
-        ],
-        "excludes": []
-      },
-      "json": {
-        "@disable": false,
-        "args": [],
-        "excludes": [],
-        "strict": true
-      },
-      "rubocop": {
-        "@disable": false,
-        "args": [
-          "--config",
-          "/Users/gregorysmith/.rubocop.yml"
-        ],
-        "excludes": [
-          "*/spec/**/*.rb"
-        ]
-      },
-      "scss": {
-        "@disable": true,
-        "args": [],
-        "exclude-linter": "",
-        "excludes": [],
-        "include-linter": ""
-      },
-      "stylelint_d": {
-        "@disable": false,
-        "args": [
-          "--config",
-          "/Users/gregorysmith/.stylelintrc.json"
-        ],
-        "excludes": []
-      },
-      "sublimesyntax": {
-        "@disable": false,
-        "args": [],
-        "excludes": []
-      }
-    },
-    "mark_style": "outline",
-    "no_column_highlights_line": false,
-    "passive_warnings": false,
-    "paths": {
-      "linux": [],
-      "osx": [
-        "~/.rbenv/shims"
-      ],
-      "windows": []
-    },
-    "python_paths": {
-      "linux": [],
-      "osx": [],
-      "windows": []
-    },
-    "rc_search_limit": 3,
-    "shell_timeout": 10,
-    "show_errors_on_save": false,
-    "show_marks_in_minimap": true,
-    "syntax_map": {
-      "Ruby on Rails": "ruby",
-      "html (django)": "html",
-      "html (rails)": "haml",
-      "html 5": "html",
-      "javascript (babel)": "javascript",
-      "php": "html",
-      "python django": "python"
-    },
-    "warning_color": "DDB700",
-    "wrap_find": true
-  }
+    "user": {
+        "debug": true,
+        "delay": 0.25,
+        "error_color": "D02000",
+        "gutter_theme": "Packages/Edge Theme Addon - Linter Theme/Edge.gutter-theme",
+        "gutter_theme_excludes": [],
+        "lint_mode": "background",
+        "linters": {
+            "csslint": {
+                "@disable": false,
+                "args": [],
+                "errors": "",
+                "excludes": [],
+                "ignore": "",
+                "warnings": ""
+            },
+            "eslint": {
+                "@disable": false,
+                "args": [],
+                "excludes": []
+            },
+            "haml": {
+                "@disable": false,
+                "args": [],
+                "excludes": []
+            },
+            "htmlhint": {
+                "@disable": false,
+                "args": [],
+                "excludes": []
+            },
+            "htmltidy": {
+                "@disable": true,
+                "args": [
+                    "-config",
+                    "/Users/gregorysmith/.htmltidy.conf"
+                ],
+                "excludes": []
+            },
+            "json": {
+                "@disable": false,
+                "args": [],
+                "excludes": [],
+                "strict": true
+            },
+            "rubocop": {
+                "@disable": false,
+                "args": [
+                    "--config",
+                    "/Users/gregorysmith/.rubocop.yml"
+                ],
+                "excludes": [
+                    "*/spec/**/*.rb"
+                ]
+            },
+            "scss": {
+                "@disable": true,
+                "args": [],
+                "exclude-linter": "",
+                "excludes": [],
+                "include-linter": ""
+            },
+            "stylelint_d": {
+                "@disable": false,
+                "args": [
+                    "--config",
+                    "/Users/gregorysmith/.stylelintrc.json"
+                ],
+                "excludes": []
+            },
+            "sublimesyntax": {
+                "@disable": false,
+                "args": [],
+                "excludes": []
+            }
+        },
+        "mark_style": "outline",
+        "no_column_highlights_line": false,
+        "passive_warnings": false,
+        "paths": {
+            "linux": [],
+            "osx": [
+                "~/.rbenv/shims"
+            ],
+            "windows": []
+        },
+        "python_paths": {
+            "linux": [],
+            "osx": [],
+            "windows": []
+        },
+        "rc_search_limit": 3,
+        "shell_timeout": 10,
+        "show_errors_on_save": false,
+        "show_marks_in_minimap": true,
+        "syntax_map": {
+            "Ruby on Rails": "ruby",
+            "html (django)": "html",
+            "html (rails)": "haml",
+            "html 5": "html",
+            "javascript (babel)": "javascript",
+            "php": "html",
+            "python django": "python"
+        },
+        "warning_color": "DDB700",
+        "wrap_find": true
+    }
 }
