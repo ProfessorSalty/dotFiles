@@ -57,7 +57,7 @@ sudo touch /private/var/vm/sleepimage
 sudo chflags uchg /private/var/vm/sleepimage
 
 # Disable the sudden motion sensor when both drives are SSD
-# sudo pmset -a sms 0
+sudo pmset -a sms 0
 
 # Disable smart quotes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
@@ -79,7 +79,7 @@ if [ -z "$(defaults read /Library/Preferences/com.apple.loginwindow LoginwindowT
   read phonenumber
   echo "Please enter a valid email: "
   read contactemail
-  sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText 'If found, please call $phonenumber or email $contactemail'
+  sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "If found, please call ${phonenumber} or email ${contactemail}"
 fi
 
 # DEFAULT_PCNAME=`sudo scutil --get ComputerName`
@@ -232,6 +232,9 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 
 # Disable auto sleep when on A/C
 sudo pmset -c sleep 0
+
+# Set screen sleep when on A/C (minutes)
+sudo pmset -c displaysleep 30
 
 ###############################################################################
 # Finder                                                                      #
