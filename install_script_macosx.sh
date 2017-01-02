@@ -28,20 +28,20 @@ fi
 echo "Updating Homebrew..."
 brew update
 echo "Installing important packages..."
-brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb node macvim reattach-to-user-namespace tmux zsh python tree rbenv imagemagick shellcheck
+brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb macvim reattach-to-user-namespace tmux zsh python tree rbenv nodenv imagemagick shellcheck
 brew install wget --with-iri
 brew install vim --override-system-vi
 echo "Cleaning up..."
 brew cleanup
-
-echo "Installing NPM modules for Sublime Text plugins..."
-sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d
 
 #get oh-my-zsh
 if [ ! -d ~/.oh-my-zsh ]; then
     echo "Installing oh-my-zsh..."
     git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
+
+# Create the file to hold our shell version of ruby/node
+touch ~/.versions
 
 if [ ! -d ~/.rbenv ]; then
     echo "Initializing rbenv..."
@@ -50,7 +50,21 @@ if [ ! -d ~/.rbenv ]; then
     echo "Downloading Ruby $rubyversion..."
     rbenv install "$rubyversion"
     rbenv global "$rubyversion"
+    rbenv sh-shell "$rubyversion" >> ~/.zshrc
 fi
+
+if [ ! -d ~/.nodenv ]; then
+    echo "Initializing nodenv..."
+    nodenv init
+    nodeversion=$(nodenv install -l | grep -E "^[^a-zA-Z]*([0-9]+\.){2}[0-9]+$" | tail -1 | tr -d ' ')
+    echo "Downloading Ruby $nodeversion..."
+    nodenv install "$nodeversion"
+    nodenv global "$nodeversion"
+    nodenv sh-shell "$nodeversion" >> ~/.zshrc
+fi
+
+echo "Installing NPM modules for Sublime Text plugins..."
+sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d
 
 #dotNet
 if [ -z "$(which dotnet)" ]; then
