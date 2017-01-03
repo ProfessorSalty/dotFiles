@@ -40,9 +40,6 @@ if [ ! -d ~/.oh-my-zsh ]; then
     git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
 
-# Create the file to hold our shell version of ruby/node
-touch ~/.versions
-
 if [ ! -d ~/.rbenv ]; then
     echo "Initializing rbenv..."
     rbenv init
@@ -50,7 +47,6 @@ if [ ! -d ~/.rbenv ]; then
     echo "Downloading Ruby $rubyversion..."
     rbenv install "$rubyversion"
     rbenv global "$rubyversion"
-    rbenv sh-shell "$rubyversion" >> ~/.zshrc
 fi
 
 if [ ! -d ~/.nodenv ]; then
@@ -60,7 +56,6 @@ if [ ! -d ~/.nodenv ]; then
     echo "Downloading Ruby $nodeversion..."
     nodenv install "$nodeversion"
     nodenv global "$nodeversion"
-    nodenv sh-shell "$nodeversion" >> ~/.zshrc
 fi
 
 echo "Installing NPM modules for Sublime Text plugins..."
