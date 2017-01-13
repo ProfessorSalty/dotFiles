@@ -9,7 +9,8 @@
     "ecmaFeatures": {
       "jsx": true,
       "modules": true,
-      "classes": true
+      "classes": true,
+      "experimentalObjectRestSpread": true
     }
   },
   "env": {

@@ -86,10 +86,7 @@
         "passive_warnings": false,
         "paths": {
             "linux": [],
-            "osx": [
-                "~/.rbenv/shims",
-                "~/.nodenv/shims"
-            ],
+            "osx": [],
             "windows": []
         },
         "python_paths": {

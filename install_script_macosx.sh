@@ -141,6 +141,11 @@ if [ -f ~/.zprofile ]; then
     rm ~/.zprofile
 fi
 ln -s ~/.dotFiles/zsh/zprofile ~/.zprofile
+echo "Linking zlogin..."
+if [ -f ~/.zlogin ]; then
+	rm ~/.zlogin
+fi
+ln -s ~/.dotFiles/zsh/zlogin ~/.zlogin
 
 git config --global core.excludesfile ~/.gitignore_global
 

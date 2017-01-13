@@ -108,9 +108,7 @@ function take() {
 function cdf() { # short for `cdfinder`
     cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
 }
-fpath=(~/.zsh/Completion $fpath)
+#fpath=(~/.zsh/Completion $fpath)
 
 # added by travis gem
 [ -f /Users/gregorysmith/.travis/travis.sh ] && source /Users/gregorysmith/.travis/travis.sh
-eval "$(rbenv init -)"
-eval "$(nodenv init -)"

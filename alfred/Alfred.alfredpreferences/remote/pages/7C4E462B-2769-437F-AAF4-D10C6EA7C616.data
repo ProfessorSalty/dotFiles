@@ -61,25 +61,7 @@
 			<key>itemuid</key>
 			<string>CD0D0E6B-E212-40D2-9A38-4035A3AFA255</string>
 		</dict>
-		<dict>
-			<key>actionconfig</key>
-			<dict>
-				<key>bundleid</key>
-				<string>com.adobe.Photoshop</string>
-				<key>path</key>
-				<string>/Applications/Adobe Photoshop CC 2014/Adobe Photoshop CC 2014.app</string>
-				<key>toggle</key>
-				<true/>
-			</dict>
-			<key>actionuid</key>
-			<string>remote.alfred.launchfile</string>
-			<key>buttoniconid</key>
-			<string>3D7BDEF4-32C4-4ACD-9E4F-9E7C9F33C364</string>
-			<key>buttonlabel</key>
-			<string>Adobe Photoshop CC 2014</string>
-			<key>itemuid</key>
-			<string>F67B9C09-62D5-425F-A601-C79A2FE6BBEB</string>
-		</dict>
+		<dict/>
 		<dict>
 			<key>actionconfig</key>
 			<dict>
@@ -113,25 +95,6 @@
 		<dict>
 			<key>actionconfig</key>
 			<dict>
-				<key>bundleid</key>
-				<string>com.ableton.live</string>
-				<key>path</key>
-				<string>/Applications/Ableton Live 9 Suite.app</string>
-				<key>toggle</key>
-				<true/>
-			</dict>
-			<key>actionuid</key>
-			<string>remote.alfred.launchfile</string>
-			<key>buttoniconid</key>
-			<string>E597EA4B-043C-4BC3-9BBE-815665673E5F</string>
-			<key>buttonlabel</key>
-			<string>Ableton Live 9 Suite</string>
-			<key>itemuid</key>
-			<string>383F06BA-D4B2-429F-B428-A81D069005D4</string>
-		</dict>
-		<dict>
-			<key>actionconfig</key>
-			<dict>
 				<key>path</key>
 				<string>/Applications/Reminders.app</string>
 			</dict>
@@ -144,6 +107,7 @@
 			<key>itemuid</key>
 			<string>A30DEA71-AADA-45FF-A189-15FE6E5F259D</string>
 		</dict>
+		<dict/>
 		<dict>
 			<key>actionconfig</key>
 			<dict>
@@ -189,25 +153,7 @@
 			<key>itemuid</key>
 			<string>E5062FAB-DA51-4A1C-BDBD-2BB71CFC905F</string>
 		</dict>
-		<dict>
-			<key>actionconfig</key>
-			<dict>
-				<key>bundleid</key>
-				<string>com.apple.logic10</string>
-				<key>path</key>
-				<string>/Applications/Logic Pro X.app</string>
-				<key>toggle</key>
-				<true/>
-			</dict>
-			<key>actionuid</key>
-			<string>remote.alfred.launchfile</string>
-			<key>buttoniconid</key>
-			<string>4888DBAD-A307-492B-B384-50BDED2662C9</string>
-			<key>buttonlabel</key>
-			<string>Logic Pro X</string>
-			<key>itemuid</key>
-			<string>6AEAE938-4027-4C19-A341-C8D092CBFD33</string>
-		</dict>
+		<dict/>
 		<dict>
 			<key>actionconfig</key>
 			<dict>

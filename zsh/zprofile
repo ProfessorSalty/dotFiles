@@ -2,4 +2,3 @@
 # Setting PATH for Python 3.4
 # The orginal version is saved in .zprofile.pysave
 export PATH="/opt/bin:/Library/TeX/texbin:/Library/bin:/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
-eval "$(rbenv init -)"
