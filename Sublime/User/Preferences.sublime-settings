@@ -4,6 +4,7 @@
 		"D3",
 		"online"
 	],
+	"node_path": "~/.nodenv/shims/node",
 	"autocomplete_commit_on_tab": true,
 	"binary_file_patterns":
 	[
