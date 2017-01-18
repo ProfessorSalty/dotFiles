@@ -1,4 +1,12 @@
 
 # Setting PATH for Python 3.4
 # The orginal version is saved in .zprofile.pysave
+if [ "$_SKIP_PROFILE" ]; then
+    return 0
+else
+    export _SKIP_PROFILE=y
+fi
 export PATH="/opt/bin:/Library/TeX/texbin:/Library/bin:/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
+
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"

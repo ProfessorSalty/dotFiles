@@ -58,10 +58,8 @@ plugins=(git git-flow sudo)
 
 source $ZSH/oh-my-zsh.sh
 # source dnvm.sh
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -109,6 +107,5 @@ function cdf() { # short for `cdfinder`
     cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
 }
 #fpath=(~/.zsh/Completion $fpath)
-
 # added by travis gem
 [ -f /Users/gregorysmith/.travis/travis.sh ] && source /Users/gregorysmith/.travis/travis.sh
