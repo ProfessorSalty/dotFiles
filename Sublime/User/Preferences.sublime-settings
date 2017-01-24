@@ -4,7 +4,6 @@
 		"D3",
 		"online"
 	],
-	"node_path": "~/.nodenv/shims/node",
 	"autocomplete_commit_on_tab": true,
 	"binary_file_patterns":
 	[
@@ -63,6 +62,7 @@
 		"CSS",
 		"PackageDev"
 	],
+	"node_path": "~/.nodenv/shims/node",
 	"open_files_in_new_window": false,
 	"sidebar_font_big": true,
 	"tabs_padding_small": true,

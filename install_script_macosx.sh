@@ -28,7 +28,7 @@ fi
 echo "Updating Homebrew..."
 brew update
 echo "Installing important packages..."
-brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb macvim reattach-to-user-namespace tmux zsh python tree rbenv nodenv imagemagick shellcheck postgres
+brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb macvim reattach-to-user-namespace tmux zsh python tree rbenv nodenv imagemagick shellcheck postgres yarn
 brew install wget --with-iri
 brew install vim --override-system-vi
 echo "Cleaning up..."
