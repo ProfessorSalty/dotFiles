@@ -90,9 +90,9 @@ alias adminlogin='ssh webadmin@gregoftheweb.com'
 alias bananapi="ssh root@192.168.1.38"
 alias qremote="ssh gregsmith@screamingmimi.no-ip.org -p 55455"
 ####Package managers####
-alias nis="npm install --save "
-alias nid="npm install --save-dev"
-alias snig="sudo npm install -g "
+alias nis="yarn add"
+alias nid="yarn add --dev"
+alias snig="sudo yarn global add"
 alias bowie="bower install --save"
 alias git="hub"
 ####Development stuff####
