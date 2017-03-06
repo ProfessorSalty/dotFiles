@@ -49,6 +49,7 @@ Package Control.cache/
 Package Control.ca-certs/
 *_conflict-*
 .~lock*
+.vscode
 
 # LaTeX #
 #########

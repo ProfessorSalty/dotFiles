@@ -60,9 +60,9 @@
 	[
 		"AAAPackageDev",
 		"CSS",
-		"PackageDev"
+		"PackageDev",
+		"Vintage"
 	],
-	"node_path": "~/.nodenv/shims/node",
 	"open_files_in_new_window": false,
 	"sidebar_font_big": true,
 	"tabs_padding_small": true,
