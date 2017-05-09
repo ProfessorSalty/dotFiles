@@ -1,0 +1,41 @@
+"*":
+  "atom-beautify":
+    general:
+      _analyticsUserId: "f605fed3-081d-4c76-82c1-55729234ff5c"
+  "atom-ternjs":
+    useSnippets: true
+  "autocomplete-python":
+    useKite: false
+  core:
+    projectHome: "/Users/gregorysmith/Projects"
+    telemetryConsent: "limited"
+    themes: [
+      "one-dark-ui"
+      "gruvbox-plus-syntax"
+    ]
+  editor:
+    fontFamily: "SourceCodePro-Light"
+    fontSize: 17
+  "exception-reporting":
+    userId: "564aaf6a-4be9-4bc5-8ade-a7ae15cac80e"
+  "linter-pylint": {}
+  "linter-tidy":
+    executableArguments: [
+      "-utf8 --config ~/.htmltidy.conf"
+    ]
+  "linter-ui-default":
+    panelHeight: 206
+  "seti-ui":
+    compactView: true
+    font: "Default Atom Font"
+    themeColor: "Steel"
+  "spell-check":
+    addKnownWords: true
+    knownWords: [
+      "rel"
+    ]
+  "tree-view":
+    alwaysOpenExisting: true
+    hideVcsIgnoredFiles: true
+  welcome:
+    showOnStartup: false

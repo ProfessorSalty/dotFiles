@@ -1,10 +1,8 @@
 #! /bin/bash
 
 # TODO
-# Check for powerline fonts somehow
-# Backup and retrieve applications somehow
 # Colorize the output
-
+DOTFILES=$HOME/.dotFiles/
 #Make sure we don't get blocked by xcode license
 xcode-select --install
 sudo xcodebuild -license accept
@@ -33,6 +31,7 @@ brew tap homebrew/science
 brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb macvim reattach-to-user-namespace tmux zsh python tree rbenv nodenv imagemagick shellcheck postgres zeromq pyqt gcc numpy scipy mysql heroku-toolbelt redis
 brew install wget --with-iri
 brew install vim --override-system-vi
+brew cask install gpgtools
 echo "Cleaning up..."
 brew cleanup
 
@@ -94,18 +93,14 @@ chmod +x ./install.sh
 sh ./install.sh
 cd && rm -rf ~/Downloads/powerline-fonts
 
-git config --global credential.helper osxkeychain
-
-mkdir -p ~/Projects
-
 #should clone dotFiles repo only if ~/.dotFiles does not exist
-if [ ! -d ~/.dotFiles ]; then
+if [ ! -d $DOTFILES ]; then
     echo "Cloning dotFiles..."
-    git clone --depth=1 https://github.com/PortableStick/dotFiles.git ~/.dotFiles
+    git clone --depth=1 https://github.com/PortableStick/dotFiles.git $DOTFILES
     wait $!
 fi
 
-for FILEPATH in ~/.dotFiles/rcfiles/*; do
+for FILEPATH in $DOTFILES/rcfiles/*; do
     FILENAME=${FILEPATH##*/}
     echo "Linking $FILENAME...";
     if [ -L ~/.$FILENAME ]; then
@@ -122,37 +117,37 @@ fi
 if [ -f ~/.config/powerline/themes/tmux/default.json ]; then
     rm ~/.config/powerline/themes/tmux/default.json
 fi
-ln -s ~/.dotFiles/tmux/config/powerline/themes/tmux/default.json ~/.config/powerline/themes/tmux/default.json
+ln -s $DOTFILES/tmux/config/powerline/themes/tmux/default.json ~/.config/powerline/themes/tmux/default.json
 echo "Linking tmux.conf..."
 if [ -f ~/.tmux.conf ]; then
     rm ~/.tmux.conf
 fi
-ln -s ~/.dotFiles/tmux/tmux.conf ~/.tmux.conf
+ln -s $DOTFILES/tmux/tmux.conf ~/.tmux.conf
 echo "Linking zshrc..."
 if [ -f ~/.zshrc ]; then
     rm ~/.zshrc
 fi
-ln -s ~/.dotFiles/zsh/zshrc ~/.zshrc
+ln -s $DOTFILES/zsh/zshrc ~/.zshrc
 echo "Linking zprofile..."
 if [ -f ~/.zprofile ]; then
     rm ~/.zprofile
 fi
-ln -s ~/.dotFiles/zsh/zprofile ~/.zprofile
+ln -s $DOTFILES/zsh/zprofile ~/.zprofile
 echo "Linking zlogin..."
 if [ -f ~/.zlogin ]; then
     rm ~/.zlogin
 fi
-ln -s ~/.dotFiles/zsh/zlogin ~/.zlogin
+ln -s $DOTFILES/zsh/zlogin ~/.zlogin
 echo "Linking zpath..."
 if [ -f ~/.zpath ]; then
     rm ~/.zpath
 fi
-ln -s ~/.dotFiles/zsh/zpath ~/.zpath
+ln -s $DOTFILES/zsh/zpath ~/.zpath
 echo "Linking zshenv..."
 if [ -f ~/.zshenv ]; then
     rm ~/.zshenv
 fi
-ln -s ~/.dotFiles/zsh/zshenv ~/.zshenv
+ln -s $DOTFILES/zsh/zshenv ~/.zshenv
 
 # setup vim
 if [ -f ~/.vim ]; then
@@ -169,41 +164,53 @@ echo "Installing VSCode and saved settings..."
 if [ -f ~/Library/Application\ Support/Code/User/settings.json ]; then
     rm ~/Library/Application\ Support/Code/User/settings.json
 fi
-ln -s ~/.dotFiles/vscode/settings.json ~/Library/Application\ Support/Code/User
+ln -s $DOTFILES/vscode/settings.json ~/Library/Application\ Support/Code/User
 brew cask install visual-studio-code
 if [ -f /usr/local/bin/code ]; then
     rm /usr/local/bin/code
 fi
 ln -s /Applications/Visual Studio Code.app/Contents/Resources/app/bin/code /usr/local/bin
-ln -s ~/.dotFiles/backup_vscode.sh /usr/local/bin/backup_vscode
+ln -s $DOTFILES/backup_vscode.sh /usr/local/bin/backup_vscode
 
 echo "Installing VSCode extensions..."
-for X in $(< ~/.dotFiles/vscode/vscode-extensions.txt); do
+for X in $(< $DOTFILES/vscode/vscode-extensions.txt); do
     /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --install-extension $X
 done
 
-git config --global core.excludesfile ~/.gitignore_global
+# Atom
+echo "Installing Atom and saved settings..."
+brew cask install atom
+ln -s $DOTFILES/backup_atom.sh /usr/local/bin/backup_atom
+ln -s $DOTFILES/atom/config.cson $HOME/.atom/
+for X in $(< $DOTFILES/atom/atom-extensions.txt); do
+    apm install $X
+done
 
-#set zsh as default
-chsh -s "$(which zsh)"
-
+# Other stuff
 if [  ! -d ~/.ssh ] || [ ! -f ~/.ssh/id_rsa ]; then
     echo "Generating RSA keypair - you'll need to enter a passphrase..."
     ssh-keygen -t rsa -b 4096
 fi
 
-echo "Setting up MySQL...."
-unset TMPDIR
-mkdir /usr/local/var
-mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+if [ ! -d /usr/local/var/mysql ]; then
+    echo "Setting up MySQL...."
+    unset TMPDIR
+    mkdir /usr/local/var
+    mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+fi
 
-
-echo "Setting up PostGres...."
-postgres -D /usr/local/var/postgres
+if [ ! -d /usr/local/var/postgres ]; then
+    echo "Setting up PostGres...."
+    postgres -D /usr/local/var/postgres
+fi
 
 # sets xcode for node
 sudo xcode-select -switch /usr/bin
-
-chmod +x ./.dotFiles/setup_mac.sh
-
+# set zsh as default
+chsh -s "$(which zsh)"
+git config --global credential.helper osxkeychain
+git config --global core.excludesfile ~/.gitignore_global
+mkdir -p ~/Projects
+chmod +x $DOTFILES/setup_mac.sh $DOTFILES/backup_vscode.sh $DOTFILES/backup_atom.sh $DOTFILES/backup_editors.sh
+ln -s $DOTFILES/backup_editors.sh /usr/local/bin/backup_editors
 echo "Install and setup complete.  Now run the setup script."

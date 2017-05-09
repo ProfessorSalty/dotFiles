@@ -3,6 +3,11 @@ NEWFILE=$(mktemp -d "${TMPDIR:-/tmp/}backup_vscode.XXXXXXXXXXXX")/tmpfile.txt
 EXTENSIONS_FILE=$DOTFILES/vscode/vscode-extensions.txt
 
 echo "***Launching VSCode backup utility***"
+if [ ! -f $EXTENSIONS_FILE ]; then
+    /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --list-extensions | tr '\n' ' ' > $EXTENSIONS_FILE
+    echo "Backup file created"
+    exit 0
+fi
 /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --list-extensions | tr '\n' ' ' > $NEWFILE
 RESULT=$(diff --ignore-all-space --brief $NEWFILE $EXTENSIONS_FILE)
 if [[ $RESULT ]]; then
