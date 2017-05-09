@@ -1,4 +1,0 @@
-{
-  "run_on_save": true,
-  "ruby": "~/.rbenv/shims/ruby"
-}
