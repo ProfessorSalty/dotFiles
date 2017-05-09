@@ -108,7 +108,7 @@ fi
 for FILEPATH in ~/.dotFiles/rcfiles/*; do
     FILENAME=${FILEPATH##*/}
     echo "Linking $FILENAME...";
-    if [ -f ~/.$FILENAME ]; then
+    if [ -L ~/.$FILENAME ]; then
         rm ~/.$FILENAME
         echo "Removing $FILENAME..."
     fi
