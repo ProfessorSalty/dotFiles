@@ -1,0 +1,3 @@
+export PATH="/opt/bin:/Library/TeX/texbin:/Library/bin:/usr/local/share/npm/bin:$PATH"
+export MANPATH="/usr/local/man:$MANPATH"
+
