@@ -79,7 +79,7 @@ if [ -z "$(defaults read /Library/Preferences/com.apple.loginwindow LoginwindowT
   read phonenumber
   echo "Please enter a valid email: "
   read contactemail
-  sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "If found, please call ${phonenumber} or email ${contactemail}"
+  sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "If found, please call $phonenumber or email $contactemail"
 fi
 
 # DEFAULT_PCNAME=`sudo scutil --get ComputerName`
@@ -159,6 +159,9 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadTwoFin
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad USBMouseStopsTrackpad -int 0
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad UserPreferences -int 1
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad version -int 5
+
+# Disable mouse acceleration
+defaults write .GlobalPreferences com.apple.mouse.scaling -1
 
 # Three finger page navigation
 # Trackpad: swipe between pages with three fingers

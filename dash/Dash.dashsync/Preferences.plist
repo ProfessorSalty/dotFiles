@@ -9,7 +9,7 @@
 			<key>Capybara</key>
 			<dict>
 				<key>date</key>
-				<date>2016-12-01T17:56:18Z</date>
+				<date>2017-05-08T23:45:30Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -27,7 +27,7 @@
 			<key>Chrome_Dev_Tools</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:10:55Z</date>
+				<date>2017-05-08T23:45:30Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -82,7 +82,7 @@
 			<key>HTTP_Status_Codes_Rails</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:10:55Z</date>
+				<date>2017-05-08T23:45:30Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -103,7 +103,7 @@
 			<key>Jasmine-jQuery</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:10:55Z</date>
+				<date>2017-05-08T23:45:30Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -161,7 +161,7 @@
 			<key>Sublime_Text_3</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:10:55Z</date>
+				<date>2017-05-08T23:45:30Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -321,7 +321,7 @@
 			<key>factory_girl</key>
 			<dict>
 				<key>date</key>
-				<date>2016-12-16T16:38:35Z</date>
+				<date>2017-05-08T23:46:13Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>
@@ -335,7 +335,7 @@
 			<key>rspec</key>
 			<dict>
 				<key>date</key>
-				<date>2016-12-01T00:08:18Z</date>
+				<date>2017-05-08T23:46:10Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>
@@ -349,7 +349,7 @@
 			<key>shoulda-matchers</key>
 			<dict>
 				<key>date</key>
-				<date>2016-11-07T05:13:28Z</date>
+				<date>2017-05-08T23:46:13Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>
@@ -385,7 +385,7 @@
 			<key>Flux</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-26T20:04:30Z</date>
+				<date>2017-05-08T23:45:31Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -413,7 +413,7 @@
 			<key>Jest</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-26T20:04:43Z</date>
+				<date>2017-05-08T23:45:32Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -481,7 +481,7 @@
 			<key>http://kapeli.com/feeds/ActionScript.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:11:16Z</date>
+				<date>2017-05-08T23:45:37Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Apache_HTTP_Server.xml</key>
 			<dict>
@@ -496,7 +496,7 @@
 			<key>http://kapeli.com/feeds/Apple_API_Reference.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:17:35Z</date>
+				<date>2017-05-08T23:46:39Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Bash.xml</key>
 			<dict>
@@ -526,7 +526,7 @@
 			<key>http://kapeli.com/feeds/Compass.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:12:20Z</date>
+				<date>2017-05-08T23:45:32Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/D3JS.xml</key>
 			<dict>
@@ -541,7 +541,7 @@
 			<key>http://kapeli.com/feeds/Emmet.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:12:14Z</date>
+				<date>2017-05-08T23:45:30Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Express.xml</key>
 			<dict>
@@ -558,15 +558,10 @@
 				<key>date</key>
 				<date>2016-08-23T14:12:17Z</date>
 			</dict>
-			<key>http://kapeli.com/feeds/Jade.xml</key>
-			<dict>
-				<key>date</key>
-				<date>2016-08-23T14:12:17Z</date>
-			</dict>
 			<key>http://kapeli.com/feeds/Jasmine.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:12:19Z</date>
+				<date>2017-05-08T23:45:33Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/JavaScript.xml</key>
 			<dict>
@@ -591,7 +586,7 @@
 			<key>http://kapeli.com/feeds/Mocha.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:12:16Z</date>
+				<date>2017-05-08T23:45:33Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/MongoDB.xml</key>
 			<dict>
@@ -641,7 +636,7 @@
 			<key>http://kapeli.com/feeds/SVG.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:12:49Z</date>
+				<date>2017-05-08T23:45:37Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Sass.xml</key>
 			<dict>
@@ -666,12 +661,12 @@
 			<key>http://kapeli.com/feeds/jQuery_Mobile.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:12:18Z</date>
+				<date>2017-05-08T23:45:34Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/jQuery_UI.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:12:20Z</date>
+				<date>2017-05-08T23:45:38Z</date>
 			</dict>
 		</dict>
 		<key>uninstalled</key>

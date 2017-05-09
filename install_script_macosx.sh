@@ -2,11 +2,11 @@
 
 # TODO
 # Check for powerline fonts somehow
-# Install all dependencies for Sublime plugins (esp typescript)
 # Backup and retrieve applications somehow
 # Colorize the output
 
 #Make sure we don't get blocked by xcode license
+xcode-select --install
 sudo xcodebuild -license accept
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
@@ -15,7 +15,7 @@ if  [ -z "$(git config --global user.name)" ]; then
     git config --global user.name "$gitname"
 fi
 if  [ -z "$(git config --global user.email)" ]; then
-    echo "Please enter your email (for git config): "
+    echo "Please enter the email you associate with git (for git config): "
     read -r gitemail
     git config --global user.email "$gitemail"
 fi
@@ -28,7 +28,9 @@ fi
 echo "Updating Homebrew..."
 brew update
 echo "Installing important packages..."
-brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb macvim reattach-to-user-namespace tmux zsh python tree rbenv nodenv imagemagick shellcheck postgres yarn
+brew tap samueljohn/python
+brew tap homebrew/science
+brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb macvim reattach-to-user-namespace tmux zsh python tree rbenv nodenv imagemagick shellcheck postgres zeromq pyqt gcc numpy scipy mysql heroku-toolbelt redis
 brew install wget --with-iri
 brew install vim --override-system-vi
 echo "Cleaning up..."
@@ -53,19 +55,25 @@ if [ ! -d ~/.nodenv ]; then
     echo "Initializing nodenv..."
     nodenv init
     nodeversion=$(nodenv install -l | grep -E "^[^a-zA-Z]*([0-9]+\.){2}[0-9]+$" | tail -1 | tr -d ' ')
-    echo "Downloading Ruby $nodeversion..."
+    echo "Downloading Node $nodeversion..."
     nodenv install "$nodeversion"
     nodenv global "$nodeversion"
 fi
 
-echo "Installing NPM modules for Sublime Text plugins..."
-sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d
+pip install --upgrade distribute
+pip install --upgrade pip
+
+pip install venv
+pip install ipython[zmq,qtconsole,notebook,test]
+
+echo "Installing NPM modules..."
+sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less
 
 #dotNet
 if [ -z "$(which dotnet)" ]; then
     mkdir -p /usr/local/lib
-    ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
-    ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/
+    ln -s /usr/local/opt/openssl/lib/libcrypto*.dylib /usr/local/lib/
+    ln -s /usr/local/opt/openssl/lib/libssl*.dylib /usr/local/lib/
     echo "Downloading dotNet Core to $(~/Downloads)..."
     wget -O ~/Downloads/dotnet.pkg https://go.microsoft.com/fwlink/?LinkID=835011
     echo "Installing dotNet Core..."
@@ -74,7 +82,7 @@ fi
 
 #Install globals for Sublime Text plugins
 echo "Installing important gems..."
-gem install rubocop haml scss_lint rails bundler capistrano tmuxinator
+gem install rubocop haml scss_lint rails bundler capistrano tmuxinator travis
 
 echo "Installing powerline-status..."
 pip install powerline-status
@@ -92,31 +100,20 @@ mkdir -p ~/Projects
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d ~/.dotFiles ]; then
-	echo "Cloning dotFiles..."
-	git clone --depth=1 https://github.com/PortableStick/dotFiles.git ~/.dotFiles
-	wait $!
+    echo "Cloning dotFiles..."
+    git clone --depth=1 https://github.com/PortableStick/dotFiles.git ~/.dotFiles
+    wait $!
 fi
-if [ ! -d "${HOME}/Library/Application Support/Sublime Text 3/Installed Packages" ]; then
-    mkdir -p "${HOME}/Library/Application Support/Sublime Text 3/Installed Packages"
-fi
-cd "${HOME}/Library/Application Support/Sublime Text 3/Installed Packages" || exit
-wget https://packagecontrol.io/Package%20Control.sublime-package
-if [ -d "${HOME}/Library/Application Support/Sublime Text 3/Packages" ]; then
-    rm -rf "${HOME}/Library/Application Support/Sublime Text 3/Packages"
-fi
-mkdir -p "${HOME}/Library/Application Support/Sublime Text 3/Packages"
-cd "${HOME}/Library/Application Support/Sublime Text 3/Packages" || exit
-echo "Linking Sublime Text packages folders..."
-ln -s ~/.dotFiles/Sublime/User .
-ln -s ~/.dotFiles/Sublime/OS .
 
-for X in "gitignore_global" "eslintrc" "rubocop.yml" "rspec" "jsbeautifyrc" "stylelintrc.json" "gemrc"; do
-        if [ -f ~/.$X ]; then
-            rm ~/.$X
-        fi
-        ln -s ~/.dotFiles/$X ~/.$X
-        echo "Linking $X...";
-    done
+for FILEPATH in ~/.dotFiles/rcfiles/*; do
+    FILENAME=${FILEPATH##*/}
+    echo "Linking $FILENAME...";
+    if [ -f ~/.$FILENAME ]; then
+        rm ~/.$FILENAME
+        echo "Removing $FILENAME..."
+    fi
+    ln -s $FILEPATH ~/.$FILENAME
+done
 
 if [ ! -d ~/.config/powerline/themes/tmux ]; then
     echo "Linking tmux powerline theme file..."
@@ -143,9 +140,47 @@ fi
 ln -s ~/.dotFiles/zsh/zprofile ~/.zprofile
 echo "Linking zlogin..."
 if [ -f ~/.zlogin ]; then
-	rm ~/.zlogin
+    rm ~/.zlogin
 fi
 ln -s ~/.dotFiles/zsh/zlogin ~/.zlogin
+echo "Linking zpath..."
+if [ -f ~/.zpath ]; then
+    rm ~/.zpath
+fi
+ln -s ~/.dotFiles/zsh/zpath ~/.zpath
+echo "Linking zshenv..."
+if [ -f ~/.zshenv ]; then
+    rm ~/.zshenv
+fi
+ln -s ~/.dotFiles/zsh/zshenv ~/.zshenv
+
+# setup vim
+if [ -f ~/.vim ]; then
+    rm -rf ~/.vim
+fi
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+cd ~/.vim/bundle
+git clone git://github.com/tpope/vim-sensible.git
+cd
+
+# Visual studio code
+echo "Installing VSCode and saved settings..."
+if [ -f ~/Library/Application\ Support/Code/User/settings.json ]; then
+    rm ~/Library/Application\ Support/Code/User/settings.json
+fi
+ln -s ~/.dotFiles/vscode/settings.json ~/Library/Application\ Support/Code/User
+brew cask install visual-studio-code
+if [ -f /usr/local/bin/code ]; then
+    rm /usr/local/bin/code
+fi
+ln -s /Applications/Visual Studio Code.app/Contents/Resources/app/bin/code /usr/local/bin
+ln -s ~/.dotFiles/backup_vscode.sh /usr/local/bin/backup_vscode
+
+echo "Installing VSCode extensions..."
+for X in $(< ~/.dotFiles/vscode/vscode-extensions.txt); do
+    /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --install-extension $X
+done
 
 git config --global core.excludesfile ~/.gitignore_global
 
@@ -156,6 +191,18 @@ if [  ! -d ~/.ssh ] || [ ! -f ~/.ssh/id_rsa ]; then
     echo "Generating RSA keypair - you'll need to enter a passphrase..."
     ssh-keygen -t rsa -b 4096
 fi
+
+echo "Setting up MySQL...."
+unset TMPDIR
+mkdir /usr/local/var
+mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+
+
+echo "Setting up PostGres...."
+postgres -D /usr/local/var/postgres
+
+# sets xcode for node
+sudo xcode-select -switch /usr/bin
 
 chmod +x ./.dotFiles/setup_mac.sh
 

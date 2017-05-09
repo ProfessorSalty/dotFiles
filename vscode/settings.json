@@ -1,0 +1,36 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "editor.fontSize": 20,
+    "editor.fontFamily": "SourceCodePro-Light",
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/*.pyc": true
+    },
+    "files.autoSave": "onFocusChange",
+    "eslint.autoFixOnSave": true,
+    "window.zoomLevel": -1,
+    "vsicons.projectDetection.autoReload": true,
+    "extensions.autoUpdate": true,
+    "stylelint.enable": true,
+    "css.validate": false,
+    "scss.validate": false,
+    "workbench.colorTheme": "Afterglow Remastered",
+    "workbench.iconTheme": "material-icon-theme",
+    "vsicons.dontShowNewVersionMessage": true,
+    "[cpp]": {
+        "editor.quickSuggestions": false
+    },
+    "[c]": {
+        "editor.quickSuggestions": false
+    },
+    "latex-workshop.chktex.enabled": false,
+    "files.associations": {
+        "zshrc": "shellscript",
+        "zpath": "shellscript",
+        "vimrc": "shellscript"
+    },
+}
