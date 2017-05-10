@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 NEWFILE=$(mktemp -d "${TMPDIR:-/tmp/}backup_atom.XXXXXXXXXXXX")/tmpfile.txt
 EXTENSIONS_FILE=$DOTFILES/atom/atom-extensions.txt
 

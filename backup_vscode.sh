@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 NEWFILE=$(mktemp -d "${TMPDIR:-/tmp/}backup_vscode.XXXXXXXXXXXX")/tmpfile.txt
 EXTENSIONS_FILE=$DOTFILES/vscode/vscode-extensions.txt
 
