@@ -3,9 +3,7 @@
 # TODO
 # Colorize the output
 DOTFILES=$HOME/.dotFiles/
-#Make sure we don't get blocked by xcode license
-xcode-select --install
-sudo xcodebuild -license accept
+CODE=$(which code)
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
     echo "Please enter your name (for git config): "
@@ -18,22 +16,23 @@ if  [ -z "$(git config --global user.email)" ]; then
     git config --global user.email "$gitemail"
 fi
 
-#Install Homebrew
-if [ -z "$(which brew)" ]; then
-    echo "Installing Homebrew..."
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+#dotNet
+if [ -z "$(which dotnet)" ]; then
+    sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ yakkety main" > /etc/apt/sources.list.d/dotnetdev.list'
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
 fi
-echo "Updating Homebrew..."
-brew update
-echo "Installing important packages..."
-brew tap samueljohn/python
-brew tap homebrew/science
-brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb macvim reattach-to-user-namespace tmux zsh python tree rbenv nodenv imagemagick shellcheck postgres zeromq pyqt gcc numpy scipy mysql heroku-toolbelt redis
-brew install wget --with-iri
-brew install vim --override-system-vi
-brew cask install gpgtools
-echo "Cleaning up..."
-brew cleanup
+
+sudo add-apt-repository ppa:cpick/hub
+sudo apt-get update
+sudo apt-get install hub gnupg tidy-html5 gpg-agent mongodb tmux zsh autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev tree imagemagick shellcheck postgres zeromq pyqt gcc numpy scipy mysql heroku-toolbelt redis libzmq-dev code 'dotnet-dev-*' guake
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+git clone https://github.com/nodenv/nodenv.git ~/.nodenv
+git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build
 
 #get oh-my-zsh
 if [ ! -d ~/.oh-my-zsh ]; then
@@ -62,22 +61,11 @@ fi
 pip install --upgrade distribute
 pip install --upgrade pip
 
-pip install venv notebook
+pip install venv
 pip install ipython[zmq,qtconsole,notebook,test]
 
 echo "Installing NPM modules..."
 sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less
-
-#dotNet
-if [ -z "$(which dotnet)" ]; then
-    mkdir -p /usr/local/lib
-    ln -s /usr/local/opt/openssl/lib/libcrypto*.dylib /usr/local/lib/
-    ln -s /usr/local/opt/openssl/lib/libssl*.dylib /usr/local/lib/
-    echo "Downloading dotNet Core to $(~/Downloads)..."
-    wget -O ~/Downloads/dotnet.pkg https://go.microsoft.com/fwlink/?LinkID=835011
-    echo "Installing dotNet Core..."
-    sudo installer -pkg ~/Downloads/dotnet.pkg -target /
-fi
 
 #Install globals for Sublime Text plugins
 echo "Installing important gems..."
@@ -161,30 +149,30 @@ cd
 
 # Visual studio code
 echo "Installing VSCode and saved settings..."
-if [ -f ~/Library/Application\ Support/Code/User/settings.json ]; then
-    rm ~/Library/Application\ Support/Code/User/settings.json
+if [ -f $HOME/.config/Code/User/settings.json ]; then
+    rm $HOME/.config/Code/User/settings.json
 fi
-ln -s $DOTFILES/vscode/settings.json ~/Library/Application\ Support/Code/User
-brew cask install visual-studio-code
+ln -s $DOTFILES/vscode/settings.json $HOME/.config/Code/User/
+
 if [ -f /usr/local/bin/code ]; then
     rm /usr/local/bin/code
 fi
-ln -s /Applications/Visual Studio Code.app/Contents/Resources/app/bin/code /usr/local/bin
+ln -s $CODE /usr/local/bin
 ln -s $DOTFILES/backup_vscode.sh /usr/local/bin/backup_vscode
 
 echo "Installing VSCode extensions..."
 for X in $(< $DOTFILES/vscode/vscode-extensions.txt); do
-    /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --install-extension $X
+    $CODE --install-extension $X
 done
 
 # Atom
-echo "Installing Atom and saved settings..."
-brew cask install atom
-ln -s $DOTFILES/backup_atom.sh /usr/local/bin/backup_atom
-ln -s $DOTFILES/atom/config.cson $HOME/.atom/
-for X in $(< $DOTFILES/atom/atom-extensions.txt); do
-    apm install $X
-done
+# echo "Installing Atom and saved settings..."
+# curl -LSso https://github.com/atom/atom/releases/latest $HOME/Downloads/atom
+# ln -s $DOTFILES/backup_atom.sh /usr/local/bin/backup_atom
+# ln -s $DOTFILES/atom/config.cson $HOME/.atom/
+# for X in $(< $DOTFILES/atom/atom-extensions.txt); do
+#     apm install $X
+# done
 
 # Other stuff
 if [  ! -d ~/.ssh ] || [ ! -f ~/.ssh/id_rsa ]; then
@@ -204,11 +192,8 @@ if [ ! -d /usr/local/var/postgres ]; then
     postgres -D /usr/local/var/postgres
 fi
 
-# sets xcode for node
-sudo xcode-select -switch /usr/bin
 # set zsh as default
 chsh -s "$(which zsh)"
-git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
 mkdir -p ~/Projects
 chmod +x $DOTFILES/setup_mac.sh $DOTFILES/backup_vscode.sh $DOTFILES/backup_atom.sh $DOTFILES/backup_editors.sh
