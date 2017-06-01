@@ -23,7 +23,7 @@ plugins=(git git-flow sudo)
 # User configuration
 
 source $ZSH/oh-my-zsh.sh
-source ~/.zpath
+
 #aliases
 alias tmuxconfig="vim ~/.tmux.conf"
 alias zshconfig="vim ~/.zshrc"

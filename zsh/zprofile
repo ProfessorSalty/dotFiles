@@ -1,8 +1,9 @@
 # Setting PATH for Python 3.4
 # The orginal version is saved in .zprofile.pysave
-# if [ "$_SKIP_PROFILE" ]; then
-#     return 0
-# else
-#     export _SKIP_PROFILE=y
-# fi
+if [ "$_SKIP_PROFILE" ]; then
+    return 0
+else
+    export _SKIP_PROFILE=y
+fi
 
+source ~/.zpath

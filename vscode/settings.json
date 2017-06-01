@@ -8,9 +8,9 @@
         "**/.svn": true,
         "**/.hg": true,
         "**/.DS_Store": true,
-        "**/*.pyc": true
+        "**/*.pyc": true,
+        "**/*.class": true
     },
-    "files.autoSave": "onFocusChange",
     "eslint.autoFixOnSave": true,
     "window.zoomLevel": -1,
     "vsicons.projectDetection.autoReload": true,
@@ -20,18 +20,15 @@
     "workbench.colorTheme": "Afterglow Remastered",
     "workbench.iconTheme": "material-icon-theme",
     "vsicons.dontShowNewVersionMessage": true,
-    "[cpp]": {
-        "editor.quickSuggestions": false
-    },
-    "[c]": {
-        "editor.quickSuggestions": false
-    },
     "latex-workshop.chktex.enabled": false,
     "files.associations": {
         "zshrc": "shellscript",
         "zpath": "shellscript",
         "vimrc": "shellscript",
-        "populate_movies": "javascript"
+        "populate_movies": "javascript",
+        "*.html": "html",
+        "zprofile": "shellscript"
     },
-    "javascript.implicitProjectConfig.checkJs": true
+    "javascript.implicitProjectConfig.checkJs": true,
+    "java.errors.incompleteClasspath.severity": "ignore"
 }
