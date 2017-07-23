@@ -61,7 +61,7 @@
 			<key>Git</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:10:54Z</date>
+				<date>2017-07-16T14:48:49Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -193,7 +193,7 @@
 			<key>iTerm2</key>
 			<dict>
 				<key>date</key>
-				<date>2016-08-23T14:10:55Z</date>
+				<date>2017-07-06T16:12:00Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -273,7 +273,36 @@
 	<key>DHGitHubRepo</key>
 	<dict>
 		<key>installed</key>
-		<dict/>
+		<dict>
+			<key>junit-team/junit4</key>
+			<dict>
+				<key>date</key>
+				<date>2017-07-16T14:49:13Z</date>
+				<key>entry</key>
+				<dict>
+					<key>name</key>
+					<string>junit-team/junit4</string>
+					<key>platform</key>
+					<string>github</string>
+					<key>uniqueIdentifier</key>
+					<string>junit-team/junit4</string>
+				</dict>
+			</dict>
+			<key>junit-team/junit5</key>
+			<dict>
+				<key>date</key>
+				<date>2017-07-22T17:17:54Z</date>
+				<key>entry</key>
+				<dict>
+					<key>name</key>
+					<string>junit-team/junit5</string>
+					<key>platform</key>
+					<string>github</string>
+					<key>uniqueIdentifier</key>
+					<string>junit-team/junit5</string>
+				</dict>
+			</dict>
+		</dict>
 		<key>uninstalled</key>
 		<dict/>
 	</dict>
@@ -349,7 +378,7 @@
 			<key>shoulda-matchers</key>
 			<dict>
 				<key>date</key>
-				<date>2017-05-08T23:46:13Z</date>
+				<date>2017-07-16T14:49:39Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>
@@ -413,7 +442,7 @@
 			<key>Jest</key>
 			<dict>
 				<key>date</key>
-				<date>2017-05-08T23:45:32Z</date>
+				<date>2017-06-05T21:23:49Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -482,6 +511,11 @@
 			<dict>
 				<key>date</key>
 				<date>2017-05-08T23:45:37Z</date>
+			</dict>
+			<key>http://kapeli.com/feeds/Angular.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2017-06-21T17:31:58Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Apache_HTTP_Server.xml</key>
 			<dict>
@@ -563,10 +597,25 @@
 				<key>date</key>
 				<date>2017-05-08T23:45:33Z</date>
 			</dict>
+			<key>http://kapeli.com/feeds/JavaFX.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2017-06-01T22:30:15Z</date>
+			</dict>
 			<key>http://kapeli.com/feeds/JavaScript.xml</key>
 			<dict>
 				<key>date</key>
 				<date>2016-08-23T14:12:36Z</date>
+			</dict>
+			<key>http://kapeli.com/feeds/Java_SE7.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2017-06-01T22:30:12Z</date>
+			</dict>
+			<key>http://kapeli.com/feeds/Java_SE8.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2017-06-01T22:30:08Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/LaTeX.xml</key>
 			<dict>

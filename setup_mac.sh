@@ -1,6 +1,32 @@
 #! /bin/bash
 
+collectInfo() {
+    echo "We'll set a lock screen message for anyone who finds your laptop."
+    echo "Please enter a valid phone number: "
+    read -r phonenumber
+    echo "Please enter a valid email: "
+    read -r contactemail
+    msg="If found, please call $phonenumber or email $contactemail"
+    if sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "'${msg}'"; then
+        echo "Data entered"
+        defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText
+    else
+        echo "There was an issue with your input.  Please try again"
+        collectInfo
+    fi
+}
+
 killall 'System Preferences' &> /dev/null
+
+# prevent autoplaying videos in Safair & Safari preview
+
+defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
+
+defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
+
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+
+defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
 
 #enable dark mode
 defaults write ~/Library/Preferences/.GlobalPreferences AppleInterfaceStyle Dark
@@ -74,12 +100,7 @@ sudo defaults write /Library/Preferences/com.apple.driver.AppleIRController.plis
 
 # Set lock window message
 if [ -z "$(defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText)" ]; then
-  echo "We'll set a lock screen message for anyone who finds your laptop."
-  echo "Please enter a valid phone number: "
-  read phonenumber
-  echo "Please enter a valid email: "
-  read contactemail
-  sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "If found, please call $phonenumber or email $contactemail"
+  collectInfo
 fi
 
 # DEFAULT_PCNAME=`sudo scutil --get ComputerName`

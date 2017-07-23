@@ -9,10 +9,11 @@
         "**/.hg": true,
         "**/.DS_Store": true,
         "**/*.pyc": true,
-        "**/*.class": true
+        "**/*.class": true,
+        "**/*.vm": true
     },
     "eslint.autoFixOnSave": true,
-    "window.zoomLevel": -1,
+    "window.zoomLevel": -2,
     "vsicons.projectDetection.autoReload": true,
     "extensions.autoUpdate": true,
     "css.validate": false,
@@ -30,5 +31,15 @@
         "zprofile": "shellscript"
     },
     "javascript.implicitProjectConfig.checkJs": true,
-    "java.errors.incompleteClasspath.severity": "ignore"
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "latex-workshop.latex.toolchain": [{
+        "command": "xelatex",
+        "args": [
+            "%DOC%.tex"
+        ]
+    }],
+    "editor.minimap.enabled": false,
+    "editor.wordBasedSuggestions": false,
+    "latex-workshop.version": "2.10.0",
+    "editor.wordWrap": "on"
 }

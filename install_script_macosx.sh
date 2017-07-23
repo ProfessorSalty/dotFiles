@@ -66,7 +66,7 @@ pip install venv notebook
 pip install ipython[zmq,qtconsole,notebook,test]
 
 echo "Installing NPM modules..."
-sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less
+sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015
 
 #dotNet
 if [ -z "$(which dotnet)" ]; then
