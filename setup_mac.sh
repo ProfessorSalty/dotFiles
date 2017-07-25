@@ -18,16 +18,6 @@ collectInfo() {
 
 killall 'System Preferences' &> /dev/null
 
-# prevent autoplaying videos in Safair & Safari preview
-
-defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
-
-defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
-
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
-
-defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
-
 #enable dark mode
 defaults write ~/Library/Preferences/.GlobalPreferences AppleInterfaceStyle Dark
 
