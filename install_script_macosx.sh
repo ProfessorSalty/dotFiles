@@ -121,7 +121,6 @@ for FILEPATH in $DOTFILES/rcfiles/*; do
     fi
     ln -s $FILEPATH ~/.$FILENAME
 done
-
 if [ ! -d ~/.config/powerline/themes/tmux ]; then
     echo "Linking tmux powerline theme file..."
     mkdir -p ~/.config/powerline/themes/tmux
