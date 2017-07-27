@@ -74,8 +74,8 @@ if [ -z "$(which pip)" ]; then
     sudo easy_install pip
 fi
 
-pip install --user --upgrade distribute
-pip install --user --upgrade pip
+pip install --upgrade distribute
+pip install --upgrade pip
 
 echo "Installing NPM modules..."
 sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015
@@ -176,10 +176,6 @@ echo "Installing VSCode and saved settings..."
 if [ ! -d /Applications/Visual\ Studio\ Code.app ]; then
     brew cask install visual-studio-code
 fi
-if [ -f ~/Library/Application\ Support/Code/User/settings.json ]; then
-    rm ~/Library/Application\ Support/Code/User/settings.json
-fi
-ln -s $DOTFILES/vscode/settings.json ~/Library/Application\ Support/Code/User
 if [ -f /usr/local/bin/code ]; then
     rm /usr/local/bin/code
 fi
@@ -189,7 +185,10 @@ fi
 if [ ! -f /usr/local/bin/backup_vscode ]; then
     ln -s $DOTFILES/backup_vscode.sh /usr/local/bin/backup_vscode
 fi
-
+if [ -f ~/Library/Application\ Support/Code/User/settings.json ]; then
+    rm ~/Library/Application\ Support/Code/User/settings.json
+fi
+ln -s $DOTFILES/vscode/settings.json ~/Library/Application\ Support/Code/User
 echo "Installing VSCode extensions..."
 for X in $(< $DOTFILES/vscode/vscode-extensions.txt); do
     /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --install-extension $X

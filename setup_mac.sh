@@ -7,7 +7,7 @@ collectInfo() {
     echo "Please enter a valid email: "
     read -r contactemail
     msg="If found, please call $phonenumber or email $contactemail"
-    if sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "'${msg}'"; then
+    if sudo defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText "'${msg}'"; then
         echo "Data entered"
         defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText
     else
@@ -51,7 +51,7 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local
+#/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local
 
 # Disable automatic termination of inactive apps
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
