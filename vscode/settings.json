@@ -13,13 +13,13 @@
         "**/*.vm": true
     },
     "eslint.autoFixOnSave": true,
-    "window.zoomLevel": -2,
+    "window.zoomLevel": 0,
     "vsicons.projectDetection.autoReload": true,
     "extensions.autoUpdate": true,
     "css.validate": false,
     "scss.validate": false,
     "workbench.colorTheme": "Afterglow Remastered",
-    "workbench.iconTheme": "material-icon-theme",
+    "workbench.iconTheme": "vscode-icons",
     "vsicons.dontShowNewVersionMessage": true,
     "latex-workshop.chktex.enabled": false,
     "files.associations": {
@@ -41,5 +41,6 @@
     "editor.minimap.enabled": false,
     "editor.wordBasedSuggestions": false,
     "latex-workshop.version": "2.10.0",
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "vsicons.dontShowNewVersionMessage": true
 }

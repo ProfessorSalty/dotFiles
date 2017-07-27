@@ -57,10 +57,10 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
 # Restart automatically if the computer freezes
-sudo systemsetup -setrestartfreeze on
+sudo /usr/sbin/systemsetup  -setrestartfreeze on
 
 # Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
+sudo /usr/sbin/systemsetup -setcomputersleep Off > /dev/null
 
 # Disable hibernation
 sudo pmset -a hibernatemode 0
@@ -137,7 +137,7 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Set a blazingly fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -float 0.1
+#defaults write NSGlobalDomain KeyRepeat -float 0.1
 
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false

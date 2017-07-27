@@ -3,9 +3,19 @@
 # TODO
 # Colorize the output
 DOTFILES=$HOME/.dotFiles/
+if  [ ! -d  /Applications/Xcode.app ]; then
+    echo "Xcode is not installed.  Please install Xcode from the App Store before running this script."
+    exit 1
+fi
 #Make sure we don't get blocked by xcode license
-xcode-select --install
-sudo xcodebuild -license accept
+if [ -z "$(xcode-select -p)" ]; then
+    xcode-select --install
+    sudo xcodebuild -license accept
+else
+    echo "Xcode command line tools are already installed"
+fi
+
+
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
     echo "Please enter your name (for git config): "
@@ -59,11 +69,13 @@ if [ ! -d ~/.nodenv ]; then
     nodenv global "$nodeversion"
 fi
 
-pip install --upgrade distribute
-pip install --upgrade pip
+if [ -z "$(which pip)" ]; then
+    #need to install pip
+    sudo easy_install pip
+fi
 
-pip install venv notebook
-pip install ipython[zmq,qtconsole,notebook,test]
+pip install --user --upgrade distribute
+pip install --user --upgrade pip
 
 echo "Installing NPM modules..."
 sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015
@@ -84,7 +96,7 @@ echo "Installing important gems..."
 gem install rubocop haml scss_lint rails bundler capistrano tmuxinator travis
 
 echo "Installing powerline-status..."
-pip install powerline-status
+pip install --user powerline-status
 
 echo "Installing powerline fonts..."
 git clone --depth=1 https://github.com/powerline/fonts.git ~/Downloads/powerline-fonts
@@ -161,16 +173,22 @@ cd
 
 # Visual studio code
 echo "Installing VSCode and saved settings..."
+if [ ! -d /Applications/Visual\ Studio\ Code.app ]; then
+    brew cask install visual-studio-code
+fi
 if [ -f ~/Library/Application\ Support/Code/User/settings.json ]; then
     rm ~/Library/Application\ Support/Code/User/settings.json
 fi
 ln -s $DOTFILES/vscode/settings.json ~/Library/Application\ Support/Code/User
-brew cask install visual-studio-code
 if [ -f /usr/local/bin/code ]; then
     rm /usr/local/bin/code
 fi
-ln -s /Applications/Visual Studio Code.app/Contents/Resources/app/bin/code /usr/local/bin
-ln -s $DOTFILES/backup_vscode.sh /usr/local/bin/backup_vscode
+if  [ ! -f /usr/local/bin/code ]; then
+    ln -s /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code /usr/local/bin
+fi
+if [ ! -f /usr/local/bin/backup_vscode ]; then
+    ln -s $DOTFILES/backup_vscode.sh /usr/local/bin/backup_vscode
+fi
 
 echo "Installing VSCode extensions..."
 for X in $(< $DOTFILES/vscode/vscode-extensions.txt); do
@@ -179,12 +197,18 @@ done
 
 # Atom
 echo "Installing Atom and saved settings..."
-brew cask install atom
-ln -s $DOTFILES/backup_atom.sh /usr/local/bin/backup_atom
-ln -s $DOTFILES/atom/config.cson $HOME/.atom/
-for X in $(< $DOTFILES/atom/atom-extensions.txt); do
-    apm install $X
-done
+if [ ! -d /Applications/Atom.app ]; then
+    brew cask install atom
+fi
+if [ ! -f /usr/.ocal/bin/backup_atom ]; then
+    ln -s $DOTFILES/backup_atom.sh /usr/local/bin/backup_atom
+fi
+if [ ! -f $HOME/.atom/config.cson ]; then
+    ln -s $DOTFILES/atom/config.cson $HOME/.atom/
+fi
+if [ ! -d $HOME/.atom/packages ]; then
+    apm install --package-name $DOTFILES/atom/atom-extensions.txt
+fi
 
 # Other stuff
 if [  ! -d ~/.ssh ] || [ ! -f ~/.ssh/id_rsa ]; then
@@ -211,6 +235,5 @@ chsh -s "$(which zsh)"
 git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
 mkdir -p ~/Projects
-chmod +x $DOTFILES/setup_mac.sh $DOTFILES/backup_vscode.sh $DOTFILES/backup_atom.sh $DOTFILES/backup_editors.sh
 ln -s $DOTFILES/backup_editors.sh /usr/local/bin/backup_editors
 echo "Install and setup complete.  Now run the setup script."
