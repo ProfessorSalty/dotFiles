@@ -1,4 +1,4 @@
-export PATH=$HOME/.nodenv/bin:$HOME/.rbenv/bin:/opt/bin:/Library/TeX/texbin:/Library/bin:/usr/local/share/npm/bin:/usr/local/bin:$PATH
+export PATH=/opt/bin:/Library/TeX/texbin:/usr/local/share/npm/bin:/usr/local/bin:/usr/local/share/python/:$PATH
 export MANPATH=/usr/local/man:$MANPATH
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"

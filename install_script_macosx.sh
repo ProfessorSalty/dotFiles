@@ -3,6 +3,8 @@
 # TODO
 # Colorize the output
 DOTFILES=$HOME/.dotFiles/
+mkdir -p ~/.config
+
 if  [ ! -d  /Applications/Xcode.app ]; then
     echo "Xcode is not installed.  Please install Xcode from the App Store before running this script."
     exit 1
@@ -74,8 +76,8 @@ if [ -z "$(which pip)" ]; then
     sudo easy_install pip
 fi
 
-pip install --upgrade distribute
-pip install --upgrade pip
+pip3 install --upgrade distribute
+pip3 install --upgrade pip
 
 echo "Installing NPM modules..."
 sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015
@@ -96,7 +98,7 @@ echo "Installing important gems..."
 gem install rubocop haml scss_lint rails bundler capistrano tmuxinator travis
 
 echo "Installing powerline-status..."
-pip install --user powerline-status
+pip3 install  powerline-status
 
 echo "Installing powerline fonts..."
 git clone --depth=1 https://github.com/powerline/fonts.git ~/Downloads/powerline-fonts
