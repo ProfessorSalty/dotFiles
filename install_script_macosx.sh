@@ -215,6 +215,10 @@ if [  ! -d ~/.ssh ] || [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -t rsa -b 4096
 fi
 
+if [ ! -f ~/.ssh/config ]; then
+    ln -s $DOTFILES/ssh/config ~/.ssh/
+fi
+
 if [ ! -d /usr/local/var/mysql ]; then
     echo "Setting up MySQL...."
     unset TMPDIR
