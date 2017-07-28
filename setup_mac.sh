@@ -7,9 +7,9 @@ collectInfo() {
     echo "Please enter a valid email: "
     read -r contactemail
     msg="If found, please call $phonenumber or email $contactemail"
-    if sudo defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText "'${msg}'"; then
+    if sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "'${msg}'"; then
         echo "Data entered"
-        defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText
+        #defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText
     else
         echo "There was an issue with your input.  Please try again"
         collectInfo

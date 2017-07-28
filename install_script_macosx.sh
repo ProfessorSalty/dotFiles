@@ -186,8 +186,8 @@ fi
 if [ ! -f /usr/local/bin/backup_vscode ]; then
     ln -s $DOTFILES/backup_vscode.sh /usr/local/bin/backup_vscode
 fi
-if [ -f ~/Library/Application\ Support/Code/User/settings.json ]; then
-    rm ~/Library/Application\ Support/Code/User/settings.json
+if [[ -L "$HOME/Library/Application Support/Code/User/settings.json" || -e  "$HOME/Library/Application Support/Code/User/settings.json" ]]; then
+    rm $HOME/Library/Application\ Support/Code/User/settings.json
 fi
 ln -s $DOTFILES/vscode/settings.json ~/Library/Application\ Support/Code/User
 echo "Installing VSCode extensions..."
