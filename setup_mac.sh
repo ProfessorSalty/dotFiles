@@ -146,7 +146,7 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write com.apple.BezelServices kDimTime -int 300
 
 # Multitouch settings
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -int 1
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad DragLock -int 0
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -int 0
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 0
@@ -170,14 +170,13 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadTwoFin
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad USBMouseStopsTrackpad -int 0
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad UserPreferences -int 1
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad version -int 5
-
 # Disable mouse acceleration
 defaults write .GlobalPreferences com.apple.mouse.scaling -1
 
 # Three finger page navigation
 # Trackpad: swipe between pages with three fingers
 defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -int 0
-# defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1
+
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
 
 ###############################################################################
