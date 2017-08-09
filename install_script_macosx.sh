@@ -40,7 +40,7 @@ brew update
 echo "Installing important packages..."
 
 brew tap homebrew/science
-brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb macvim reattach-to-user-namespace tmux zsh python tree rbenv nodenv imagemagick shellcheck postgres mysql heroku-toolbelt redis
+brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb macvim reattach-to-user-namespace tmux zsh python tree rbenv nodenv imagemagick shellcheck postgres mysql heroku-toolbelt redis go
 brew install wget --with-iri
 brew install vim --override-system-vi
 brew cask install gpgtools

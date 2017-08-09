@@ -1,2 +1,12 @@
 Host *
     UseKeychain yes
+
+Host sm_local
+	HostName 192.168.1.99
+	User gregorysmith
+	port 55455
+
+Host gregoftheweb.com
+	Hostname gregoftheweb.com
+	User=webadmin
+	IdentityFile ~/.ssh/id_rsa
