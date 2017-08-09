@@ -19,7 +19,7 @@
     "css.validate": false,
     "scss.validate": false,
     "workbench.colorTheme": "Afterglow Remastered",
-    "workbench.iconTheme": "vscode-icons",
+    "workbench.iconTheme": "material-icon-theme",
     "vsicons.dontShowNewVersionMessage": true,
     "latex-workshop.chktex.enabled": false,
     "files.associations": {
