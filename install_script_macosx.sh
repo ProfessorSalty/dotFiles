@@ -238,6 +238,6 @@ sudo xcode-select -switch /usr/bin
 chsh -s "$(which zsh)"
 git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
-mkdir -p ~/Projects
+mkdir -p ~/Projects/go
 ln -s $DOTFILES/backup_editors.sh /usr/local/bin/backup_editors
 echo "Install and setup complete.  Now run the setup script."
