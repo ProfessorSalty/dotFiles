@@ -1,4 +1,4 @@
-#!ng.org/x/tools/cmd/goimports/usr/bin/env bash100
+#!/usr/bin/env bash
 
 # TODO
 # Colorize the output
