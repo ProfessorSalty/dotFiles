@@ -2,9 +2,14 @@
 
 # TODO
 # Colorize the output
+if [ ! -d $HOME/Projects/go ]; then
+    mkdir -p ~/Projects/go/bin
+fi
+
 DOTFILES=$HOME/.dotFiles/
 XDG_CONFIG_HOME=$HOME/.config
 GOPATH=$HOME/Projects/go
+export GOPATH
 
 OS="unknown"
 case "$OSTYPE" in
@@ -87,9 +92,6 @@ elif [ $OS == "LINUX" ]; then
     #html-tidy5
     wget https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
     sudo dpkg -i tidy-5.4.0-64bit.deb
-fi
-if [ ! -d $HOME/Projects/go ]; then
-    mkdir -p ~/Projects/go/bin
 fi
 go get -u github.com/nsf/gocode
 go get -u github.com/ramya-rao-a/go-outline
