@@ -49,6 +49,11 @@ function take() {
 if [ "$(uname)" = "Darwin" ]; then
     source $DOTFILES/mac_commands.sh
 fi
-
+# make nvim default
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

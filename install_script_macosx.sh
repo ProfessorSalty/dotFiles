@@ -1,9 +1,10 @@
-#!/usr/bin/env bash
+#!ng.org/x/tools/cmd/goimports/usr/bin/env bash
 
 # TODO
 # Colorize the output
 DOTFILES=$HOME/.dotFiles/
-mkdir -p ~/.config
+XDG_CONFIG_HOME=$HOME/.config
+
 
 if  [ ! -d  /Applications/Xcode.app ]; then
     echo "Xcode is not installed.  Please install Xcode from the App Store before running this script."
@@ -17,10 +18,14 @@ else
     echo "Xcode command line tools are already installed"
 fi
 
+if [! -d $HOME/.config ]; then
+    echo "Adding ~/.config..."
+    mkdir -p $XDG_CONFIG_HOME
+fi
 
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
-    echo "Please enter your name (for git config): "
+    echo "Please enter your full name (for git config): "
     read -r gitname
     git config --global user.name "$gitname"
 fi
@@ -56,7 +61,7 @@ fi
 if [ ! -d ~/.rbenv ]; then
     echo "Initializing rbenv..."
     rbenv init
-    rubyversion=$(rbenv install -l | grep -v - | tail -1)
+    rubyversion=$(rbenv install -l | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
     echo "Downloading Ruby $rubyversion..."
     rbenv install "$rubyversion"
     rbenv global "$rubyversion"
@@ -80,7 +85,7 @@ pip3 install --upgrade distribute
 pip3 install --upgrade pip
 
 echo "Installing NPM modules..."
-sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015
+sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify
 
 #dotNet
 if [ -z "$(which dotnet)" ]; then
@@ -232,6 +237,18 @@ if [ ! -d /usr/local/var/postgres ]; then
     postgres -D /usr/local/var/postgres
 fi
 
+# Setup NeoVim
+if [ ! -f $XDG_CONFIG_HOME/nvim/.vim ]; then
+    ln -s ~/.vim $XDG_CONFIG_HOME/nvim
+fi
+
+if [ ! -f $XDG_CONFIG_HOME/nvim/init.vim ];
+    ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+fi
+
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # sets xcode for node
 sudo xcode-select -switch /usr/bin
 # set zsh as default
@@ -250,6 +267,7 @@ go get -u github.com/fatih/gomodifytags
 go get -u github.com/josharian/impl
 go get -u github.com/rogpeppe/godef
 go get -u sourcegraph.com/sqs/goreturns
+go get -u golang.org/x/tools/cmd/goimports
 go get -u github.com/golang/lint/golint
 go get -u github.com/cweill/gotests/...
 ln -s $DOTFILES/backup_editors.sh /usr/local/bin/backup_editors
