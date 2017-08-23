@@ -5,7 +5,6 @@
 DOTFILES=$HOME/.dotFiles/
 XDG_CONFIG_HOME=$HOME/.config
 GOPATH=$HOME/Projects/go
-export GOPATH
 
 OS="unknown"
 case "$OSTYPE" in
