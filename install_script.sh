@@ -4,7 +4,8 @@
 # Colorize the output
 DOTFILES=$HOME/.dotFiles/
 XDG_CONFIG_HOME=$HOME/.config
-export GOPATH=$HOME/Projects/go
+GOPATH=$HOME/Projects/go
+export GOPATH
 
 OS="unknown"
 case "$OSTYPE" in
