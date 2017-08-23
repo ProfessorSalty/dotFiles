@@ -1,24 +1,32 @@
-#!ng.org/x/tools/cmd/goimports/usr/bin/env bash
+#!ng.org/x/tools/cmd/goimports/usr/bin/env bash100
 
 # TODO
 # Colorize the output
 DOTFILES=$HOME/.dotFiles/
 XDG_CONFIG_HOME=$HOME/.config
+export $GOPATH=$HOME/Projects/go
 
+OS="unknown"
+case "$OSTYPE" in
+    linux*) OS="LINUX";;
+    darwin*) OS="MAC";;
+esac
 
-if  [ ! -d  /Applications/Xcode.app ]; then
+if  [ $OS == "MAC" ] && [ ! -d  /Applications/Xcode.app ]; then
     echo "Xcode is not installed.  Please install Xcode from the App Store before running this script."
     exit 1
 fi
 #Make sure we don't get blocked by xcode license
-if [ -z "$(xcode-select -p)" ]; then
-    xcode-select --install
-    sudo xcodebuild -license accept
-else
-    echo "Xcode command line tools are already installed"
+if [ $OS == "MAC" ]; then
+    if [ -z "$(xcode-select -p)" ]; then
+        xcode-select --install
+        sudo xcodebuild -license accept
+    else
+        echo "Xcode command line tools are already installed"
+    fi
 fi
 
-if [! -d $HOME/.config ]; then
+if [ ! -d $HOME/.config ]; then
     echo "Adding ~/.config..."
     mkdir -p $XDG_CONFIG_HOME
 fi
@@ -35,22 +43,67 @@ if  [ -z "$(git config --global user.email)" ]; then
     git config --global user.email "$gitemail"
 fi
 
-#Install Homebrew
-if [ -z "$(which brew)" ]; then
-    echo "Installing Homebrew..."
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-echo "Updating Homebrew..."
-brew update
-echo "Installing important packages..."
+if [ $OS == "MAC" ]; then
+    #Install Homebrew
+    if [ -z "$(which brew)" ]; then
+        echo "Installing Homebrew..."
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+    echo "Updating Homebrew..."
+    brew update
+    echo "Installing important packages..."
 
-brew tap homebrew/science
-brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb macvim reattach-to-user-namespace tmux zsh python tree rbenv nodenv imagemagick shellcheck postgres mysql heroku-toolbelt redis go
-brew install wget --with-iri
-brew install vim --override-system-vi
-brew cask install gpgtools
-echo "Cleaning up..."
-brew cleanup
+    brew tap homebrew/science
+    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go
+    brew install wget --with-iri
+    brew install vim --override-system-vi
+    brew cask install gpgtools
+    echo "Cleaning up..."
+    brew cleanup
+elif [ $OS == "LINUX" ]; then
+    # for Heroku
+    echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
+    wget -qO- https://cli-assets.heroku.com/apt/release.key | apt-key add -
+
+    # for GO
+    sudo add-apt-repository ppa:longsleep/golang-backports
+    apt-get update
+    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck golang-go mysql-server heroku python3-pip tree
+    sudo mysql_secure_installation
+    # build hub
+    git clone https://github.com/github/hub.git
+    cd hub || return
+    make install prefix=/usr/local
+    cd .. || return
+    rm -rf hub
+    #build redis
+    curl -O http://download.redis.io/redis-stable.tar.gz
+    tar xzvf redis-stable.tar.gz
+    cd redis-stable || return
+    make
+    sudo make install
+    sudo mkdir /etc/redis
+    sudo cp /tmp/redis-stable/redis.conf /etc/redis
+    #html-tidy5
+    wget https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
+    sudo dpkg -i tidy-5.4.0-64bit.deb
+fi
+if [ ! -d $HOME/Projects/go ]; then
+    mkdir -p ~/Projects/go/bin
+fi
+go get -u github.com/nsf/gocode
+go get -u github.com/ramya-rao-a/go-outline
+go get -u github.com/tpng/gopkgs
+go get -u github.com/acroca/go-symbols
+go get -u golang.org/x/tools/cmd/guru
+go get -u golang.org/x/tools/cmd/gorename
+go get -u github.com/fatih/gomodifytags
+go get -u github.com/josharian/impl
+go get -u github.com/rogpeppe/godef
+go get -u sourcegraph.com/sqs/goreturns
+go get -u golang.org/x/tools/cmd/goimports
+go get -u github.com/golang/lint/golint
+go get -u github.com/cweill/gotests/...
 
 #get oh-my-zsh
 if [ ! -d ~/.oh-my-zsh ]; then
@@ -59,6 +112,7 @@ if [ ! -d ~/.oh-my-zsh ]; then
 fi
 
 if [ ! -d ~/.rbenv ]; then
+    git clone --depth=1 https://github.com/rbenv/rbenv.git $HOME/.rbenv
     echo "Initializing rbenv..."
     rbenv init
     rubyversion=$(rbenv install -l | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
@@ -68,6 +122,7 @@ if [ ! -d ~/.rbenv ]; then
 fi
 
 if [ ! -d ~/.nodenv ]; then
+    git clone --depth=1 https://github.com/nodenv/nodenv.git ~/.nodenv
     echo "Initializing nodenv..."
     nodenv init
     nodeversion=$(nodenv install -l | grep -E "^[^a-zA-Z]*([0-9]+\.){2}[0-9]+$" | tail -1 | tr -d ' ')
@@ -167,54 +222,6 @@ if [ -f ~/.zshenv ]; then
 fi
 ln -s $DOTFILES/zsh/zshenv ~/.zshenv
 
-# setup vim
-if [ -f ~/.vim ]; then
-    rm -rf ~/.vim
-fi
-mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-cd ~/.vim/bundle
-git clone git://github.com/tpope/vim-sensible.git
-cd
-
-# Visual studio code
-echo "Installing VSCode and saved settings..."
-if [ ! -d /Applications/Visual\ Studio\ Code.app ]; then
-    brew cask install visual-studio-code
-fi
-if [ -f /usr/local/bin/code ]; then
-    rm /usr/local/bin/code
-fi
-if  [ ! -f /usr/local/bin/code ]; then
-    ln -s /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code /usr/local/bin
-fi
-if [ ! -f /usr/local/bin/backup_vscode ]; then
-    ln -s $DOTFILES/backup_vscode.sh /usr/local/bin/backup_vscode
-fi
-if [[ -L "$HOME/Library/Application Support/Code/User/settings.json" || -e  "$HOME/Library/Application Support/Code/User/settings.json" ]]; then
-    rm $HOME/Library/Application\ Support/Code/User/settings.json
-fi
-ln -s $DOTFILES/vscode/settings.json ~/Library/Application\ Support/Code/User
-echo "Installing VSCode extensions..."
-for X in $(< $DOTFILES/vscode/vscode-extensions.txt); do
-    /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --install-extension $X
-done
-
-# Atom
-echo "Installing Atom and saved settings..."
-if [ ! -d /Applications/Atom.app ]; then
-    brew cask install atom
-fi
-if [ ! -f /usr/.ocal/bin/backup_atom ]; then
-    ln -s $DOTFILES/backup_atom.sh /usr/local/bin/backup_atom
-fi
-if [ ! -f $HOME/.atom/config.cson ]; then
-    ln -s $DOTFILES/atom/config.cson $HOME/.atom/
-fi
-if [ ! -d $HOME/.atom/packages ]; then
-    apm install --package-name $DOTFILES/atom/atom-extensions.txt
-fi
-
 # Other stuff
 if [  ! -d ~/.ssh ] || [ ! -f ~/.ssh/id_rsa ]; then
     echo "Generating RSA keypair - you'll need to enter a passphrase..."
@@ -242,33 +249,21 @@ if [ ! -f $XDG_CONFIG_HOME/nvim/.vim ]; then
     ln -s ~/.vim $XDG_CONFIG_HOME/nvim
 fi
 
-if [ ! -f $XDG_CONFIG_HOME/nvim/init.vim ];
+if [ ! -f $XDG_CONFIG_HOME/nvim/init.vim ]; then
     ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 fi
-
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+if [ ! -d $HOME/.local/share/nvim/site/autoload ]; then
+ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
 
-# sets xcode for node
-sudo xcode-select -switch /usr/bin
+if [ $OS == "MAC" ]; then
+    # sets xcode for node
+    sudo xcode-select -switch /usr/bin
+fi
+
 # set zsh as default
 chsh -s "$(which zsh)"
 git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
-export $GOPATH=$HOME/Projects/go
-mkdir -p ~/Projects/go/bin
-go get -u github.com/nsf/gocode
-go get -u github.com/ramya-rao-a/go-outline
-go get -u github.com/tpng/gopkgs
-go get -u github.com/acroca/go-symbols
-go get -u golang.org/x/tools/cmd/guru
-go get -u golang.org/x/tools/cmd/gorename
-go get -u github.com/fatih/gomodifytags
-go get -u github.com/josharian/impl
-go get -u github.com/rogpeppe/godef
-go get -u sourcegraph.com/sqs/goreturns
-go get -u golang.org/x/tools/cmd/goimports
-go get -u github.com/golang/lint/golint
-go get -u github.com/cweill/gotests/...
-ln -s $DOTFILES/backup_editors.sh /usr/local/bin/backup_editors
 echo "Install and setup complete.  Now run the setup script."

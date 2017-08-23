@@ -1,10 +1,11 @@
+filetype plugin on
 set number
 set ruler
 set mouse=a
 set nocompatible
 syntax on
 set cursorline
-set nowrap
+set wrap
 set encoding=utf8
 set backspace=indent,eol,start
 " Set Proper Tabs
@@ -43,6 +44,7 @@ Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
+Plug 'scrooloose/nerdcommenter'
 " Plug 'neovim/node-host'
 Plug 'mklabs/mdn.vim'
 Plug 'Chiel92/vim-autoformat'
@@ -122,6 +124,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 command! QuitAll NERDTreeClose | quit
 cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'QuitAll' : 'q')<CR>
+map <F9> :set wrap!<cr>
 
 " Neomake settings
 autocmd! BufWritePost * Neomake
