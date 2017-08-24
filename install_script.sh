@@ -92,6 +92,8 @@ elif [ $OS == "LINUX" ]; then
     #html-tidy5
     wget https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
     sudo dpkg -i tidy-5.4.0-64bit.deb
+    rm tidy-5.4.0-64bit.deb
+
 fi
 go get -u github.com/nsf/gocode
 go get -u github.com/ramya-rao-a/go-outline
