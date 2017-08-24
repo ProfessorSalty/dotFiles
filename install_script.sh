@@ -6,7 +6,7 @@ if [ ! -d $HOME/Projects/go ]; then
     mkdir -p ~/Projects/go/bin
 fi
 
-DOTFILES=$HOME/.dotFiles/
+DOTFILES=$HOME/.dotFiles
 XDG_CONFIG_HOME=$HOME/.config
 GOPATH=$HOME/Projects/go
 export GOPATH
@@ -205,6 +205,10 @@ if [ -f ~/.zshrc ]; then
     rm ~/.zshrc
 fi
 ln -s $DOTFILES/zsh/zshrc ~/.zshrc
+if [ -f ~/.config/nvim/init.vim ]; then
+    rm ~/.config/nvim/init.vim
+fi
+ln -s $DOTFILES/rcfiles/vimrc ~/.config/nvim/init.vim
 echo "Linking zprofile..."
 if [ -f ~/.zprofile ]; then
     rm ~/.zprofile
@@ -268,6 +272,11 @@ fi
 
 # set zsh as default
 chsh -s "$(which zsh)"
+# install vim-plug
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+vim +PlugInstall +qall
 git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
 echo "Install and setup complete.  Now run the setup script."

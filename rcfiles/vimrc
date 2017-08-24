@@ -36,7 +36,6 @@ Plug 'wokalski/autocomplete-flow'
 Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] } 
 Plug 'digitaltoad/vim-pug'
 Plug 'jelera/vim-javascript-syntax'
-" Plug 'vim-airline/vim-airline-themes'
 " For func argument completion
 " Plug 'Shougo/neosnippet'
 " Plug 'Shougo/neosnippet-snippets'
@@ -46,8 +45,6 @@ Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
 Plug 'scrooloose/nerdcommenter'
-" Plug 'neovim/node-host'
-Plug 'mklabs/mdn.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'moll/vim-node'
 Plug 'neomake/neomake', { 'on': 'Neomake' }
@@ -175,7 +172,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-colorscheme afterglow
+silent! colorscheme afterglow
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Javascomplete Bindings
  nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)

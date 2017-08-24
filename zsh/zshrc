@@ -28,11 +28,7 @@ source $ZSH/oh-my-zsh.sh
 alias tmuxconfig="vim ~/.tmux.conf"
 alias zshconfig="vim ~/.zshrc"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-if [ $OSTYPE == "darwin"* ]; then
-    alias ls="gls -al --color=auto"
-else
-    alias ls="ls -al --color=auto"
-fi
+alias ls="ls -al --color=auto"
 ####Package managers####
 alias nis="npm install --save"
 alias nid="npm install --save-dev"
@@ -50,7 +46,7 @@ function take() {
     cd $1
 }
 
-if [ "$(uname)" = "Darwin" ]; then
+if [[ $OSTYPE = "darwin"* ]]; then
     source $DOTFILES/mac_commands.sh
 fi
 # make nvim default
