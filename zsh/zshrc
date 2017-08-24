@@ -28,8 +28,10 @@ source $ZSH/oh-my-zsh.sh
 alias tmuxconfig="vim ~/.tmux.conf"
 alias zshconfig="vim ~/.zshrc"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-if [ $OSTYPE == "darwin" ]; then
+if [ $OSTYPE == "darwin"* ]; then
     alias ls="gls -al --color=auto"
+else
+    alias ls="ls -al --color=auto"
 fi
 ####Package managers####
 alias nis="npm install --save"
