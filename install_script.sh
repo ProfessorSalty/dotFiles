@@ -11,10 +11,18 @@ XDG_CONFIG_HOME=$HOME/.config
 GOPATH=$HOME/Projects/go
 export GOPATH
 
-OS="unknown"
+OS="UNKNOWN"
+DISTRO="OTHER"
 case "$OSTYPE" in
-    linux*) OS="LINUX";;
-    darwin*) OS="MAC";;
+    linux*) 
+        OS="LINUX"
+        DISTRO="$(lsb_release -irc | grep Distributor | awk '{print toupper($3)}')"
+        echo "Preparing installation for $DISTRO"
+        ;;
+    darwin*) 
+        OS="MAC"
+        echo "Preparing installation for macOS"
+        ;;
 esac
 
 if  [ $OS == "MAC" ] && [ ! -d  /Applications/Xcode.app ]; then
@@ -38,7 +46,7 @@ fi
 
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
-    echo "Please enter your full name (for git config): "
+    echo "Please enter y"ur full name (for git config): "
     read -r gitname
     git config --global user.name "$gitname"
 fi
@@ -59,21 +67,22 @@ if [ $OS == "MAC" ]; then
     echo "Installing important packages..."
 
     brew tap homebrew/science
-    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go
+    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve
     brew install wget --with-iri
     brew install vim --override-system-vi
     brew cask install gpgtools
     echo "Cleaning up..."
     brew cleanup
-elif [ $OS == "LINUX" ]; then
+elif [ $DISTRO == "UBUNTU" ]; then
     # for Heroku
     echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
     wget -qO- https://cli-assets.heroku.com/apt/release.key | apt-key add -
-
+    # nexcloud client
+    sudo add-apt-repository ppa:nextcloud-devs/client
     # for GO
     sudo add-apt-repository ppa:longsleep/golang-backports
     apt-get update
-    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck golang-go mysql-server heroku python3-pip tree
+    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck golang-go mysql-server heroku python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client
     sudo mysql_secure_installation
     # build hub
     git clone https://github.com/github/hub.git
@@ -93,7 +102,9 @@ elif [ $OS == "LINUX" ]; then
     wget https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
     sudo dpkg -i tidy-5.4.0-64bit.deb
     rm tidy-5.4.0-64bit.deb
-
+elif [ $DISTRO == "MANJAROLINUX" ]; then
+    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis tidy-html5 nextcloud-client
+    sudo mysql_secure_installation
 fi
 go get -u github.com/nsf/gocode
 go get -u github.com/ramya-rao-a/go-outline
@@ -138,10 +149,14 @@ fi
 if [ -z "$(which pip)" ]; then
     #need to install pip
     sudo easy_install pip
+else
+    pip install --upgrade distribute
+    pip install --upgrade pip
 fi
-
-pip3 install --upgrade distribute
-pip3 install --upgrade pip
+if [ "$(which pip3)" ]; then
+    pip3 install --upgrade distribute
+    pip3 install --upgrade pip
+fi
 
 echo "Installing NPM modules..."
 sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify
@@ -170,6 +185,16 @@ cd ~/Downloads/powerline-fonts || exit
 chmod +x ./install.sh
 sh ./install.sh
 cd && rm -rf ~/Downloads/powerline-fonts
+
+echo "Installing Font-Awesome..."
+git clone --depth=1 https://github.com/FortAwesome/Font-Awesome.git ~/Downloads/font-awesome
+cd ~/Downloads/font-awesome/fonts || exit
+if [ $OS == "LINUX" ]; then
+    cp *.tff ~/.fonts
+elif [ $OS == "MAC" ]; then
+    sudo cp *.tff /Library/Fonts/
+fi
+
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d $DOTFILES ]; then

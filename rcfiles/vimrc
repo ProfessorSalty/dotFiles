@@ -32,13 +32,13 @@ Plug 'artur-shaik/vim-javacomplete2'
 Plug 'tpope/vim-sensible'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'wokalski/autocomplete-flow'
+"Plug 'wokalski/autocomplete-flow'
 Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] } 
 Plug 'digitaltoad/vim-pug'
 Plug 'jelera/vim-javascript-syntax'
 " For func argument completion
-" Plug 'Shougo/neosnippet'
-" Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'ternjs/tern_for_vim'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'pangloss/vim-javascript'
@@ -69,7 +69,11 @@ Plug 'reedes/vim-pencil'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
 Plug 'mhartington/deoplete-typescript'
-Plug 'majutsushi/tagbar'
+"Plug 'majutsushi/tagbar'
+Plug 'fatih/vim-go'
+"Plug 'maralla/completor.vim'
+Plug 'zchee/deoplete-go'
+Plug 'jodosha/vim-godebug'
 call plug#end()
 
 " Vim-UtilSnips Configuration
@@ -121,8 +125,6 @@ let g:NERDTreeIndicatorMapCustom = {
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-command! QuitAll NERDTreeClose | quit
-cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'QuitAll' : 'q')<CR>
 map <F9> :set wrap!<cr>
 
 " Neomake settings
@@ -212,3 +214,9 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
    "Tagbar Bindings
 
   nmap <F8> :TagbarToggle<CR>
+    " If you prefer the Omni-Completion tip window to close when a selection is
+    " made, these lines close it on movement in insert mode or when leaving
+    " insert mode
+    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+  "let g:go_fmt_command = "goimports"
