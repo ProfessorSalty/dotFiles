@@ -44,18 +44,6 @@ if [ ! -d $HOME/.config ]; then
     mkdir -p $XDG_CONFIG_HOME
 fi
 
-#Get the information we need first, if we need it
-if  [ -z "$(git config --global user.name)" ]; then
-    echo "Please enter your full name (for git config): "
-    read -r gitname
-    git config --global user.name "$gitname"
-fi
-if  [ -z "$(git config --global user.email)" ]; then
-    echo "Please enter the email you associate with git (for git config): "
-    read -r gitemail
-    git config --global user.email "$gitemail"
-fi
-
 if [ $OS == "MAC" ]; then
     #Install Homebrew
     if [ -z "$(which brew)" ]; then
@@ -303,6 +291,18 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 vim +PlugInstall +qall
+#Get the information we need first, if we need it
+if  [ -z "$(git config --global user.name)" ]; then
+    echo "Please enter your full name (for git config): "
+    read -r gitname
+    git config --global user.name "$gitname"
+fi
+if  [ -z "$(git config --global user.email)" ]; then
+    echo "Please enter the email you associate with git (for git config): "
+    read -r gitemail
+    git config --global user.email "$gitemail"
+fi
+
 git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
 echo "Install and setup complete.  Now run the setup script."
