@@ -91,8 +91,8 @@ elif [ $DISTRO == "UBUNTU" ]; then
     sudo dpkg -i tidy-5.4.0-64bit.deb
     rm tidy-5.4.0-64bit.deb
 elif [ $DISTRO == "MANJAROLINUX" ]; then
-    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis rxvt-unicode
-    yaourt -S --aur --noconfirm --force nextcloud-client tidy-html5
+    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis 
+    yaourt -S --aur --noconfirm nextcloud-client tidy-html5
     #sudo mysql_secure_installation
 fi
 go get -u github.com/nsf/gocode
