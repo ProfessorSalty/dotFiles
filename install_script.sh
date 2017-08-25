@@ -117,7 +117,7 @@ fi
 if [ ! -d ~/.rbenv ]; then
     git clone --depth=1 https://github.com/rbenv/rbenv.git $HOME/.rbenv
     echo "Initializing rbenv..."
-    rbenv init
+    sh $HOME/.rbenv init
     rubyversion=$(rbenv install -l | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
     echo "Downloading Ruby $rubyversion..."
     rbenv install "$rubyversion"
@@ -127,7 +127,7 @@ fi
 if [ ! -d ~/.nodenv ]; then
     git clone --depth=1 https://github.com/nodenv/nodenv.git ~/.nodenv
     echo "Initializing nodenv..."
-    nodenv init
+    sh $HOME/.nodenv init
     nodeversion=$(nodenv install -l | grep -E "^[^a-zA-Z]*([0-9]+\.){2}[0-9]+$" | tail -1 | tr -d ' ')
     echo "Downloading Node $nodeversion..."
     nodenv install "$nodeversion"
