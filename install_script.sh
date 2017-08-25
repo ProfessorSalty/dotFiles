@@ -140,12 +140,10 @@ if [ -z "$(which pip)" ]; then
     sudo easy_install pip
 fi
 if [ "$(which pip)" ]; then
-    pip install --upgrade distribute
     pip install --upgrade pip
 fi
 
 if [ "$(which pip3)" ]; then
-    pip3 install --upgrade distribute
     pip3 install --upgrade pip3
 fi
 
