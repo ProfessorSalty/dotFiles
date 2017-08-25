@@ -46,7 +46,7 @@ fi
 
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
-    echo "Please enter y"ur full name (for git config): "
+    echo "Please enter your full name (for git config): "
     read -r gitname
     git config --global user.name "$gitname"
 fi
@@ -82,7 +82,7 @@ elif [ $DISTRO == "UBUNTU" ]; then
     # for GO
     sudo add-apt-repository ppa:longsleep/golang-backports
     apt-get update
-    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck golang-go mysql-server heroku python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client
+    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck golang-go mysql-server heroku python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode
     sudo mysql_secure_installation
     # build hub
     git clone https://github.com/github/hub.git
@@ -103,7 +103,7 @@ elif [ $DISTRO == "UBUNTU" ]; then
     sudo dpkg -i tidy-5.4.0-64bit.deb
     rm tidy-5.4.0-64bit.deb
 elif [ $DISTRO == "MANJAROLINUX" ]; then
-    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis tidy-html5 nextcloud-client
+    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis tidy-html5 nextcloud-client rxvt-unicode
     sudo mysql_secure_installation
 fi
 go get -u github.com/nsf/gocode
@@ -149,13 +149,15 @@ fi
 if [ -z "$(which pip)" ]; then
     #need to install pip
     sudo easy_install pip
-else
+fi
+if [ "$(which pip)" ]; then
     pip install --upgrade distribute
     pip install --upgrade pip
 fi
+
 if [ "$(which pip3)" ]; then
     pip3 install --upgrade distribute
-    pip3 install --upgrade pip
+    pip3 install --upgrade pip3
 fi
 
 echo "Installing NPM modules..."
@@ -194,7 +196,6 @@ if [ $OS == "LINUX" ]; then
 elif [ $OS == "MAC" ]; then
     sudo cp *.tff /Library/Fonts/
 fi
-
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d $DOTFILES ]; then
@@ -265,11 +266,11 @@ if [ ! -f ~/.ssh/config ]; then
     ln -s $DOTFILES/ssh/config ~/.ssh/
 fi
 
-if [ ! -d /usr/local/var/mysql ]; then
+if [ $OS == "MAC" ] && [ ! -d /usr/local/var/mysql ]; then
     echo "Setting up MySQL...."
     unset TMPDIR
     mkdir /usr/local/var
-    mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+    mysql_install_db --verbose --user="$(whoami)" --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
 fi
 
 if [ ! -d /usr/local/var/postgres ]; then
@@ -278,9 +279,9 @@ if [ ! -d /usr/local/var/postgres ]; then
 fi
 
 # Setup NeoVim
-if [ ! -f $XDG_CONFIG_HOME/nvim/.vim ]; then
-    ln -s ~/.vim $XDG_CONFIG_HOME/nvim
-fi
+#if [ ! -f $XDG_CONFIG_HOME/nvim/.vim ]; then
+    #ln -s ~/.vim $XDG_CONFIG_HOME/nvim
+#fi
 
 if [ ! -f $XDG_CONFIG_HOME/nvim/init.vim ]; then
     ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
