@@ -92,7 +92,7 @@ elif [ $DISTRO == "UBUNTU" ]; then
     rm tidy-5.4.0-64bit.deb
 elif [ $DISTRO == "MANJAROLINUX" ]; then
     sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis tidy-html5 nextcloud-client rxvt-unicode
-    sudo mysql_secure_installation
+    #sudo mysql_secure_installation
 fi
 go get -u github.com/nsf/gocode
 go get -u github.com/ramya-rao-a/go-outline
