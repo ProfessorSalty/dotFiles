@@ -1,5 +1,5 @@
 export GOPATH=$HOME/Projects/go
-export PATH=/opt/bin:/Library/TeX/texbin:/usr/local/share/npm/bin:/usr/local/bin:/usr/local/share/python/:$GOPATH/bin:$PATH
+export PATH=/opt/bin:/Library/TeX/texbin:/usr/local/share/npm/bin:/usr/local/bin:/usr/local/share/python/:$GOPATH/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$PATH
 export MANPATH=/usr/local/man:$MANPATH
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"

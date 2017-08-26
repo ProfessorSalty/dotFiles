@@ -91,8 +91,8 @@ elif [ $DISTRO == "UBUNTU" ]; then
     sudo dpkg -i tidy-5.4.0-64bit.deb
     rm tidy-5.4.0-64bit.deb
 elif [ $DISTRO == "MANJAROLINUX" ]; then
-    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis 
-    yaourt -S --aur --noconfirm nextcloud-client tidy-html5
+    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary
+    yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build
     #sudo mysql_secure_installation
 fi
 go get -u github.com/nsf/gocode
@@ -118,7 +118,7 @@ fi
 if [ ! -d ~/.rbenv ]; then
     git clone --depth=1 https://github.com/rbenv/rbenv.git $HOME/.rbenv
     echo "Initializing rbenv..."
-    sh $HOME/.rbenv init
+    eval "$($HOME/.rbenv/bin/rbenv init)"
     rubyversion=$(rbenv install -l | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
     echo "Downloading Ruby $rubyversion..."
     rbenv install "$rubyversion"
@@ -128,7 +128,7 @@ fi
 if [ ! -d ~/.nodenv ]; then
     git clone --depth=1 https://github.com/nodenv/nodenv.git ~/.nodenv
     echo "Initializing nodenv..."
-    sh $HOME/.nodenv init
+    eval "$($HOME/.nodenv/bin/nodenv init)"
     nodeversion=$(nodenv install -l | grep -E "^[^a-zA-Z]*([0-9]+\.){2}[0-9]+$" | tail -1 | tr -d ' ')
     echo "Downloading Node $nodeversion..."
     nodenv install "$nodeversion"
@@ -269,7 +269,9 @@ fi
 #if [ ! -f $XDG_CONFIG_HOME/nvim/.vim ]; then
     #ln -s ~/.vim $XDG_CONFIG_HOME/nvim
 #fi
-
+if [ ! -d $XDG_CONFIG_HOME/nvim ]; then
+    mkdir -p $XDG_CONFIG_HOME/nvim
+fi
 if [ ! -f $XDG_CONFIG_HOME/nvim/init.vim ]; then
     ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 fi
@@ -289,7 +291,7 @@ chsh -s "$(which zsh)"
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-vim +PlugInstall +qall
+nvim +PlugInstall +qall
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
     echo "Please enter your full name (for git config): "
