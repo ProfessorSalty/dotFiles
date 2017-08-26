@@ -93,7 +93,6 @@ elif [ $DISTRO == "UBUNTU" ]; then
 elif [ $DISTRO == "MANJAROLINUX" ]; then
     sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary
     yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build
-    #sudo mysql_secure_installation
 fi
 go get -u github.com/nsf/gocode
 go get -u github.com/ramya-rao-a/go-outline
@@ -306,4 +305,5 @@ fi
 
 git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
+#make note to use mysql_secure_installation
 echo "Install and setup complete.  Now run the setup script."
