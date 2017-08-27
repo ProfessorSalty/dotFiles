@@ -55,7 +55,7 @@ if [ $OS == "MAC" ]; then
     echo "Installing important packages..."
 
     brew tap homebrew/science
-    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve
+    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch
     brew install wget --with-iri
     brew install vim --override-system-vi
     brew cask install gpgtools
@@ -70,7 +70,7 @@ elif [ $DISTRO == "UBUNTU" ]; then
     # for GO
     sudo add-apt-repository ppa:longsleep/golang-backports
     apt-get update
-    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck golang-go mysql-server heroku python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode
+    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck golang-go mysql-server heroku python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode neofetch geary
     sudo mysql_secure_installation
     # build hub
     git clone https://github.com/github/hub.git
@@ -91,8 +91,8 @@ elif [ $DISTRO == "UBUNTU" ]; then
     sudo dpkg -i tidy-5.4.0-64bit.deb
     rm tidy-5.4.0-64bit.deb
 elif [ $DISTRO == "MANJAROLINUX" ]; then
-    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary
-    yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build
+    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch
+    yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop
 fi
 go get -u github.com/nsf/gocode
 go get -u github.com/ramya-rao-a/go-outline
@@ -178,7 +178,7 @@ echo "Installing Font-Awesome..."
 git clone --depth=1 https://github.com/FortAwesome/Font-Awesome.git ~/Downloads/font-awesome
 cd ~/Downloads/font-awesome/fonts || exit
 if [ $OS == "LINUX" ]; then
-    cp *.tff ~/.fonts
+    cp *.tff ~/.local/share/fonts
 elif [ $OS == "MAC" ]; then
     sudo cp *.tff /Library/Fonts/
 fi
@@ -262,6 +262,19 @@ fi
 if [ ! -d /usr/local/var/postgres ]; then
     echo "Setting up PostGres...."
     postgres -D /usr/local/var/postgres
+fi
+
+if [ $OS == "LINUX" ]; then
+    mkdir -p "$HOME/.i3/config"
+    if [ -f "$HOME/.i3/config" ]; then
+        rm "$HOME/.i3/config"
+    fi
+    ln -s $DOTFILES/i3/config $HOME/.i3
+
+    if [ -f "$XDG_CONFIG_HOME/compton.conf" ]; then
+        rm "$XDG_CONFIG_HOME/compton.conf"
+    fi
+    ln -s "$DOTFILES/compton/compton.conf" "$XDG_CONFIG_HOME"
 fi
 
 # Setup NeoVim
