@@ -92,7 +92,7 @@ elif [ $DISTRO == "UBUNTU" ]; then
     rm tidy-5.4.0-64bit.deb
 elif [ $DISTRO == "MANJAROLINUX" ]; then
     sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch
-    yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop
+    yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git
 fi
 go get -u github.com/nsf/gocode
 go get -u github.com/ramya-rao-a/go-outline
@@ -112,6 +112,13 @@ go get -u github.com/cweill/gotests/...
 if [ ! -d ~/.oh-my-zsh ]; then
     echo "Installing oh-my-zsh..."
     git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+fi
+
+if [ ! -d ~/.oh-my-zsh/themes/geometry ]; then
+    echo "Installing geometry theme for oh-my-zsh..."
+    git clone --depth=1 https://github.com/geometry-zsh/geometry ~/.oh-my-zsh/themes/geometry
+    cd ~/.oh-my-zsh/themes/geometry || return
+    git submodule update --init --recursive
 fi
 
 if [ ! -d ~/.rbenv ]; then

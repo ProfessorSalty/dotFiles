@@ -11,12 +11,16 @@ set backspace=indent,eol,start
 " Set Proper Tabs
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set smarttab
 set expandtab
 set guifont=Source\ Code\ Pro\ Light\ for\ Powerline:h18
 " Always display the status line
 set laststatus=2
-
+set pastetoggle=<F2>
+set ignorecase
+set smartcase
+set relativenumber
 " Enable Elite mode, No ARRRROWWS!!!!
 let g:elite_mode=1
 

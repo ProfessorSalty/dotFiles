@@ -7,8 +7,8 @@ export DOTFILES=$HOME/.dotFiles
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="theunraveler"
-
+#ZSH_THEME="theunraveler"
+source $HOME/.oh-my-zsh/themes/geometry/geometry.zsh
 # This disables marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
