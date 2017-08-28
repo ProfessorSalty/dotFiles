@@ -51,7 +51,7 @@ Plug 'othree/es.next.syntax.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Chiel92/vim-autoformat'
 Plug 'moll/vim-node'
-Plug 'neomake/neomake', { 'on': 'Neomake' }
+Plug 'neomake/neomake'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -78,6 +78,21 @@ Plug 'fatih/vim-go'
 "Plug 'maralla/completor.vim'
 Plug 'zchee/deoplete-go'
 Plug 'jodosha/vim-godebug'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'jodosha/vim-godebug'
+Plug 'mxw/vim-jsx'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/vim-easy-align'
+
+"visual indentation
+Plug 'Yggdroot/indentLine'
+" Don't interfere with tmux
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'mustache/vim-mustache-handlebars'
+
 call plug#end()
 
 " Vim-UtilSnips Configuration
@@ -178,6 +193,10 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 silent! colorscheme afterglow
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Javascomplete Bindings
