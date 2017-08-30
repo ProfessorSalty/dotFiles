@@ -91,7 +91,7 @@ elif [ $DISTRO == "UBUNTU" ]; then
     sudo dpkg -i tidy-5.4.0-64bit.deb
     rm tidy-5.4.0-64bit.deb
 elif [ $DISTRO == "MANJAROLINUX" ]; then
-    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch
+    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc
     yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git
 fi
 go get -u github.com/nsf/gocode
@@ -189,6 +189,17 @@ if [ $OS == "LINUX" ]; then
 elif [ $OS == "MAC" ]; then
     sudo cp *.tff /Library/Fonts/
 fi
+
+echo 'Installing Hack (font)...'
+git clone --depth=1 https://github.com/source-foundry/Hack.git ~/Downloads/Hack
+cd ~/Downloads/Hack/ttf || exit
+if [ $OS == "LINUX" ]; then
+    cp *.tff ~/.local/share/fonts
+elif [ $OS == "MAC" ]; then
+    sudo cp *.tff /Library/Fonts/
+fi
+
+
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d $DOTFILES ]; then
