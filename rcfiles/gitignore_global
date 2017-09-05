@@ -248,5 +248,5 @@ TSWLatexianTemp*
 # KBibTeX
 *~[0-9]*
 
-
-##git config --global core.excludesfile ~/.gitignore_global##
+#Tern
+.tern-port

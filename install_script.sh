@@ -91,8 +91,9 @@ elif [ $DISTRO == "UBUNTU" ]; then
     sudo dpkg -i tidy-5.4.0-64bit.deb
     rm tidy-5.4.0-64bit.deb
 elif [ $DISTRO == "MANJAROLINUX" ]; then
-    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc
-    yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git
+    sudo pacman -R urxvt
+    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc 
+    yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
 fi
 go get -u github.com/nsf/gocode
 go get -u github.com/ramya-rao-a/go-outline
@@ -154,7 +155,7 @@ if [ "$(which pip3)" ]; then
 fi
 
 echo "Installing NPM modules..."
-sudo npm install -g eslint eslint-plugin-babel eslint-plugin-html eslint-plugin-react esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify
+sudo npm install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify
 
 #dotNet
 if [ -z "$(which dotnet)" ]; then
@@ -217,6 +218,18 @@ for FILEPATH in $DOTFILES/rcfiles/*; do
     fi
     ln -s $FILEPATH ~/.$FILENAME
 done
+
+for FILEPATH in $DOTFILES/bin/*;do
+    FILENAME=${FILEPATH##*/}
+    echo "Linking $FILENAME...";
+    if [ -L /usr/local/bin/$FILENAME ]; then
+        rm  /usr/local/bin/$FILENAME
+        echo "Removing $FILENAME..."
+    fi
+    chmod +x $FILEPATH
+    ln -s $FILEPATH /usr/local/bin/$FILENAME
+done
+
 if [ ! -d ~/.config/powerline/themes/tmux ]; then
     echo "Linking tmux powerline theme file..."
     mkdir -p ~/.config/powerline/themes/tmux

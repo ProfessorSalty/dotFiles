@@ -34,6 +34,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'metakirby5/codi.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'artur-shaik/vim-javacomplete2', { 'for':['java'] }
 Plug 'tpope/vim-sensible'
@@ -48,9 +49,10 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'ternjs/tern_for_vim'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-Plug 'pangloss/vim-javascript', {'for': ['js', 'es6', 'jsx']}
+"Plug 'pangloss/vim-javascript', {'for': ['js', 'es6', 'jsx']}
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim', {'for': ['js', 'es6', 'jsx']}
+Plug 'othree/javascript-libraries-syntax.vim', {'for': ['js', 'es6', 'jsx']}
 Plug 'scrooloose/nerdcommenter'
 Plug 'Chiel92/vim-autoformat'
 Plug 'moll/vim-node', { 'for': ['js', 'es6'] }
@@ -72,7 +74,9 @@ Plug 'mattn/emmet-vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'honza/vim-snippets'
-Plug 'Townk/vim-autoclose'
+"Plug 'Townk/vim-autoclose'
+Plug 'jiangmiao/auto-pairs'
+Plug 'heavenshell/vim-jsdoc'
 Plug 'jtratner/vim-flavored-markdown'
 Plug 'reedes/vim-pencil'
 ""Typescript Plugins
@@ -83,7 +87,8 @@ Plug 'mhartington/deoplete-typescript'
 Plug 'fatih/vim-go', { 'for': 'go' }
 "Plug 'maralla/completor.vim'
 Plug 'zchee/deoplete-go', { 'for': 'go' }
-Plug 'terryma/vim-multiple-cursors'
+"Plug 'terryma/vim-multiple-cursors'
+Plug 'wincent/scalpel'
 Plug 'jodosha/vim-godebug', { 'for': 'go' }
 Plug 'mxw/vim-jsx', { 'for': ['jsx', 'es6', 'js'] }
 Plug 'tpope/vim-surround'
@@ -92,6 +97,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'ervandew/supertab'
+Plug 'nikvdp/ejs-syntax'
 call plug#end()
 
 " Vim-UtilSnips Configuration
@@ -235,7 +241,7 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let g:go_fmt_command = "goimports"
 "
-
+set conceallevel=0
 "" airline
 let g:airline#extensions#tabline#enabled     = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
@@ -254,3 +260,33 @@ nmap ga <Plug>(EasyAlign)
 "
 "" require jsx for files with js plugin
 let g:jsx_ext_required = 0
+
+nnoremap <leader><tab> :bnext<CR>
+nnoremap <leader><S-tab> :bprev<CR>
+nnoremap <leader><C-q> :bd<CR>
+
+" auto formatting in braces
+inoremap { {<CR>}<Esc>O<TAB>
+
+"JSDoc stuff
+let g:jsdoc_allow_input_prompt = 1
+let g:jsdoc_enable_es6 = 1
+"let g:neomake_jsx_enabled_makers = ['eslint']
+function! NeomakeESlintChecker()
+  let l:npm_bin = ''
+  let l:eslint = 'eslint'
+
+  if executable('npm')
+    let l:npm_bin = split(system('npm bin'), '\n')[0]
+  endif
+
+  if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+    let l:eslint = l:npm_bin . '/eslint'
+  endif
+
+  let b:neomake_javascript_eslint_exe = l:eslint
+endfunction
+autocmd FileType javascript :call NeomakeESlintChecker()
+autocmd FileType javascript.jsx :call NeomakeESlintChecker()
+
+autocmd! BufWritePost,BufReadPost * Neomake
