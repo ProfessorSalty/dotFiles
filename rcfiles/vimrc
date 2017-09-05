@@ -51,8 +51,8 @@ Plug 'ternjs/tern_for_vim'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 "Plug 'pangloss/vim-javascript', {'for': ['js', 'es6', 'jsx']}
 Plug 'othree/yajs.vim'
-Plug 'othree/es.next.syntax.vim', {'for': ['js', 'es6', 'jsx']}
-Plug 'othree/javascript-libraries-syntax.vim', {'for': ['js', 'es6', 'jsx']}
+Plug 'othree/es.next.syntax.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Chiel92/vim-autoformat'
 Plug 'moll/vim-node', { 'for': ['js', 'es6'] }
@@ -98,6 +98,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'ervandew/supertab'
 Plug 'nikvdp/ejs-syntax'
+Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
 
 " Vim-UtilSnips Configuration
@@ -290,3 +291,6 @@ autocmd FileType javascript :call NeomakeESlintChecker()
 autocmd FileType javascript.jsx :call NeomakeESlintChecker()
 
 autocmd! BufWritePost,BufReadPost * Neomake
+
+" Strip white space on save
+autocmd BufEnter * EnableStripWhitespaceOnSave
