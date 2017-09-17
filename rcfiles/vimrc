@@ -136,5 +136,7 @@ nnoremap K <nop>
 " insert new line in normal mode
 map <Enter> o<ESC>
 map <S-Enter> O<ESC>
+" No more escape key!!
 nnoremap <C-space> a
 imap <C-space> <Esc>
+vmap <C-space> <Esc>
