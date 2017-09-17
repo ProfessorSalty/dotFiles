@@ -107,8 +107,6 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline_powerline_fonts                = 1
 set laststatus=2
 "
-let g:fzf_height = 40
-let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -127,4 +125,16 @@ let g:fzf_layout = { 'window': 'enew' }
 let g:fzf_layout = { 'window': '-tabnew' }
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
+set nobackup
+set noswapfile
 
+"fix some annoying stuff
+nnoremap <F1> <nop>
+nnoremap Q <nop>
+nnoremap K <nop>
+
+" insert new line in normal mode
+map <Enter> o<ESC>
+map <S-Enter> O<ESC>
+nnoremap <C-space> a
+imap <C-space> <Esc>
