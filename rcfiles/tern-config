@@ -1,35 +1,13 @@
 {
-  "ecmaVersions": {
-    "ecmaVersion5": false,
-    "ecmaVersion6": true
+  "plugins": {
+    "es_modules": {},
+    "node": {}
   },
   "libs": [
+    "ecma5",
+    "ecma6",
     "browser",
     "jquery"
   ],
-  "loadEagerly": [],
-  "dontLoad": [
-    "*.rb"
-  ],
-  "plugins": {
-    "complete_strings": {
-      "maxLength": 15
-    },
-    "node": {
-      "dontLoad": false,
-      "load": false,
-      "modules": {}
-    },
-    "angular": {},
-    "lint": {},
-    "requirejs": {
-      "baseURL": "",
-      "paths": "",
-      "override": {}
-    },
-    "doc_comment": {
-      "strong": false,
-      "fullDocs": true
-    }
-  }
+  "ecmaVersion": 6
 }

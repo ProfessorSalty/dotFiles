@@ -45,6 +45,8 @@ function take() {
     mkdir -p $1
     cd $1
 }
+## increase job limit ##
+ulimit -n 2048
 
 if [[ $OSTYPE = "darwin"* ]]; then
     source $DOTFILES/mac_commands.sh
