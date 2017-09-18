@@ -36,11 +36,13 @@ let g:deoplete#enable_at_startup = 1
 Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'chemzqm/vim-jsx-improve'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+" Autocomplete
+Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] }
+Plug 'digitaltoad/vim-pug'
 Plug 'metakirby5/codi.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
@@ -49,13 +51,37 @@ Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'scrooloose/nerdcommenter'
 Plug 'Chiel92/vim-autoformat'
 Plug 'moll/vim-node'
-Plug 'neomake/neomake'
+"Plug 'neomake/neomake'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'danilo-augusto/vim-afterglow'
+Plug 'othree/javascript-libraries-syntax.vim'
+"" visual indentation
+Plug 'Yggdroot/indentLine'
+Plug 'mustache/vim-mustache-handlebars', { 'for': ['hbls', 'handlbars', 'html', 'js'] }
+Plug 'mattn/emmet-vim'
+""Typescript Plugins
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
+Plug 'mhartington/deoplete-typescript'
+" Go
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'zchee/deoplete-go', { 'for': 'go' }
+Plug 'jodosha/vim-godebug', { 'for': 'go' }
+
+Plug 'wincent/scalpel'
+Plug 'heavenshell/vim-jsdoc'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/vim-easy-align'
+Plug 'nikvdp/ejs-syntax'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'w0rp/ale'
 call plug#end()
+" Strip white space on save
+autocmd BufEnter * EnableStripWhitespaceOnSave
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 let g:deoplete#omni#functions = {}
@@ -106,7 +132,14 @@ let g:airline#extensions#tabline#enabled     = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline_powerline_fonts                = 1
 set laststatus=2
-"
+augroup omnifuncs
+    autocmd!
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
+
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -140,3 +173,11 @@ map <S-Enter> O<ESC>
 nnoremap <C-space> a
 imap <C-space> <Esc>
 vmap <C-space> <Esc>
+
+"call neomake#configure#automake('nw', 750)
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-b> :bprev<CR>
+nnoremap <leader><C-q> :bd<CR>
+"" require jsx for files with js plugin
+let g:jsx_ext_required = 0
+
