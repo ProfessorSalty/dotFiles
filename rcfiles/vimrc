@@ -1,4 +1,6 @@
 filetype plugin on
+" Disable intro message
+set shortmess=I
 set number
 set ruler
 set mouse=a
@@ -22,6 +24,8 @@ set relativenumber
 set guifont=Source\ Code\ Pro\ Light\ for\ Powerline:h18
 "" Always display the status line
 set laststatus=2
+" open a new buffer without saving current changed buffers
+set hidden
 let mapleader = "\<Space>"
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -34,6 +38,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 let g:deoplete#enable_at_startup = 1
 Plug 'vim-airline/vim-airline'
+Plug 'alvan/vim-closetag'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'pangloss/vim-javascript'
@@ -46,10 +51,10 @@ Plug 'digitaltoad/vim-pug'
 Plug 'metakirby5/codi.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+"Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'scrooloose/nerdcommenter'
-Plug 'Chiel92/vim-autoformat'
+"Plug 'Chiel92/vim-autoformat'
 Plug 'moll/vim-node'
 "Plug 'neomake/neomake'
 Plug 'scrooloose/nerdtree'
@@ -66,11 +71,12 @@ Plug 'mattn/emmet-vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
 Plug 'mhartington/deoplete-typescript'
+Plug 'leafgarland/typescript-vim'
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', { 'for': 'go' }
 Plug 'jodosha/vim-godebug', { 'for': 'go' }
-
+Plug 'tpope/vim-surround'
 Plug 'wincent/scalpel'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'jeetsukumaran/vim-buffergator'
@@ -79,6 +85,9 @@ Plug 'junegunn/vim-easy-align'
 Plug 'nikvdp/ejs-syntax'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'w0rp/ale'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 " Strip white space on save
 autocmd BufEnter * EnableStripWhitespaceOnSave
@@ -89,6 +98,7 @@ let g:deoplete#omni#functions.javascript = [
   \ 'tern#Complete',
   \ 'jspc#omni'
   \]
+
 set completeopt=longest,menuone,preview
 let g:deoplete#sources = {}
 let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
@@ -107,6 +117,7 @@ inoremap <silent><expr> <TAB>
 " or just disable the preview entirely
 set completeopt-=preview
 nnoremap <Leader>f :NERDTreeToggle<Enter>
+
 " nerdtree-git
 let g:NERDTreeIndicatorMapCustom = {
             \ "Modified"  : "✹",
@@ -127,6 +138,10 @@ let NERDTreeMinimalUI        = 1
 let NERDTreeDirArrows        = 1
 
 silent! colorscheme  afterglow
+"hi CursorLine term=bold cterm=bold guibg=Grey10 ctermbg=black ctermfg=NONE
+hi CursorLine cterm=underline ctermbg=NONE ctermfg=NONE
+hi CursorLine gui=underline guibg=NONE guifg=NONE
+
 "" airline
 let g:airline#extensions#tabline#enabled     = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
@@ -177,7 +192,13 @@ vmap <C-space> <Esc>
 "call neomake#configure#automake('nw', 750)
 nnoremap <C-n> :bnext<CR>
 nnoremap <C-b> :bprev<CR>
-nnoremap <leader><C-q> :bd<CR>
+nnoremap <leader><q> :bd<CR>
 "" require jsx for files with js plugin
 let g:jsx_ext_required = 0
+let g:ale_change_sign_column_color = 1
+let g:ale_sign_column_always = 1
+let g:ale_change_sign_column_color  = 0
+inoremap <leader>h <Home>
+inoremap <leader>l <End>
+
 

@@ -42,5 +42,39 @@
     "editor.wordBasedSuggestions": false,
     "latex-workshop.version": "2.10.0",
     "editor.wordWrap": "on",
-    "vsicons.dontShowNewVersionMessage": true
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [{
+        "before": ["j", "j"],
+        "after": ["<Esc>"]
+    }],
+    "vim.otherModesKeyBindingsNonRecursive": [{
+            "before": ["<leader>", "d"],
+            "after": ["d", "d"]
+        },
+        {
+            "before": ["<C-n>"],
+            "after": [],
+            "commands": [{
+                "command": ":nohl"
+            }]
+        },
+        {
+            "before": [":"],
+            "after": [],
+            "commands": [{
+                "command": "workbench.action.showCommands",
+                "args": []
+            }]
+        }
+    ],
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false
+    },
+    "vim.disableAnnoyingNeovimMessage": true
 }
