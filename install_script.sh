@@ -14,12 +14,12 @@ export GOPATH
 OS="UNKNOWN"
 DISTRO="OTHER"
 case "$OSTYPE" in
-    linux*) 
+    linux*)
         OS="LINUX"
         DISTRO="$(lsb_release -irc | grep Distributor | awk '{print toupper($3)}')"
         echo "Preparing installation for $DISTRO"
         ;;
-    darwin*) 
+    darwin*)
         OS="MAC"
         echo "Preparing installation for macOS"
         ;;
@@ -39,9 +39,9 @@ if [ $OS == "MAC" ]; then
     fi
 fi
 
-if [ ! -d $HOME/.config ]; then
+if [ ! -d "$HOME/.config" ]; then
     echo "Adding ~/.config..."
-    mkdir -p $XDG_CONFIG_HOME
+    mkdir -p "$XDG_CONFIG_HOME"
 fi
 
 if [ $OS == "MAC" ]; then
@@ -61,7 +61,7 @@ if [ $OS == "MAC" ]; then
     brew cask install gpgtools
     echo "Cleaning up..."
     brew cleanup
-elif [ $DISTRO == "UBUNTU" ]; then
+elif [ "$DISTRO" == "UBUNTU" ]; then
     # for Heroku
     echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
     wget -qO- https://cli-assets.heroku.com/apt/release.key | apt-key add -
@@ -92,7 +92,7 @@ elif [ $DISTRO == "UBUNTU" ]; then
     rm tidy-5.4.0-64bit.deb
 elif [ $DISTRO == "MANJAROLINUX" ]; then
     sudo pacman -R urxvt
-    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc 
+    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc
     yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
 fi
 go get -u github.com/nsf/gocode
@@ -186,48 +186,48 @@ echo "Installing Font-Awesome..."
 git clone --depth=1 https://github.com/FortAwesome/Font-Awesome.git ~/Downloads/font-awesome
 cd ~/Downloads/font-awesome/fonts || exit
 if [ $OS == "LINUX" ]; then
-    cp *.tff ~/.local/share/fonts
+    cp ./*.tff ~/.local/share/fonts
 elif [ $OS == "MAC" ]; then
-    sudo cp *.tff /Library/Fonts/
+    sudo cp ./*.tff /Library/Fonts/
 fi
 
 echo 'Installing Hack (font)...'
 git clone --depth=1 https://github.com/source-foundry/Hack.git ~/Downloads/Hack
 cd ~/Downloads/Hack/ttf || exit
 if [ $OS == "LINUX" ]; then
-    cp *.tff ~/.local/share/fonts
+    cp ./*.tff ~/.local/share/fonts
 elif [ $OS == "MAC" ]; then
-    sudo cp *.tff /Library/Fonts/
+    sudo cp ./*.tff /Library/Fonts/
 fi
 
 
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
-if [ ! -d $DOTFILES ]; then
+if [ ! -d "$DOTFILES" ]; then
     echo "Cloning dotFiles..."
-    git clone --depth=1 https://github.com/PortableStick/dotFiles.git $DOTFILES
+    git clone --depth=1 https://github.com/PortableStick/dotFiles.git "$DOTFILES"
     wait $!
 fi
 
 for FILEPATH in $DOTFILES/rcfiles/*; do
     FILENAME=${FILEPATH##*/}
     echo "Linking $FILENAME...";
-    if [ -L ~/.$FILENAME ]; then
-        rm ~/.$FILENAME
+    if [ -L ~/."$FILENAME" ]; then
+        rm ~/."$FILENAME"
         echo "Removing $FILENAME..."
     fi
-    ln -s $FILEPATH ~/.$FILENAME
+    ln -s "$FILEPATH" ~/."$FILENAME"
 done
 
 for FILEPATH in $DOTFILES/bin/*;do
     FILENAME=${FILEPATH##*/}
     echo "Linking $FILENAME...";
-    if [ -L /usr/local/bin/$FILENAME ]; then
-        rm  /usr/local/bin/$FILENAME
+    if [ -L /usr/local/bin/$"FILENAME" ]; then
+        rm  /usr/local/bin/"$FILENAME"
         echo "Removing $FILENAME..."
     fi
-    chmod +x $FILEPATH
-    ln -s $FILEPATH /usr/local/bin/$FILENAME
+    chmod +x "$FILEPATH"
+    ln -s "$FILEPATH" /usr/local/bin/"$FILENAME"
 done
 
 if [ ! -d ~/.config/powerline/themes/tmux ]; then
@@ -237,41 +237,41 @@ fi
 if [ -f ~/.config/powerline/themes/tmux/default.json ]; then
     rm ~/.config/powerline/themes/tmux/default.json
 fi
-ln -s $DOTFILES/tmux/config/powerline/themes/tmux/default.json ~/.config/powerline/themes/tmux/default.json
+ln -s "$DOTFILES"/tmux/config/powerline/themes/tmux/default.json ~/.config/powerline/themes/tmux/default.json
 echo "Linking tmux.conf..."
 if [ -f ~/.tmux.conf ]; then
     rm ~/.tmux.conf
 fi
-ln -s $DOTFILES/tmux/tmux.conf ~/.tmux.conf
+ln -s "$DOTFILES"/tmux/tmux.conf ~/.tmux.conf
 echo "Linking zshrc..."
 if [ -f ~/.zshrc ]; then
     rm ~/.zshrc
 fi
-ln -s $DOTFILES/zsh/zshrc ~/.zshrc
+ln -s "$DOTFILES"/zsh/zshrc ~/.zshrc
 if [ -f ~/.config/nvim/init.vim ]; then
     rm ~/.config/nvim/init.vim
 fi
-ln -s $DOTFILES/rcfiles/vimrc ~/.config/nvim/init.vim
+ln -s "$DOTFILES"/rcfiles/vimrc ~/.config/nvim/init.vim
 echo "Linking zprofile..."
 if [ -f ~/.zprofile ]; then
     rm ~/.zprofile
 fi
-ln -s $DOTFILES/zsh/zprofile ~/.zprofile
+ln -s "$DOTFILES"/zsh/zprofile ~/.zprofile
 echo "Linking zlogin..."
 if [ -f ~/.zlogin ]; then
     rm ~/.zlogin
 fi
-ln -s $DOTFILES/zsh/zlogin ~/.zlogin
+ln -s "$DOTFILES"/zsh/zlogin ~/.zlogin
 echo "Linking zpath..."
 if [ -f ~/.zpath ]; then
     rm ~/.zpath
 fi
-ln -s $DOTFILES/zsh/zpath ~/.zpath
+ln -s "$DOTFILES"/zsh/zpath ~/.zpath
 echo "Linking zshenv..."
 if [ -f ~/.zshenv ]; then
     rm ~/.zshenv
 fi
-ln -s $DOTFILES/zsh/zshenv ~/.zshenv
+ln -s "$DOTFILES"/zsh/zshenv ~/.zshenv
 
 # Other stuff
 if [  ! -d ~/.ssh ] || [ ! -f ~/.ssh/id_rsa ]; then
@@ -280,7 +280,7 @@ if [  ! -d ~/.ssh ] || [ ! -f ~/.ssh/id_rsa ]; then
 fi
 
 if [ ! -f ~/.ssh/config ]; then
-    ln -s $DOTFILES/ssh/config ~/.ssh/
+    ln -s "$DOTFILES"/ssh/config ~/.ssh/
 fi
 
 if [ $OS == "MAC" ] && [ ! -d /usr/local/var/mysql ]; then
@@ -312,13 +312,14 @@ fi
 #if [ ! -f $XDG_CONFIG_HOME/nvim/.vim ]; then
     #ln -s ~/.vim $XDG_CONFIG_HOME/nvim
 #fi
-if [ ! -d $XDG_CONFIG_HOME/nvim ]; then
-    mkdir -p $XDG_CONFIG_HOME/nvim
+if [ ! -d "$XDG_CONFIG_HOME"/nvim ]; then
+    mkdir -p "$XDG_CONFIG_HOME"/nvim
+    ln -s "$DOTFILES"/vim/ftdetect "$XDG_CONFIG_HOME"/nvim/
 fi
-if [ ! -f $XDG_CONFIG_HOME/nvim/init.vim ]; then
-    ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+if [ ! -f "$XDG_CONFIG_HOME"/nvim/init.vim ]; then
+    ln -s ~/.vimrc "$XDG_CONFIG_HOME"/nvim/init.vim
 fi
-if [ ! -d $HOME/.local/share/nvim/site/autoload ]; then
+if [ ! -d "$HOME"/.local/share/nvim/site/autoload ]; then
  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
