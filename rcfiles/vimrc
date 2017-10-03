@@ -154,7 +154,7 @@ augroup omnifuncs
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup end
-
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -198,7 +198,6 @@ let g:jsx_ext_required = 0
 let g:ale_change_sign_column_color = 1
 let g:ale_sign_column_always = 1
 let g:ale_change_sign_column_color  = 0
-inoremap <leader>h <Home>
-inoremap <leader>l <End>
-
+inoremap <C-e> <C-o>$
+inoremap <C-f> <C-o>^
 
