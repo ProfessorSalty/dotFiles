@@ -2,7 +2,7 @@
 
 # TODO
 # Colorize the output
-if [ ! -d $HOME/Projects/go ]; then
+if [ ! -d "$HOME/Projects/go" ]; then
     mkdir -p ~/Projects/go/bin
 fi
 
@@ -53,15 +53,18 @@ if [ $OS == "MAC" ]; then
     echo "Updating Homebrew..."
     brew update
     echo "Installing important packages..."
-
     brew tap homebrew/science
     brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag
     brew install wget --with-iri
     brew install vim --override-system-vi
     brew cask install gpgtools
+    brew cask install sublime-text
     echo "Cleaning up..."
     brew cleanup
 elif [ "$DISTRO" == "UBUNTU" ]; then
+    # for Sublime Text
+    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
     # for Heroku
     echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
     wget -qO- https://cli-assets.heroku.com/apt/release.key | apt-key add -
@@ -70,7 +73,9 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     # for GO
     sudo add-apt-repository ppa:longsleep/golang-backports
     apt-get update
-    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck golang-go mysql-server heroku python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode neofetch geary
+    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck golang-go mysql-server heroku python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode neofetch geary apt-transport-https
+    # install submlime text
+    sudo apt-get install -y sublime-text
     sudo mysql_secure_installation
     # build hub
     git clone https://github.com/github/hub.git
@@ -90,7 +95,10 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     wget https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
     sudo dpkg -i tidy-5.4.0-64bit.deb
     rm tidy-5.4.0-64bit.deb
-elif [ $DISTRO == "MANJAROLINUX" ]; then
+elif [ "$DISTRO" == "MANJAROLINUX" ]; then
+    curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
+    echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
+    sudo pacman -Syu sublime-text
     sudo pacman -R urxvt
     sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc
     yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
@@ -123,7 +131,7 @@ if [ ! -d ~/.oh-my-zsh/themes/geometry ]; then
 fi
 
 if [ ! -d ~/.rbenv ]; then
-    git clone --depth=1 https://github.com/rbenv/rbenv.git $HOME/.rbenv
+    git clone --depth=1 https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
     echo "Initializing rbenv..."
     eval "$($HOME/.rbenv/bin/rbenv init)"
     rubyversion=$(rbenv install -l | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
@@ -157,6 +165,7 @@ fi
 echo "Installing NPM modules..."
 sudo npm install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify
 
+# TODO - fix for non-macOS systems
 #dotNet
 if [ -z "$(which dotnet)" ]; then
     mkdir -p /usr/local/lib
@@ -199,8 +208,6 @@ if [ $OS == "LINUX" ]; then
 elif [ $OS == "MAC" ]; then
     sudo cp ./*.tff /Library/Fonts/
 fi
-
-
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d "$DOTFILES" ]; then
@@ -300,7 +307,7 @@ if [ $OS == "LINUX" ]; then
     if [ -f "$HOME/.i3/config" ]; then
         rm "$HOME/.i3/config"
     fi
-    ln -s $DOTFILES/i3/config $HOME/.i3
+    ln -s "$DOTFILES/i3/config" "$HOME/.i3"
 
     if [ -f "$XDG_CONFIG_HOME/compton.conf" ]; then
         rm "$XDG_CONFIG_HOME/compton.conf"
@@ -309,9 +316,6 @@ if [ $OS == "LINUX" ]; then
 fi
 
 # Setup NeoVim
-#if [ ! -f $XDG_CONFIG_HOME/nvim/.vim ]; then
-    #ln -s ~/.vim $XDG_CONFIG_HOME/nvim
-#fi
 if [ ! -d "$XDG_CONFIG_HOME"/nvim ]; then
     mkdir -p "$XDG_CONFIG_HOME"/nvim
     ln -s "$DOTFILES"/vim/ftdetect "$XDG_CONFIG_HOME"/nvim/
