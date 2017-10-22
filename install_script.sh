@@ -75,7 +75,7 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     # nexcloud client
     sudo add-apt-repository -y ppa:nextcloud-devs/client
     apt-get update
-    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck  heroku python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode neofetch geary apt-transport-https
+    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode neofetch geary apt-transport-https
     # install submlime text
     sudo apt-get install -y sublime-text
     # Go from snaps
