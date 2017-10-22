@@ -210,7 +210,7 @@ echo 'Installing Hack (font)...'
 if [ ! -d "$HOME/Downloads/Hack" ]; then
     git clone --depth=1 https://github.com/source-foundry/Hack.git "$HOME/Downloads/Hack"
 fi
-cd ~/Downloads/Hack/ttf || exit
+cd ~/Downloads/Hack/build/ttf || exit
 if [ $OS == "LINUX" ]; then
     cp ./*.tff ~/.local/share/fonts
 elif [ $OS == "MAC" ]; then
