@@ -7,6 +7,7 @@ if [ ! -d "$HOME/Projects/go" ]; then
 fi
 
 DOTFILES=$HOME/.dotFiles
+DOWNLOADS=$HOME/Downloads
 XDG_CONFIG_HOME=$HOME/.config
 NODENV=$HOME/.nodenv
 RBENV=$HOME/.rbenv
@@ -191,15 +192,15 @@ echo "Installing powerline-status..."
 pip3 install  powerline-status
 
 echo "Installing powerline fonts..."
-git clone --depth=1 https://github.com/powerline/fonts.git ~/Downloads/powerline-fonts
-cd ~/Downloads/powerline-fonts || exit
+git clone --depth=1 https://github.com/powerline/fonts.git "$DOWNLOADS/powerline-fonts"
+cd "$DOWNLOADS/powerline-fonts" || exit
 chmod +x ./install.sh
 sh ./install.sh
 cd && rm -rf ~/Downloads/powerline-fonts
 
 echo "Installing Font-Awesome..."
-git clone --depth=1 https://github.com/FortAwesome/Font-Awesome.git ~/Downloads/font-awesome
-cd ~/Downloads/font-awesome/fonts || exit
+git clone --depth=1 https://github.com/FortAwesome/Font-Awesome.git "$DOWNLOADS/Awesome"
+cd "$DOWNLOADS/Awsome/fonts" || exit
 if [ $OS == "LINUX" ]; then
     cp ./*.tff ~/.local/share/fonts
 elif [ $OS == "MAC" ]; then
@@ -208,15 +209,15 @@ fi
 
 echo 'Installing Hack (font)...'
 if [ ! -d "$HOME/Downloads/Hack" ]; then
-    git clone --depth=1 https://github.com/source-foundry/Hack.git "$HOME/Downloads/Hack"
+    git clone --depth=1 https://github.com/source-foundry/Hack.git "$DOWNLOADS/Hack"
 fi
-cd "$HOME/Downloads/Hack/build/ttf" || exit
+cd "$DOWNLOADS/Hack/build/ttf" || exit
 if [ $OS == "LINUX" ]; then
     cp ./*.tff ~/.local/share/fonts
 elif [ $OS == "MAC" ]; then
     sudo cp ./*.tff /Library/Fonts/
 fi
-sudo rm -rf "$HOME/Downloads/Hack"
+sudo rm -rf "$DOWNLOADS/Hack"
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d "$DOTFILES" ]; then
