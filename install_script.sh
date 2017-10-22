@@ -8,7 +8,10 @@ fi
 
 DOTFILES=$HOME/.dotFiles
 XDG_CONFIG_HOME=$HOME/.config
+NODENV=$HOME/.nodenv
+RBENV=$HOME/.rbenv
 GOPATH=$HOME/Projects/go
+GPGKEY=/etc/apt/trusted.gpg.d/
 export GOPATH
 
 OS="UNKNOWN"
@@ -64,18 +67,18 @@ if [ $OS == "MAC" ]; then
 elif [ "$DISTRO" == "UBUNTU" ]; then
     # for Sublime Text
     echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+    sudo wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg "$GPGKEY"
     # for Heroku
     echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
-    wget -qO- https://cli-assets.heroku.com/apt/release.key | apt-key add -
+    sudo wget -qO- https://cli-assets.heroku.com/apt/release.key "$GPGKEY"
     # nexcloud client
     sudo add-apt-repository ppa:nextcloud-devs/client
-    # for GO
-    sudo add-apt-repository ppa:longsleep/golang-backports
     apt-get update
     sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck golang-go mysql-server heroku python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode neofetch geary apt-transport-https
     # install submlime text
     sudo apt-get install -y sublime-text
+    # Go from snaps
+    sudo snap install --classic go
     sudo mysql_secure_installation
     # build hub
     git clone https://github.com/github/hub.git
@@ -131,10 +134,11 @@ if [ ! -d ~/.oh-my-zsh/themes/geometry ]; then
 fi
 
 if [ ! -d ~/.rbenv ]; then
-    git clone --depth=1 https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
+    git clone --depth=1 https://github.com/rbenv/rbenv.git "$RBENV"
     echo "Initializing rbenv..."
-    eval "$($HOME/.rbenv/bin/rbenv init)"
-    rubyversion=$(rbenv install -l | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
+    mkdir -p "$RBENV/plugins"
+    git clone --depth=1 https://github.com/rbenv/ruby-build.git "$RBENV/plugins"
+    rubyversion=$($RBENV/bin/rbenv install -l | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
     echo "Downloading Ruby $rubyversion..."
     rbenv install "$rubyversion"
     rbenv global "$rubyversion"
@@ -143,11 +147,13 @@ fi
 if [ ! -d ~/.nodenv ]; then
     git clone --depth=1 https://github.com/nodenv/nodenv.git ~/.nodenv
     echo "Initializing nodenv..."
-    eval "$($HOME/.nodenv/bin/nodenv init)"
+    mkdir -p "$NODENV/plugins"
+    git clone https://github.com/nodenv/node-build.git "$NODENV/plugins"
     nodeversion=$(nodenv install -l | grep -E "^[^a-zA-Z]*([0-9]+\.){2}[0-9]+$" | tail -1 | tr -d ' ')
     echo "Downloading Node $nodeversion..."
     nodenv install "$nodeversion"
     nodenv global "$nodeversion"
+    sudo chown -R "$(whoami)" "$(npm config get prefix)/{lib/node_modules,bin,share}"
 fi
 
 if [ -z "$(which pip)" ]; then

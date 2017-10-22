@@ -59,3 +59,9 @@ fi
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+###-tns-completion-start-###
+if [ -f /Users/gregorysmith/.tnsrc ]; then 
+    source /Users/gregorysmith/.tnsrc 
+fi
+###-tns-completion-end-###
