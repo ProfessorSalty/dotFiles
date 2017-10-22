@@ -81,13 +81,7 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     sudo apt-get install -y sublime-text
     # Go from snaps
     sudo snap install --classic go
-    # build hub
-    git clone https://github.com/github/hub.git
-    cd hub || return
-    make install prefix=/usr/local
-    cd .. || return
-    rm -rf hub
-    #build redis
+        #build redis
     wget -O http://download.redis.io/redis-stable.tar.gz
     tar xzvf redis-stable.tar.gz
     cd redis-stable || return
@@ -199,25 +193,28 @@ sh ./install.sh
 cd && rm -rf ~/Downloads/powerline-fonts
 
 echo "Installing Font-Awesome..."
-git clone --depth=1 https://github.com/FortAwesome/Font-Awesome.git "$DOWNLOADS/Awesome"
-cd "$DOWNLOADS/Awsome/fonts" || exit
+FA="$DOWNLOADS/Font-Awesome"
+git clone --depth=1 https://github.com/FortAwesome/Font-Awesome.git "$FA"
+cd "$FA/fonts" || exit
 if [ $OS == "LINUX" ]; then
     cp ./*.tff ~/.local/share/fonts
 elif [ $OS == "MAC" ]; then
     sudo cp ./*.tff /Library/Fonts/
 fi
+rm -rf "$FA"
 
 echo 'Installing Hack (font)...'
-if [ ! -d "$HOME/Downloads/Hack" ]; then
-    git clone --depth=1 https://github.com/source-foundry/Hack.git "$DOWNLOADS/Hack"
+HACK="$DOWNLOADS/HACK"
+if [ ! -d "$HACK" ]; then
+    git clone --depth=1 https://github.com/source-foundry/Hack.git "$HACK"
 fi
-cd "$DOWNLOADS/Hack/build/ttf" || exit
+cd "$HACK/build/ttf" || exit
 if [ $OS == "LINUX" ]; then
     cp ./*.tff ~/.local/share/fonts
 elif [ $OS == "MAC" ]; then
     sudo cp ./*.tff /Library/Fonts/
 fi
-sudo rm -rf "$DOWNLOADS/Hack"
+sudo rm -rf "$HACK"
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d "$DOTFILES" ]; then
@@ -368,5 +365,12 @@ git config --global core.excludesfile ~/.gitignore_global
 if [ "$DISTRO" == "UBUNTU" ]; then
     sudo apt-get install mysql-server
     sudo mysql_secure_installation
+
+    # build hub
+    git clone https://github.com/github/hub.git
+    cd hub || return
+    make install prefix=/usr/local
+    cd .. || return
+    rm -rf hub
 fi
 echo "Install and setup complete.  Now run the setup script."
