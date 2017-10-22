@@ -67,10 +67,10 @@ if [ $OS == "MAC" ]; then
 elif [ "$DISTRO" == "UBUNTU" ]; then
     # for Sublime Text
     echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-    sudo wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg "$GPGKEY"
+    sudo wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg -O "$GPGKEY/sublimehq-pub.gpg"
     # for Heroku
     echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
-    sudo wget -qO- https://cli-assets.heroku.com/apt/release.key "$GPGKEY"
+    sudo wget -qO- https://cli-assets.heroku.com/apt/release.key -O "$GPGKEY/heroku-release.gpg"
     # nexcloud client
     sudo add-apt-repository ppa:nextcloud-devs/client
     apt-get update
