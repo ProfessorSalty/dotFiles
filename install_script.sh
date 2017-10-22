@@ -207,14 +207,14 @@ elif [ $OS == "MAC" ]; then
 fi
 
 echo 'Installing Hack (font)...'
-git clone --depth=1 https://github.com/source-foundry/Hack.git ~/Downloads/Hack
+git clone --depth=1 https://github.com/source-foundry/Hack.git "$HOME/Downloads/Hack"
 cd ~/Downloads/Hack/ttf || exit
 if [ $OS == "LINUX" ]; then
     cp ./*.tff ~/.local/share/fonts
 elif [ $OS == "MAC" ]; then
     sudo cp ./*.tff /Library/Fonts/
 fi
-
+rm -rf "$HOME/Downloads/Hack"
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d "$DOTFILES" ]; then
     echo "Cloning dotFiles..."
