@@ -366,11 +366,12 @@ if [ "$DISTRO" == "UBUNTU" ]; then
     sudo apt-get install mysql-server
     sudo mysql_secure_installation
 
+    go get github.com/github/hub
     # build hub
-    git clone https://github.com/github/hub.git
-    cd hub || return
-    make install prefix=/usr/local
-    cd .. || return
-    rm -rf hub
+    #git clone https://github.com/github/hub.git
+    #cd hub || return
+    #make install prefix=/usr/local
+    #cd .. || return
+    #rm -rf hub
 fi
 echo "Install and setup complete.  Now run the setup script."
