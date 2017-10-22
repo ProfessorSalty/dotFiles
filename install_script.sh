@@ -214,7 +214,8 @@ if [ $OS == "LINUX" ]; then
 elif [ $OS == "MAC" ]; then
     sudo cp ./*.tff /Library/Fonts/
 fi
-rm -rf "$HOME/Downloads/Hack"
+sudo rm -rf "$HOME/Downloads/Hack"
+
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d "$DOTFILES" ]; then
     echo "Cloning dotFiles..."
