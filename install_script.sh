@@ -87,7 +87,7 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     cd .. || return
     rm -rf hub
     #build redis
-    curl -O http://download.redis.io/redis-stable.tar.gz
+    wget -O http://download.redis.io/redis-stable.tar.gz
     tar xzvf redis-stable.tar.gz
     cd redis-stable || return
     make
@@ -210,7 +210,7 @@ echo 'Installing Hack (font)...'
 if [ ! -d "$HOME/Downloads/Hack" ]; then
     git clone --depth=1 https://github.com/source-foundry/Hack.git "$HOME/Downloads/Hack"
 fi
-cd ~/Downloads/Hack/build/ttf || exit
+cd "$HOME/Downloads/Hack/build/ttf" || exit
 if [ $OS == "LINUX" ]; then
     cp ./*.tff ~/.local/share/fonts
 elif [ $OS == "MAC" ]; then
