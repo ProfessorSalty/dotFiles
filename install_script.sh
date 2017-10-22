@@ -71,7 +71,7 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     # for Heroku
     #echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
     #sudo wget -qO "$GPGKEY/heroku-release.key" https://cli-assets.heroku.com/apt/release.key
-    wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+    sudo wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
     # nexcloud client
     sudo add-apt-repository -y ppa:nextcloud-devs/client
     apt-get update
