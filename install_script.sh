@@ -70,7 +70,7 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     sudo wget -qO "$GPGKEY/sublimehq-pub.gpg" https://download.sublimetext.com/sublimehq-pub.gpg
     # for Heroku
     echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
-    sudo wget -qO "$GPGKEY/heroku-release.gpg" https://cli-assets.heroku.com/apt/release.key
+    sudo wget -qO "$GPGKEY/heroku-release.key" https://cli-assets.heroku.com/apt/release.key
     # nexcloud client
     sudo add-apt-repository -y ppa:nextcloud-devs/client
     apt-get update
