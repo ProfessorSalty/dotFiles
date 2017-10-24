@@ -127,33 +127,35 @@ if [ ! -d ~/.oh-my-zsh/themes/geometry ]; then
     git submodule update --init --recursive
 fi
 
-if [ ! -d ~/.rbenv ]; then
+if [ ! -d "$RBENV" ]; then
     git clone --depth=1 https://github.com/rbenv/rbenv.git "$RBENV"
     echo "Initializing rbenv..."
     mkdir -p "$RBENV/plugins"
-    git clone --depth=1 https://github.com/rbenv/ruby-build.git "$(~/.rbenv/bin/rbenv root)/plugins/ruby-build"
-    sudo chown -R "$(whoami):$(whoami)" ~/.rbenv
-    rubyversion=$($RBENV/bin/rbenv install -l | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
+    RCMD=$RBENV/bin/rbenv
+    git clone --depth=1 https://github.com/rbenv/ruby-build.git "$($RCMD root)/plugins/ruby-build"
+    sudo chown -R "$(whoami):$(whoami)" "$RBENV"
+    rubyversion=$($RCMD install --list | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
     echo "Downloading Ruby $rubyversion..."
-    rbenv install "$rubyversion"
-    rbenv global "$rubyversion"
+    $RCMD install "$rubyversion"
+    $RCMD global "$rubyversion"
 fi
 
-if [ ! -d ~/.nodenv ]; then
-    git clone --depth=1 https://github.com/nodenv/nodenv.git ~/.nodenv
+if [ ! -d "$NODENV" ]; then
+    git clone --depth=1 https://github.com/nodenv/nodenv.git "$NODENV"
     echo "Initializing nodenv..."
     mkdir -p "$NODENV/plugins"
-    git clone https://github.com/nodenv/node-build.git "$(~/.nodenv/bin/nodenv root)/plugins/node-build"
-    sudo chown -R "$(whoami):$(whoami)" ~/.nodenv
-    NODEVERSION=$($NODENV/bin/nodenv install -l |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    NCMD=$NODENV/bin/nodenv
+    git clone --depth=1 https://github.com/nodenv/node-build.git "$($NCMD root)/plugins/node-build"
+    sudo chown -R "$(whoami):$(whoami)" "$NODENV"
+    NODEVERSION=$($NCMD install --list |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
     echo "Downloading Node $NODEVERSION..."
-    $NODENV/bin/nodenv install "$NODEVERSION"
-    LATESTSIX=$($NODENV/bin/nodenv install -l |  awk '/^[[:space:]]+6\.([[:digit:]]+\.)([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    $NCMD install "$NODEVERSION"
+    LATESTSIX=$($NCMD install --list |  awk '/^[[:space:]]+6\.([[:digit:]]+\.)([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
     echo "Downloading Node $LATESTSIX for compatibility"
-    $NODENV/bin/nodenv install "$LATESTSIX"
-    $NODENV/bin/nodenv global "$LATESTSIX"
+    $NCMD install "$LATESTSIX"
+    $NCMD global "$LATESTSIX"
 fi
-v
+
 if [ "$(which easy_install)" ] && [ -z "$(which pip)" ]; then
     #need to install pip
     sudo easy_install pip
@@ -196,7 +198,7 @@ git clone --depth=1 https://github.com/powerline/fonts.git "$PL"
 cd "$PL" || exit
 chmod +x ./install.sh
 sh ./install.sh
-cd && rm -rf ~/Downloads/powerline-fonts
+cd && rm -rf "$PL"
 
 echo "Installing Font-Awesome..."
 FA="$DOWNLOADS/Font-Awesome"
@@ -207,7 +209,7 @@ if [ $OS == "LINUX" ]; then
 elif [ $OS == "MAC" ]; then
     sudo cp ./*.tff /Library/Fonts/
 fi
-rm -rf "$FA"
+cd && rm -rf "$FA"
 
 echo 'Installing Hack (font)...'
 HACK="$DOWNLOADS/HACK"
