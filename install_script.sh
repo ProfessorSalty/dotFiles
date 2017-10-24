@@ -67,22 +67,23 @@ if [ $OS == "MAC" ]; then
     brew cleanup
 elif [ "$DISTRO" == "UBUNTU" ]; then
     # for Sublime Text
-    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-    sudo wget -qO -  https://download.sublimetext.com/sublimehq-pub.gpg
+    echo "deb https://download.sublimetext.com/apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+    wget -qO-  https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
     # for Heroku
     #echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
     #sudo wget -qO "$GPGKEY/heroku-release.key" https://cli-assets.heroku.com/apt/release.key
     #sudo wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
     # nexcloud client
     sudo add-apt-repository -y ppa:nextcloud-devs/client
-    apt-get update
+    sudo apt-get update
+    sudo apt-get install git
     sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode neofetch geary apt-transport-https
     # install submlime text
     sudo apt-get install -y sublime-text
     # Go from snaps
     sudo snap install --classic go
-        #build redis
-    wget -O http://download.redis.io/redis-stable.tar.gz
+    #build redis
+    wget -q http://download.redis.io/redis-stable.tar.gz
     tar xzvf redis-stable.tar.gz
     cd redis-stable || return
     make
@@ -100,6 +101,10 @@ elif [ "$DISTRO" == "MANJAROLINUX" ]; then
     sudo pacman -R urxvt
     sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc
     yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
+fi
+if [ -z $(which git) ]; then
+    echo "Git is not installed for some reason"
+    exit 1
 fi
 go get -u github.com/nsf/gocode
 go get -u github.com/ramya-rao-a/go-outline
@@ -183,11 +188,12 @@ echo "Installing important gems..."
 gem install rubocop haml scss_lint rails bundler capistrano tmuxinator travis
 
 echo "Installing powerline-status..."
-pip3 install  powerline-status
+pip3 install powerline-status
 
 echo "Installing powerline fonts..."
-git clone --depth=1 https://github.com/powerline/fonts.git "$DOWNLOADS/powerline-fonts"
-cd "$DOWNLOADS/powerline-fonts" || exit
+PL="$DOWNLOADS/powerline-fonts"
+git clone --depth=1 https://github.com/powerline/fonts.git "$PL"
+cd "$PL" || exit
 chmod +x ./install.sh
 sh ./install.sh
 cd && rm -rf ~/Downloads/powerline-fonts
