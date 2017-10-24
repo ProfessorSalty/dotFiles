@@ -78,19 +78,11 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     #sudo add-apt-repository -y ppa:nextcloud-devs/client
     sudo apt-get update
     sudo apt-get install git
-    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode neofetch geary
+    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary
     # install submlime text
     sudo apt-get install -y sublime-text
     # Go from snaps
     sudo snap install --classic go
-    #build redis
-    wget -q http://download.redis.io/redis-stable.tar.gz
-    tar xzvf redis-stable.tar.gz
-    cd redis-stable || return
-    make
-    sudo make install
-    sudo mkdir /etc/redis
-    sudo cp /tmp/redis-stable/redis.conf /etc/redis
     #html-tidy5
     wget https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
     sudo dpkg -i tidy-5.4.0-64bit.deb
