@@ -77,7 +77,8 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     # nexcloud client
     #sudo add-apt-repository -y ppa:nextcloud-devs/client
     sudo apt-get update
-    sudo apt-get install git
+    sudo apt-get install -y git
+    sudo apt-get install -y ack-grep
     sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary
     # install submlime text
     sudo apt-get install -y sublime-text
@@ -130,7 +131,8 @@ if [ ! -d ~/.rbenv ]; then
     git clone --depth=1 https://github.com/rbenv/rbenv.git "$RBENV"
     echo "Initializing rbenv..."
     mkdir -p "$RBENV/plugins"
-    git clone --depth=1 https://github.com/rbenv/ruby-build.git "$RBENV/plugins"
+    git clone --depth=1 https://github.com/rbenv/ruby-build.git "$(~/.rbenv/bin/rbenv root)/plugins/ruby-build"
+    sudo chown -R "$(whoami):$(whoami)" ~/.rbenv
     rubyversion=$($RBENV/bin/rbenv install -l | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
     echo "Downloading Ruby $rubyversion..."
     rbenv install "$rubyversion"
@@ -141,15 +143,18 @@ if [ ! -d ~/.nodenv ]; then
     git clone --depth=1 https://github.com/nodenv/nodenv.git ~/.nodenv
     echo "Initializing nodenv..."
     mkdir -p "$NODENV/plugins"
-    git clone https://github.com/nodenv/node-build.git "$NODENV/plugins"
-    nodeversion=$(nodenv install -l | grep -E "^[^a-zA-Z]*([0-9]+\.){2}[0-9]+$" | tail -1 | tr -d ' ')
-    echo "Downloading Node $nodeversion..."
-    nodenv install "$nodeversion"
-    nodenv global "$nodeversion"
-    sudo chown -R "$(whoami)" "$(npm config get prefix)/{lib/node_modules,bin,share}"
+    git clone https://github.com/nodenv/node-build.git "$(~/.nodenv/bin/nodenv root)/plugins/node-build"
+    sudo chown -R "$(whoami):$(whoami)" ~/.nodenv
+    NODEVERSION=$($NODENV/bin/nodenv install -l |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    echo "Downloading Node $NODEVERSION..."
+    $NODENV/bin/nodenv install "$NODEVERSION"
+    LATESTSIX=$($NODENV/bin/nodenv install -l |  awk '/^[[:space:]]+6\.([[:digit:]]+\.)([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    echo "Downloading Node $LATESTSIX for compatibility"
+    $NODENV/bin/nodenv install "$LATESTSIX"
+    $NODENV/bin/nodenv global "$LATESTSIX"
 fi
-
-if [ -z "$(which pip)" ]; then
+v
+if [ "$(which easy_install)" ] && [ -z "$(which pip)" ]; then
     #need to install pip
     sudo easy_install pip
 fi
@@ -167,13 +172,15 @@ sudo npm install -g esformatter esformatter-jsx tern stylelint_d less babel-core
 # TODO - fix for non-macOS systems
 #dotNet
 if [ -z "$(which dotnet)" ]; then
+    DOTNET="$DOWNLOADS/dotnet"
+    DNETFILES="$DOTNET/dotnet.pkg"
     mkdir -p /usr/local/lib
     ln -s /usr/local/opt/openssl/lib/libcrypto*.dylib /usr/local/lib/
     ln -s /usr/local/opt/openssl/lib/libssl*.dylib /usr/local/lib/
-    echo "Downloading dotNet Core to $(~/Downloads)..."
-    wget -O ~/Downloads/dotnet.pkg https://go.microsoft.com/fwlink/?LinkID=835011
+    echo "Downloading dotNet Core to $DOTNET..."
+    wget -qO "$DNETFILES" https://go.microsoft.com/fwlink/?LinkID=835011
     echo "Installing dotNet Core..."
-    sudo installer -pkg ~/Downloads/dotnet.pkg -target /
+    sudo installer -pkg "$DNETFILES" -target /
 fi
 
 #Install globals for Sublime Text plugins
