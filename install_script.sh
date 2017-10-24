@@ -66,6 +66,7 @@ if [ $OS == "MAC" ]; then
     echo "Cleaning up..."
     brew cleanup
 elif [ "$DISTRO" == "UBUNTU" ]; then
+    sudo apt-get install apt-transport-https
     # for Sublime Text
     echo "deb https://download.sublimetext.com/apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
     wget -qO-  https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -74,10 +75,10 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     #sudo wget -qO "$GPGKEY/heroku-release.key" https://cli-assets.heroku.com/apt/release.key
     #sudo wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
     # nexcloud client
-    sudo add-apt-repository -y ppa:nextcloud-devs/client
+    #sudo add-apt-repository -y ppa:nextcloud-devs/client
     sudo apt-get update
     sudo apt-get install git
-    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode neofetch geary apt-transport-https
+    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager nextcloud-client rxvt-unicode neofetch geary
     # install submlime text
     sudo apt-get install -y sublime-text
     # Go from snaps
