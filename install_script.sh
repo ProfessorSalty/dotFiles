@@ -43,6 +43,13 @@ if [ $OS == "MAC" ]; then
     fi
 fi
 
+if [ $OS == "MAC" ]; then
+    font_dir="$HOME/Library/Fonts"
+else
+    font_dir="$HOME/.local/share/fonts"
+    mkdir -p "$font_dir"
+fi
+
 if [ ! -d "$HOME/.config" ]; then
     echo "Adding ~/.config..."
     mkdir -p "$XDG_CONFIG_HOME"
@@ -203,12 +210,8 @@ cd && rm -rf "$PL"
 echo "Installing Font-Awesome..."
 FA="$DOWNLOADS/Font-Awesome"
 git clone --depth=1 https://github.com/FortAwesome/Font-Awesome.git "$FA"
-cd "$FA/fonts" || exit
-if [ $OS == "LINUX" ]; then
-    cp ./*.tff ~/.local/share/fonts
-elif [ $OS == "MAC" ]; then
-    sudo cp ./*.tff /Library/Fonts/
-fi
+cd "$FA" || exit
+cp "$(find "$FA" -name '*.[o,t]tf' -or -name '*.pcf.gz' -type f -print0)" "$font_dir/"
 cd && rm -rf "$FA"
 
 echo 'Installing Hack (font)...'
@@ -216,12 +219,8 @@ HACK="$DOWNLOADS/HACK"
 if [ ! -d "$HACK" ]; then
     git clone --depth=1 https://github.com/source-foundry/Hack.git "$HACK"
 fi
-cd "$HACK/build/ttf" || exit
-if [ $OS == "LINUX" ]; then
-    cp ./*.tff ~/.local/share/fonts
-elif [ $OS == "MAC" ]; then
-    sudo cp ./*.tff /Library/Fonts/
-fi
+cd "$HACK" || exit
+cp "$(find "$HACK" -name '*.[o,t]tf' -or -name '*.pcf.gz' -type f -print0)" "$font_dir/"
 sudo rm -rf "$HACK"
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
@@ -370,6 +369,10 @@ fi
 git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
 #make note to use mysql_secure_installation
+if [ $OS == "LINUX" ]; then
+    "fc-cache -f $font_dir"
+fi
+
 if [ "$DISTRO" == "UBUNTU" ]; then
     sudo apt-get install mysql-server
     sudo mysql_secure_installation
