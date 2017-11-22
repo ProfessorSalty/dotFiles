@@ -10,6 +10,7 @@ set cursorline
 set wrap
 set pastetoggle=<F2>
 set encoding=utf8
+set termencoding=utf-8
 set backspace=indent,eol,start
 " Set Proper Tabs
 set tabstop=4
@@ -21,7 +22,8 @@ set expandtab
 set ignorecase
 set smartcase
 set relativenumber
-set guifont=Source\ Code\ Pro\ Light\ for\ Powerline:h18
+nnoremap <F4> :set relativenumber!<CR>
+set guifont=M+\ 1m\ light\ Nerd\ Font\ Complete:h19
 "" Always display the status line
 set laststatus=2
 " open a new buffer without saving current changed buffers
@@ -34,9 +36,15 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'ryanoasis/vim-devicons'
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
+Plug 'majutsushi/tagbar'
 Plug 'lervag/vimtex'
 Plug 'vim-airline/vim-airline'
 Plug 'alvan/vim-closetag'
@@ -71,11 +79,11 @@ Plug 'mattn/emmet-vim'
 ""Typescript Plugins
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
-Plug 'mhartington/deoplete-typescript'
+"Plug 'mhartington/deoplete-typescript'
 Plug 'leafgarland/typescript-vim'
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'zchee/deoplete-go', { 'for': 'go' }
+"Plug 'zchee/deoplete-go', { 'for': 'go' }
 Plug 'jodosha/vim-godebug', { 'for': 'go' }
 Plug 'tpope/vim-surround'
 Plug 'wincent/scalpel'
@@ -89,36 +97,73 @@ Plug 'w0rp/ale'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'Quramy/vim-js-pretty-template'
 Plug 'airblade/vim-gitgutter'
+Plug 'posva/vim-vue'
+Plug 'eapache/rainbow_parentheses.vim'
+
+"completions
+Plug 'roxma/nvim-completion-manager'
+Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
 call plug#end()
 " Strip white space on save
 autocmd BufEnter * EnableStripWhitespaceOnSave
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.javascript = [
-  \ 'tern#Complete',
-  \ 'jspc#omni'
-  \]
+" for rainbow_parentheses
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
 
-set completeopt=longest,menuone,preview
-let g:deoplete#sources = {}
-let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
-let g:tern#command = ['tern']
-let g:tern#arguments = ['--persistent']
+
+let g:rbpt_loadcmd_toggle = 1
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"let g:deoplete#omni#functions = {}
+"let g:deoplete#omni#functions.javascript = [
+  "\ 'tern#Complete',
+  "\ 'jspc#omni'
+  "\]
+
+"set completeopt=longest,menuone,preview
+"let g:deoplete#sources = {}
+"let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+"let g:tern#command = ['tern']
+"let g:tern#arguments = ['--persistent']
 
 let g:UltiSnipsExpandTrigger="<C-j>"
-inoremap <silent><expr> <TAB>
-		\ pumvisible() ? "\<C-n>" :
-		\ <SID>check_back_space() ? "\<TAB>" :
-		\ deoplete#mappings#manual_complete()
-		function! s:check_back_space() abort "{{{
-		let col = col('.') - 1
-		return !col || getline('.')[col - 1]  =~ '\s'
-		endfunction"}}}
+"inoremap <silent><expr> <TAB>
+		"\ pumvisible() ? "\<C-n>" :
+		"\ <SID>check_back_space() ? "\<TAB>" :
+		"\ deoplete#mappings#manual_complete()
+		"function! s:check_back_space() abort "{{{
+		"let col = col('.') - 1
+		"return !col || getline('.')[col - 1]  =~ '\s'
+		"endfunction"}}}
 " or just disable the preview entirely
 set completeopt-=preview
 nnoremap <Leader>f :NERDTreeToggle<Enter>
-
+" Use tab to select autocompletion option
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " nerdtree-git
 let g:NERDTreeIndicatorMapCustom = {
             \ "Modified"  : "✹",
@@ -193,7 +238,8 @@ vmap <C-space> <Esc>
 "call neomake#configure#automake('nw', 750)
 nnoremap <C-n> :bnext<CR>
 nnoremap <C-b> :bprev<CR>
-nnoremap <leader><q> :bd<CR>
+nnoremap <leader><w> :bd<CR>
+"nnoremap <C-w> :bd<CR>
 "" require jsx for files with js plugin
 let g:jsx_ext_required = 0
 let g:ale_change_sign_column_color = 1
@@ -202,3 +248,33 @@ let g:ale_change_sign_column_color  = 0
 inoremap <C-e> <C-o>$
 inoremap <C-f> <C-o>^
 
+nmap <F8> :TagbarToggle<CR>
+
+" NCM debug
+let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
+let $NVIM_NCM_LOG_LEVEL="DEBUG"
+
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', '#151515')
+call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', '#151515')
+call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#151515')
+call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
+call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')

@@ -1,7 +1,8 @@
 {
   "plugins": {
     "es_modules": {},
-    "node": {}
+    "node": {},
+    "node-express": {}
   },
   "libs": [
     "ecma5",

@@ -65,7 +65,7 @@ if [ $OS == "MAC" ]; then
     brew update
     echo "Installing important packages..."
     brew tap homebrew/science
-    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag
+    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag ctags leiningen
     brew install wget --with-iri
     brew install vim --override-system-vi
     brew cask install gpgtools
@@ -86,7 +86,7 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     sudo apt-get update
     sudo apt-get install -y git
     sudo apt-get install -y ack-grep
-    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary
+    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary exuberant-ctags
     # install submlime text
     sudo apt-get install -y sublime-text
     # Go from snaps
@@ -173,6 +173,8 @@ fi
 
 if [ "$(which pip3)" ]; then
     pip3 install --upgrade pip3
+    # These are for nvim completion engine
+    pip3 install --user neovim jedi psutil setproctitle
 fi
 
 echo "Installing NPM modules..."
@@ -222,6 +224,15 @@ fi
 cd "$HACK" || exit
 cp "$(find "$HACK" -name '*.[o,t]tf' -or -name '*.pcf.gz' -type f -print0)" "$font_dir/"
 sudo rm -rf "$HACK"
+
+echo "Installing Nerd patched fonts..."
+NF="$DOWNLOADS/nerdfonts"
+if [ ! -d "$NF" ]; then
+    git clone --depth=1 https://github.com/ryanoasis/nerd-fonts.git "$NF"
+fi
+cd "$NF" || exit
+sh .install.sh
+cd && rm -rf "$NF"
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d "$DOTFILES" ]; then
