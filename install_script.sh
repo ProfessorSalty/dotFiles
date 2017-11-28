@@ -223,6 +223,7 @@ if [ ! -d "$HACK" ]; then
 fi
 cd "$HACK" || exit
 cp "$(find "$HACK" -name '*.[o,t]tf' -or -name '*.pcf.gz' -type f -print0)" "$font_dir/"
+cd
 sudo rm -rf "$HACK"
 
 echo "Installing Nerd patched fonts..."
