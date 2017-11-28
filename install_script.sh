@@ -85,7 +85,7 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     #sudo add-apt-repository -y ppa:nextcloud-devs/client
     sudo apt-get update
     sudo apt-get install -y git
-    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary exuberant-ctags gawk
+    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary exuberant-ctags gawk curl
     # install submlime text
     sudo apt-get install -y sublime-text
     # Go from snaps
@@ -207,7 +207,7 @@ PL="$DOWNLOADS/powerline-fonts"
 git clone --depth=1 https://github.com/powerline/fonts.git "$PL"
 cd "$PL" || exit
 chmod +x ./install.sh
-sh ./install.sh
+./install.sh
 cd && rm -rf "$PL"
 
 echo "Installing Font-Awesome..."
@@ -388,14 +388,8 @@ fi
 
 if [ "$DISTRO" == "UBUNTU" ]; then
     sudo apt-get install mysql-server
-    sudo mysql_secure_installation
+    #sudo mysql_secure_installation
 
     go get github.com/github/hub
-    # build hub
-    #git clone https://github.com/github/hub.git
-    #cd hub || return
-    #make install prefix=/usr/local
-    #cd .. || return
-    #rm -rf hub
 fi
 echo "Install and setup complete.  Now run the setup script."
