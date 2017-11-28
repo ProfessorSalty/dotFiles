@@ -360,13 +360,11 @@ if [ $OS == "MAC" ]; then
     sudo xcode-select -switch /usr/bin
 fi
 
-# set zsh as default
-chsh -s "$(which zsh)"
 # install vim-plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-chown -R "$(whoami)":"$(whoami)" ~/.local/share
+sudo chown -R "$(whoami)":"$(whoami)" ~/.local/share
 
 nvim +PlugInstall +qall
 
@@ -395,4 +393,7 @@ if [ "$DISTRO" == "UBUNTU" ]; then
 
     go get github.com/github/hub
 fi
+su "$(whoami)"
+# set zsh as default
+chsh -s "$(which zsh)"
 echo "Install and setup complete.  Now run the setup script."
