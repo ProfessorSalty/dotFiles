@@ -231,7 +231,7 @@ if [ ! -d "$NF" ]; then
     git clone --depth=1 https://github.com/ryanoasis/nerd-fonts.git "$NF"
 fi
 cd "$NF" || exit
-sh .install.sh
+./install.sh
 cd && rm -rf "$NF"
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist

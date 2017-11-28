@@ -103,6 +103,8 @@ Plug 'eapache/rainbow_parentheses.vim'
 "completions
 Plug 'roxma/nvim-completion-manager'
 Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+
+Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 call plug#end()
 " Strip white space on save
 autocmd BufEnter * EnableStripWhitespaceOnSave
