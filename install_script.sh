@@ -85,7 +85,6 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     #sudo add-apt-repository -y ppa:nextcloud-devs/client
     sudo apt-get update
     sudo apt-get install -y git
-    sudo apt-get install -y ack-grep
     sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary exuberant-ctags gawk
     # install submlime text
     sudo apt-get install -y sublime-text
