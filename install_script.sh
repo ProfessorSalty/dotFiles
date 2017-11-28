@@ -13,6 +13,8 @@ NODENV=$HOME/.nodenv
 RBENV=$HOME/.rbenv
 GOPATH=$HOME/Projects/go
 GPGKEY=/etc/apt/trusted.gpg.d/
+USERPERMISSIONS="$SUDO_USER:$SUDO_USER"
+
 export GOPATH
 
 OS="UNKNOWN"
@@ -141,7 +143,7 @@ if [ ! -d "$RBENV" ]; then
     mkdir -p "$RBENV/plugins"
     RCMD=$RBENV/bin/rbenv
     git clone --depth=1 https://github.com/rbenv/ruby-build.git "$($RCMD root)/plugins/ruby-build"
-    sudo chown -R "$(whoami):$(whoami)" "$RBENV"
+    sudo chown -R "$USERPERMISSIONS" "$RBENV"
     rubyversion=$($RCMD install --list | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
     echo "Downloading Ruby $rubyversion..."
     $RCMD install "$rubyversion"
@@ -154,7 +156,7 @@ if [ ! -d "$NODENV" ]; then
     mkdir -p "$NODENV/plugins"
     NCMD=$NODENV/bin/nodenv
     git clone --depth=1 https://github.com/nodenv/node-build.git "$($NCMD root)/plugins/node-build"
-    sudo chown -R "$(whoami):$(whoami)" "$NODENV"
+    sudo chown -R "$USERPERMISSIONS" "$NODENV"
     NODEVERSION=$($NCMD install --list |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
     echo "Downloading Node $NODEVERSION..."
     $NCMD install "$NODEVERSION"
@@ -179,7 +181,7 @@ if [ "$(which pip3)" ]; then
 fi
 
 echo "Installing NPM modules..."
-sudo npm install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify
+sudo "$NODENV/shims/npm" install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify
 
 # TODO - fix for non-macOS systems
 #dotNet
@@ -364,9 +366,11 @@ fi
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-sudo chown -R "$(whoami)":"$(whoami)" ~/.local/share
+chown -R "$USERPERMISSIONS" ~/.local
 
-nvim +PlugInstall +qall
+sudo -u "$SUDO_USER" nvim +PlugInstall +qall
+
+# Run a second time because ~/.local/share/nvim/shada gets created with root privileges
 
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
@@ -384,16 +388,15 @@ git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
 #make note to use mysql_secure_installation
 if [ $OS == "LINUX" ]; then
-    "fc-cache -f $font_dir"
+    sudo -u "$SUDO_USER" "fc-cache -f $font_dir"
 fi
 
 if [ "$DISTRO" == "UBUNTU" ]; then
     sudo apt-get -y install mysql-server
     #sudo mysql_secure_installation
-
     go get github.com/github/hub
 fi
-su "$(whoami)"
+
 # set zsh as default
-chsh -s "$(which zsh)"
+sudo -u "$SUDO_USER" chsh -s "$(which zsh)"
 echo "Install and setup complete.  Now run the setup script."
