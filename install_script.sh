@@ -366,7 +366,10 @@ chsh -s "$(which zsh)"
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+chown -R "$(whoami)":"$(whoami)" ~/.local/share
+
 nvim +PlugInstall +qall
+
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
     echo "Please enter your full name (for git config): "
@@ -387,7 +390,7 @@ if [ $OS == "LINUX" ]; then
 fi
 
 if [ "$DISTRO" == "UBUNTU" ]; then
-    sudo apt-get install mysql-server
+    sudo apt-get -y install mysql-server
     #sudo mysql_secure_installation
 
     go get github.com/github/hub
