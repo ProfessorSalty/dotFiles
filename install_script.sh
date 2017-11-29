@@ -66,15 +66,18 @@ if [ $OS == "MAC" ]; then
     echo "Updating Homebrew..."
     brew update
     echo "Installing important packages..."
-    brew tap homebrew/science >> /dev/null
-    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag ctags leiningen >> /dev/null
-    brew install wget --with-iri >> /dev/null
-    brew install vim --override-system-vi >> /dev/null
-    brew cask install gpgtools >> /dev/null
-    brew cask install sublime-text >> /dev/null
+    {
+        brew tap homebrew/science
+        brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag ctags leiningen
+        brew install wget --with-iri
+        brew install vim --override-system-vi
+        brew cask install gpgtools
+        brew cask install sublime-text
+    } > /dev/null
     echo "Cleaning up..."
     brew cleanup >> /dev/null
 elif [ "$DISTRO" == "UBUNTU" ]; then
+    echo "Installing packages..."
     {
         sudo apt-get install -yqq apt-transport-https
         # for Sublime Text
@@ -90,7 +93,7 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
         sudo snap install --classic go
         #html-tidy5
         wget --quiet https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
-        sudo dpkg -il tidy-5.4.0-64bit.deb
+        sudo dpkg -i tidy-5.4.0-64bit.deb
         rm tidy-5.4.0-64bit.deb
         #BECAUSE REASONS
         alias awk=gawk
@@ -402,10 +405,6 @@ fi
 git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
 #make note to use mysql_secure_installation
-if [ $OS == "LINUX" ]; then
-    echo "Flushing font cache..."
-    sudo -u "$SUDO_USER" "fc-cache -f $font_dir"
-fi
 
 if [ "$DISTRO" == "UBUNTU" ]; then
     echo "Installing MySQL Server..."
