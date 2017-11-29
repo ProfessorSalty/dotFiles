@@ -76,21 +76,21 @@ if [ $OS == "MAC" ]; then
     brew cleanup >> /dev/null
 elif [ "$DISTRO" == "UBUNTU" ]; then
     {
-        sudo apt-get install apt-transport-https >> /dev/null
+        sudo apt-get install -yqq apt-transport-https
         # for Sublime Text
         wget -qO-  https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - >> /dev/null
         echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list >> /dev/null
         sudo apt-get update
-        sudo apt-get dist-upgrade -y
-        sudo apt-get install -y git
-        sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary exuberant-ctags gawk curl
+        sudo apt-get dist-upgrade -yqq
+        sudo apt-get install -yqq git
+        sudo apt-get install -yqq autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary exuberant-ctags gawk curl
         # install submlime text
-        sudo apt-get install -y sublime-text
+        sudo apt-get install -yqq sublime-text
         # Go from snaps
         sudo snap install --classic go
         #html-tidy5
-        wget https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
-        sudo dpkg -i tidy-5.4.0-64bit.deb
+        wget --quiet https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
+        sudo dpkg -il tidy-5.4.0-64bit.deb
         rm tidy-5.4.0-64bit.deb
         #BECAUSE REASONS
         alias awk=gawk
@@ -127,24 +127,24 @@ fi
 #get oh-my-zsh
 if [ ! -d ~/.oh-my-zsh ]; then
     echo "Installing oh-my-zsh..."
-    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh >> /dev/null
+    git clone -q --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
 
 if [ ! -d ~/.oh-my-zsh/themes/geometry ]; then
     echo "Installing geometry theme for oh-my-zsh..."
-    git clone --depth=1 https://github.com/geometry-zsh/geometry ~/.oh-my-zsh/themes/geometry >> /dev/null
+    git clone -q --depth=1 https://github.com/geometry-zsh/geometry ~/.oh-my-zsh/themes/geometry >> /dev/null
 
     cd ~/.oh-my-zsh/themes/geometry || return
-    git submodule update --init --recursive >> /dev/null
+    git submodule update -q --init --recursive >> /dev/null
 fi
 
 if [ ! -d "$RBENV" ]; then
     echo "Initializing rbenv..."
     {
-        git clone --depth=1 https://github.com/rbenv/rbenv.git "$RBENV"
+        git clone -q --depth=1 https://github.com/rbenv/rbenv.git "$RBENV"
         mkdir -p "$RBENV/plugins"
         RCMD=$RBENV/bin/rbenv
-        git clone --depth=1 https://github.com/rbenv/ruby-build.git "$($RCMD root)/plugins/ruby-build"
+        git clone -q --depth=1 https://github.com/rbenv/ruby-build.git "$($RCMD root)/plugins/ruby-build"
         sudo chown -R "$USERPERMISSIONS" "$RBENV"
         rubyversion=$($RCMD install --list | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
     } >> /dev/null
@@ -156,12 +156,12 @@ if [ ! -d "$RBENV" ]; then
 fi
 
 if [ ! -d "$NODENV" ]; then
-    git clone --depth=1 https://github.com/nodenv/nodenv.git "$NODENV"
+    git clone -q --depth=1 https://github.com/nodenv/nodenv.git "$NODENV"
     echo "Initializing nodenv..."
     {
         mkdir -p "$NODENV/plugins"
         NCMD=$NODENV/bin/nodenv
-        git clone --depth=1 https://github.com/nodenv/node-build.git "$($NCMD root)/plugins/node-build"
+        git clone -q --depth=1 https://github.com/nodenv/node-build.git "$($NCMD root)/plugins/node-build"
         sudo chown -R "$USERPERMISSIONS" "$NODENV"
         NODEVERSION=$($NCMD install --list |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
     } >> /dev/null
@@ -192,11 +192,11 @@ if [ "$(which pip3)" ]; then
 fi
 
 echo "Installing NPM modules..."
-sudo "$NODENV/shims/npm" install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify >> /dev/null
+npm_config_loglevel=silent sudo "$NODENV/shims/npm" install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify >> /dev/null
 
 # TODO - fix for non-macOS systems
 #dotNet
-if [ -z "$(which dotnet)" ]; then
+if [ $OS == "MAC" ] && [ -z "$(which dotnet)" ]; then
     DOTNET="$DOWNLOADS/dotnet"
     DNETFILES="$DOTNET/dotnet.pkg"
     {
@@ -212,7 +212,7 @@ fi
 
 #Install globals for Sublime Text plugins
 echo "Installing important gems..."
-"$NODENV/shims/gem" install rubocop haml scss_lint rails bundler capistrano tmuxinator travis >> /dev/null
+"$RBENV/shims/gem" install rubocop haml scss_lint rails bundler capistrano tmuxinator travis >> /dev/null
 
 echo "Installing powerline-status..."
 pip3 install powerline-status >> /dev/null
@@ -271,11 +271,11 @@ for FILEPATH in $DOTFILES/bin/*;do
     FILENAME=${FILEPATH##*/}
     echo "Linking $FILENAME...";
     if [ -L /usr/local/bin/$"FILENAME" ]; then
-        rm  /usr/local/bin/"$FILENAME"
+        sudo rm  /usr/local/bin/"$FILENAME"
         echo "Removing $FILENAME..."
     fi
     chmod +x "$FILEPATH"
-    ln -s "$FILEPATH" /usr/local/bin/"$FILENAME"
+    sudo ln -s "$FILEPATH" /usr/local/bin/"$FILENAME"
 done
 
 if [ ! -d ~/.config/powerline/themes/tmux ]; then
@@ -298,6 +298,8 @@ fi
 ln -s "$DOTFILES"/zsh/zshrc ~/.zshrc
 if [ -f ~/.config/nvim/init.vim ]; then
     rm ~/.config/nvim/init.vim
+else
+    mkdir -p ~/.config/nvim
 fi
 ln -s "$DOTFILES"/rcfiles/vimrc ~/.config/nvim/init.vim
 echo "Linking zprofile..."
@@ -344,16 +346,19 @@ if [ ! -d /usr/local/var/postgres ]; then
 fi
 
 if [ $OS == "LINUX" ]; then
-    mkdir -p "$HOME/.i3/config"
-    if [ -f "$HOME/.i3/config" ]; then
-        rm "$HOME/.i3/config"
-    fi
-    ln -s "$DOTFILES/i3/config" "$HOME/.i3"
+    echo "Linking i3 config files..."
+    {
+        mkdir -p "$HOME/.i3/config"
+        if [ -f "$HOME/.i3/config" ]; then
+            rm "$HOME/.i3/config"
+        fi
+        ln -s "$DOTFILES/i3/config" "$HOME/.i3"
 
-    if [ -f "$XDG_CONFIG_HOME/compton.conf" ]; then
-        rm "$XDG_CONFIG_HOME/compton.conf"
-    fi
-    ln -s "$DOTFILES/compton/compton.conf" "$XDG_CONFIG_HOME"
+        if [ -f "$XDG_CONFIG_HOME/compton.conf" ]; then
+            rm "$XDG_CONFIG_HOME/compton.conf"
+        fi
+        ln -s "$DOTFILES/compton/compton.conf" "$XDG_CONFIG_HOME"
+    } >> /dev/null
 fi
 
 # Setup NeoVim
@@ -398,15 +403,19 @@ git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
 #make note to use mysql_secure_installation
 if [ $OS == "LINUX" ]; then
-    sudo -u "$SUDO_USER" "fc-cache -f $font_dir" >> /dev/null
+    echo "Flushing font cache..."
+    sudo -u "$SUDO_USER" "fc-cache -f $font_dir"
 fi
 
 if [ "$DISTRO" == "UBUNTU" ]; then
-    sudo apt-get -y install mysql-server >> /dev/null
+    echo "Installing MySQL Server..."
+    sudo apt-get -yqq install mysql-server
     #sudo mysql_secure_installation
-    go get github.com/github/hub
+    echo "Installing hub..."
+    go get github.com/github/hub >> /dev/null
 fi
 
 # set zsh as default
+echo "Setting zsh as default shell..."
 sudo -u "$SUDO_USER" chsh -s "$(which zsh)"
 echo "Install and setup complete.  Now run the setup script."
