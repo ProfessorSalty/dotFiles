@@ -66,157 +66,170 @@ if [ $OS == "MAC" ]; then
     echo "Updating Homebrew..."
     brew update
     echo "Installing important packages..."
-    brew tap homebrew/science
-    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag ctags leiningen
-    brew install wget --with-iri
-    brew install vim --override-system-vi
-    brew cask install gpgtools
-    brew cask install sublime-text
+    brew tap homebrew/science >> /dev/null
+    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag ctags leiningen >> /dev/null
+    brew install wget --with-iri >> /dev/null
+    brew install vim --override-system-vi >> /dev/null
+    brew cask install gpgtools >> /dev/null
+    brew cask install sublime-text >> /dev/null
     echo "Cleaning up..."
-    brew cleanup
+    brew cleanup >> /dev/null
 elif [ "$DISTRO" == "UBUNTU" ]; then
-    sudo apt-get install apt-transport-https
-    # for Sublime Text
-    wget -qO-  https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-    # for Heroku
-    #echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
-    #sudo wget -qO "$GPGKEY/heroku-release.key" https://cli-assets.heroku.com/apt/release.key
-    #sudo wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
-    # nexcloud client
-    #sudo add-apt-repository -y ppa:nextcloud-devs/client
-    sudo apt-get update
-    sudo apt-get install -y git
-    sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary exuberant-ctags gawk curl
-    # install submlime text
-    sudo apt-get install -y sublime-text
-    # Go from snaps
-    sudo snap install --classic go
-    #html-tidy5
-    wget https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
-    sudo dpkg -i tidy-5.4.0-64bit.deb
-    rm tidy-5.4.0-64bit.deb
-    #BECAUSE REASONS
-    alias awk=gawk
+    {
+        sudo apt-get install apt-transport-https >> /dev/null
+        # for Sublime Text
+        wget -qO-  https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - >> /dev/null
+        echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list >> /dev/null
+        sudo apt-get update
+        sudo apt-get dist-upgrade -y
+        sudo apt-get install -y git
+        sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary exuberant-ctags gawk curl
+        # install submlime text
+        sudo apt-get install -y sublime-text
+        # Go from snaps
+        sudo snap install --classic go
+        #html-tidy5
+        wget https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
+        sudo dpkg -i tidy-5.4.0-64bit.deb
+        rm tidy-5.4.0-64bit.deb
+        #BECAUSE REASONS
+        alias awk=gawk
+    } >> /dev/null
 elif [ "$DISTRO" == "MANJAROLINUX" ]; then
-    curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
-    echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
-    sudo pacman -Syu sublime-text
-    sudo pacman -R urxvt
-    sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc
-    yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
+    {
+        curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg >> /dev/null
+        echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf >> /dev/null
+        sudo pacman -Syu sublime-text
+        sudo pacman -R urxvt
+        sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc
+        yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
+    } >> /dev/null
 fi
 if [ -z $(which git) ]; then
     echo "Git is not installed for some reason"
     exit 1
 fi
-go get -u github.com/nsf/gocode
-go get -u github.com/ramya-rao-a/go-outline
-go get -u github.com/tpng/gopkgs
-go get -u github.com/acroca/go-symbols
-go get -u golang.org/x/tools/cmd/guru
-go get -u golang.org/x/tools/cmd/gorename
-go get -u github.com/fatih/gomodifytags
-go get -u github.com/josharian/impl
-go get -u github.com/rogpeppe/godef
-go get -u sourcegraph.com/sqs/goreturns
-go get -u golang.org/x/tools/cmd/goimports
-go get -u github.com/golang/lint/golint
-go get -u github.com/cweill/gotests/...
-
+{
+    go get -u github.com/nsf/gocode
+    go get -u github.com/ramya-rao-a/go-outline
+    go get -u github.com/tpng/gopkgs
+    go get -u github.com/acroca/go-symbols
+    go get -u golang.org/x/tools/cmd/guru
+    go get -u golang.org/x/tools/cmd/gorename
+    go get -u github.com/fatih/gomodifytags
+    go get -u github.com/josharian/impl
+    go get -u github.com/rogpeppe/godef
+    go get -u sourcegraph.com/sqs/goreturns
+    go get -u golang.org/x/tools/cmd/goimports
+    go get -u github.com/golang/lint/golint
+    go get -u github.com/cweill/gotests/...
+} >> /dev/null
 #get oh-my-zsh
 if [ ! -d ~/.oh-my-zsh ]; then
     echo "Installing oh-my-zsh..."
-    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh >> /dev/null
 fi
 
 if [ ! -d ~/.oh-my-zsh/themes/geometry ]; then
     echo "Installing geometry theme for oh-my-zsh..."
-    git clone --depth=1 https://github.com/geometry-zsh/geometry ~/.oh-my-zsh/themes/geometry
+    git clone --depth=1 https://github.com/geometry-zsh/geometry ~/.oh-my-zsh/themes/geometry >> /dev/null
+
     cd ~/.oh-my-zsh/themes/geometry || return
-    git submodule update --init --recursive
+    git submodule update --init --recursive >> /dev/null
 fi
 
 if [ ! -d "$RBENV" ]; then
-    git clone --depth=1 https://github.com/rbenv/rbenv.git "$RBENV"
     echo "Initializing rbenv..."
-    mkdir -p "$RBENV/plugins"
-    RCMD=$RBENV/bin/rbenv
-    git clone --depth=1 https://github.com/rbenv/ruby-build.git "$($RCMD root)/plugins/ruby-build"
-    sudo chown -R "$USERPERMISSIONS" "$RBENV"
-    rubyversion=$($RCMD install --list | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
+    {
+        git clone --depth=1 https://github.com/rbenv/rbenv.git "$RBENV"
+        mkdir -p "$RBENV/plugins"
+        RCMD=$RBENV/bin/rbenv
+        git clone --depth=1 https://github.com/rbenv/ruby-build.git "$($RCMD root)/plugins/ruby-build"
+        sudo chown -R "$USERPERMISSIONS" "$RBENV"
+        rubyversion=$($RCMD install --list | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
+    } >> /dev/null
     echo "Downloading Ruby $rubyversion..."
-    $RCMD install "$rubyversion"
-    $RCMD global "$rubyversion"
+    {
+        $RCMD install "$rubyversion"
+        $RCMD global "$rubyversion"
+    } >> /dev/null
 fi
 
 if [ ! -d "$NODENV" ]; then
     git clone --depth=1 https://github.com/nodenv/nodenv.git "$NODENV"
     echo "Initializing nodenv..."
-    mkdir -p "$NODENV/plugins"
-    NCMD=$NODENV/bin/nodenv
-    git clone --depth=1 https://github.com/nodenv/node-build.git "$($NCMD root)/plugins/node-build"
-    sudo chown -R "$USERPERMISSIONS" "$NODENV"
-    NODEVERSION=$($NCMD install --list |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    {
+        mkdir -p "$NODENV/plugins"
+        NCMD=$NODENV/bin/nodenv
+        git clone --depth=1 https://github.com/nodenv/node-build.git "$($NCMD root)/plugins/node-build"
+        sudo chown -R "$USERPERMISSIONS" "$NODENV"
+        NODEVERSION=$($NCMD install --list |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    } >> /dev/null
     echo "Downloading Node $NODEVERSION..."
-    $NCMD install "$NODEVERSION"
-    LATESTSIX=$($NCMD install --list |  awk '/^[[:space:]]+6\.([[:digit:]]+\.)([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    {
+        $NCMD install "$NODEVERSION"
+        LATESTSIX=$($NCMD install --list |  awk '/^[[:space:]]+6\.([[:digit:]]+\.)([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    } >> /dev/null
     echo "Downloading Node $LATESTSIX for compatibility"
-    $NCMD install "$LATESTSIX"
-    $NCMD global "$LATESTSIX"
+    {
+        $NCMD install "$LATESTSIX"
+        $NCMD global "$LATESTSIX"
+    } >> /dev/null
 fi
 
 if [ "$(which easy_install)" ] && [ -z "$(which pip)" ]; then
     #need to install pip
-    sudo easy_install pip
+    sudo easy_install pip >> /dev/null
 fi
 if [ "$(which pip)" ]; then
-    pip install --upgrade pip
+    pip install --upgrade pip >> /dev/null
 fi
 
 if [ "$(which pip3)" ]; then
-    pip3 install --upgrade pip3
+    pip3 install --upgrade pip3 >> /dev/null
     # These are for nvim completion engine
-    pip3 install --user neovim jedi psutil setproctitle
+    pip3 install --user neovim jedi psutil setproctitle >> /dev/null
 fi
 
 echo "Installing NPM modules..."
-sudo "$NODENV/shims/npm" install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify
+sudo "$NODENV/shims/npm" install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify >> /dev/null
 
 # TODO - fix for non-macOS systems
 #dotNet
 if [ -z "$(which dotnet)" ]; then
     DOTNET="$DOWNLOADS/dotnet"
     DNETFILES="$DOTNET/dotnet.pkg"
-    mkdir -p /usr/local/lib
-    ln -s /usr/local/opt/openssl/lib/libcrypto*.dylib /usr/local/lib/
-    ln -s /usr/local/opt/openssl/lib/libssl*.dylib /usr/local/lib/
+    {
+        mkdir -p /usr/local/lib
+        ln -s /usr/local/opt/openssl/lib/libcrypto*.dylib /usr/local/lib/
+        ln -s /usr/local/opt/openssl/lib/libssl*.dylib /usr/local/lib/
+    } >> /dev/null
     echo "Downloading dotNet Core to $DOTNET..."
-    wget -qO "$DNETFILES" https://go.microsoft.com/fwlink/?LinkID=835011
+    wget -qO "$DNETFILES" https://go.microsoft.com/fwlink/?LinkID=835011 >> /dev/null
     echo "Installing dotNet Core..."
-    sudo installer -pkg "$DNETFILES" -target /
+    sudo installer -pkg "$DNETFILES" -target / >> /dev/null
 fi
 
 #Install globals for Sublime Text plugins
 echo "Installing important gems..."
-gem install rubocop haml scss_lint rails bundler capistrano tmuxinator travis
+"$NODENV/shims/gem" install rubocop haml scss_lint rails bundler capistrano tmuxinator travis >> /dev/null
 
 echo "Installing powerline-status..."
-pip3 install powerline-status
+pip3 install powerline-status >> /dev/null
 
 echo "Installing powerline fonts..."
 PL="$DOWNLOADS/powerline-fonts"
 git clone --depth=1 https://github.com/powerline/fonts.git "$PL"
 cd "$PL" || exit
 chmod +x ./install.sh
-./install.sh
+./install.sh >> /dev/null
 cd && rm -rf "$PL"
 
 echo "Installing Font-Awesome..."
 FA="$DOWNLOADS/Font-Awesome"
 git clone --depth=1 https://github.com/FortAwesome/Font-Awesome.git "$FA"
 cd "$FA" || exit
-cp "$(find "$FA" -name '*.[o,t]tf' -or -name '*.pcf.gz' -type f -print0)" "$font_dir/"
+cp "$(find "$FA" -name '*.[o,t]tf' -or -name '*.pcf.gz' -type f -print0)" "$font_dir/" >> /dev/null
 cd && rm -rf "$FA"
 
 echo 'Installing Hack (font)...'
@@ -225,7 +238,7 @@ if [ ! -d "$HACK" ]; then
     git clone --depth=1 https://github.com/source-foundry/Hack.git "$HACK"
 fi
 cd "$HACK" || exit
-cp "$(find "$HACK" -name '*.[o,t]tf' -or -name '*.pcf.gz' -type f -print0)" "$font_dir/"
+cp "$(find "$HACK" -name '*.[o,t]tf' -or -name '*.pcf.gz' -type f -print0)" "$font_dir/" >> /dev/null
 cd
 sudo rm -rf "$HACK"
 
@@ -235,13 +248,13 @@ if [ ! -d "$NF" ]; then
     git clone --depth=1 https://github.com/ryanoasis/nerd-fonts.git "$NF"
 fi
 cd "$NF" || exit
-./install.sh
+./install.sh >> /dev/null
 cd && rm -rf "$NF"
 
 #should clone dotFiles repo only if ~/.dotFiles does not exist
 if [ ! -d "$DOTFILES" ]; then
     echo "Cloning dotFiles..."
-    git clone --depth=1 https://github.com/PortableStick/dotFiles.git "$DOTFILES"
+    git clone --depth=1 https://github.com/PortableStick/dotFiles.git "$DOTFILES" >> /dev/null
     wait $!
 fi
 
@@ -250,7 +263,6 @@ for FILEPATH in $DOTFILES/rcfiles/*; do
     echo "Linking $FILENAME...";
     if [ -L ~/."$FILENAME" ]; then
         rm ~/."$FILENAME"
-        echo "Removing $FILENAME..."
     fi
     ln -s "$FILEPATH" ~/."$FILENAME"
 done
@@ -354,7 +366,7 @@ if [ ! -f "$XDG_CONFIG_HOME"/nvim/init.vim ]; then
 fi
 if [ ! -d "$HOME"/.local/share/nvim/site/autoload ]; then
  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> /dev/null
 fi
 
 if [ $OS == "MAC" ]; then
@@ -364,13 +376,11 @@ fi
 
 # install vim-plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> /dev/null
 
 chown -R "$USERPERMISSIONS" ~/.local
 
 sudo -u "$SUDO_USER" nvim +PlugInstall +qall
-
-# Run a second time because ~/.local/share/nvim/shada gets created with root privileges
 
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
@@ -388,11 +398,11 @@ git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
 #make note to use mysql_secure_installation
 if [ $OS == "LINUX" ]; then
-    sudo -u "$SUDO_USER" "fc-cache -f $font_dir"
+    sudo -u "$SUDO_USER" "fc-cache -f $font_dir" >> /dev/null
 fi
 
 if [ "$DISTRO" == "UBUNTU" ]; then
-    sudo apt-get -y install mysql-server
+    sudo apt-get -y install mysql-server >> /dev/null
     #sudo mysql_secure_installation
     go get github.com/github/hub
 fi
