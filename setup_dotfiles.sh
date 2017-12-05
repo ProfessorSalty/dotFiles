@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+DOTFILES="$HOME/.dotFiles"
 cd || exit
 
 for FILEPATH in $DOTFILES/rcfiles/*; do
