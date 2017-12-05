@@ -33,7 +33,7 @@ set clipboard=unnamed
 let mapleader = "\<Space>"
 if empty(glob('~/.local/share/nvim/site/autoload'))
     silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-                \ https://raw.githubusercontent.com/junegunn/vim-plug/"master/plug.vim
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -47,7 +47,7 @@ Plug 'majutsushi/tagbar'
 Plug 'lervag/vimtex'
 Plug 'vim-airline/vim-airline'
 " Easily repeat non-native commands
-Plug 'kana/vim-repeat'
+Plug 'tpope/vim-repeat'
 " Change clipboard behavior to be more sane
 Plug 'svermeulen/vim-easyclip'
 Plug 'alvan/vim-closetag'
