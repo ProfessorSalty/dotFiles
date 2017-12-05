@@ -404,11 +404,12 @@ fi
 
 git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
+
 #make note to use mysql_secure_installation
 
 if [ "$DISTRO" == "UBUNTU" ]; then
     echo "Installing MySQL Server..."
-    sudo apt-get -yqq install mysql-server
+    sudo apt-get -y -qq install mysql-server
     #sudo mysql_secure_installation
     echo "Installing hub..."
     go get github.com/github/hub >> /dev/null
