@@ -46,6 +46,9 @@ Plug 'xolox/vim-misc'
 Plug 'majutsushi/tagbar'
 Plug 'lervag/vimtex'
 Plug 'vim-airline/vim-airline'
+" Easily repeat non-native commands
+Plug 'kana/vim-repeat'
+" Change clipboard behavior to be more sane
 Plug 'svermeulen/vim-easyclip'
 Plug 'alvan/vim-closetag'
 Plug 'jiangmiao/auto-pairs'

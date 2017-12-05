@@ -12,7 +12,6 @@ XDG_CONFIG_HOME=$HOME/.config
 NODENV=$HOME/.nodenv
 RBENV=$HOME/.rbenv
 GOPATH=$HOME/Projects/go
-GPGKEY=/etc/apt/trusted.gpg.d/
 USERPERMISSIONS="$SUDO_USER:$SUDO_USER"
 
 export GOPATH
@@ -273,7 +272,7 @@ done
 for FILEPATH in $DOTFILES/bin/*;do
     FILENAME=${FILEPATH##*/}
     echo "Linking $FILENAME...";
-    if [ -L /usr/local/bin/$"FILENAME" ]; then
+    if [ -L /usr/local/bin/"$FILENAME" ]; then
         sudo rm  /usr/local/bin/"$FILENAME"
         echo "Removing $FILENAME..."
     fi
