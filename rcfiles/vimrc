@@ -50,7 +50,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-repeat'
 " Change clipboard behavior to be more sane
 Plug 'svermeulen/vim-easyclip'
+" Close HTML/XML tags with <c-_> (control + underscore)
 Plug 'alvan/vim-closetag'
+" Insert or delete brackets, parens, quotes in pairs
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'pangloss/vim-javascript'
@@ -73,15 +75,17 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'othree/javascript-libraries-syntax.vim'
-"" visual indentation
+" visual indentation
 Plug 'thaerkh/vim-indentguides'
 " Easy highlighting with <s>
 Plug 'justinmk/vim-sneak'
 Plug 'mustache/vim-mustache-handlebars', { 'for': ['hbls', 'handlbars', 'html', 'js'] }
 Plug 'mattn/emmet-vim'
 " transition between multi and single line code
+" gS to split into multiple lines
+" gJ to join into a single line
 Plug 'andrewradev/splitjoin.vim'
-""Typescript Plugins
+" Typescript Plugins
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
 Plug 'leafgarland/typescript-vim'
@@ -93,10 +97,13 @@ Plug 'wincent/scalpel'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'tpope/vim-fugitive'
+" Create persistent vim sessions
+" :ToggleWorkspace
 Plug 'thaerkh/vim-workspace'
 Plug 'junegunn/vim-easy-align'
 Plug 'nikvdp/ejs-syntax'
 Plug 'ntpeters/vim-better-whitespace'
+" Linter/fixer
 Plug 'w0rp/ale'
 Plug 'cohama/agit.vim'
 Plug 'ekalinin/Dockerfile.vim'
@@ -104,6 +111,9 @@ Plug 'Quramy/vim-js-pretty-template'
 Plug 'airblade/vim-gitgutter'
 Plug 'posva/vim-vue'
 Plug 'eapache/rainbow_parentheses.vim'
+" Clojure stuff
+" Connect to lein repl
+Plug 'tpope/vim-fireplace'
 
 "completions
 Plug 'roxma/nvim-completion-manager'
@@ -233,7 +243,7 @@ set noswapfile
 "fix some annoying stuff
 nnoremap <F1> <nop>
 nnoremap Q <nop>
-nnoremap K <nop>
+"nnoremap K <nop>
 
 " insert new line in normal mode
 map <Enter> o<ESC>
@@ -292,3 +302,9 @@ noremap <F3> :Autoformat<CR>
 let g:workspace_autosave_always = 1
 let g:sneak#label = 1
 
+
+" Key command to reload Clojure file in REPL
+au Filetype clojure nmap <c-c><c-c> :Require<cr>
+au Filetype clojure let g:AutoPairs = {'(':')', '[':']', '{':'}','"':'"', '`':'`'}
+nnoremap <leader>s :ToggleWorkspace<CR>
+nnoremap ; :
