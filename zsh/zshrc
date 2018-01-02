@@ -40,6 +40,7 @@ alias git="hub"
 ####Development stuff####
 alias tree="tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX"
 alias ipy='ipython qtconsole --ConsoleWidget.font_family="Consolas" --ConsoleWidget.font_size=13'
+alias cract='create-react-app'
 bindkey '^N' clear-screen
 function take() {
     mkdir -p $1
@@ -61,7 +62,7 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ###-tns-completion-start-###
-if [ -f /Users/gregorysmith/.tnsrc ]; then 
-    source /Users/gregorysmith/.tnsrc 
+if [ -f /Users/gregorysmith/.tnsrc ]; then
+    source /Users/gregorysmith/.tnsrc
 fi
 ###-tns-completion-end-###

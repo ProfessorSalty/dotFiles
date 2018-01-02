@@ -193,7 +193,7 @@ if [ "$(which pip3)" ]; then
 fi
 
 echo "Installing NPM modules..."
-npm_config_loglevel=silent sudo "$NODENV/shims/npm" install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript jsbeautify >> /dev/null
+npm_config_loglevel=silent sudo "$NODENV/shims/npm" install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript js-beautify create-react-app @angular/cli vue-cli >> /dev/null
 
 # TODO - fix for non-macOS systems
 #dotNet

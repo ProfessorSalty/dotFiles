@@ -1,6 +1,8 @@
 filetype plugin on
 " Disable intro message
 set shortmess=I
+set nobackup
+set noswapfile
 set number
 set ruler
 set mouse=a
@@ -24,8 +26,8 @@ set smartcase
 set relativenumber
 nnoremap <F4> :set relativenumber!<CR>
 set guifont=M+\ 1m\ light\ Nerd\ Font\ Complete:h19
-"" Always display the status line
-set laststatus=2
+"" Always display the status line on the bottom window only
+set laststatus=1
 " open a new buffer without saving current changed buffers
 set hidden
 " Make vim use system clipboard
@@ -38,8 +40,6 @@ if empty(glob('~/.local/share/nvim/site/autoload'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'ryanoasis/vim-devicons'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
@@ -55,16 +55,15 @@ Plug 'alvan/vim-closetag'
 " Insert or delete brackets, parens, quotes in pairs
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " Autocomplete
 Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] }
 Plug 'digitaltoad/vim-pug'
+" Real time interpreter
+" start with :Codi
 Plug 'metakirby5/codi.vim'
 Plug 'farmergreg/vim-lastplace'
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'scrooloose/nerdcommenter'
 Plug 'Chiel92/vim-autoformat'
@@ -74,12 +73,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'danilo-augusto/vim-afterglow'
-Plug 'othree/javascript-libraries-syntax.vim'
 " visual indentation
 Plug 'thaerkh/vim-indentguides'
-" Easy highlighting with <s>
-Plug 'justinmk/vim-sneak'
-Plug 'mustache/vim-mustache-handlebars', { 'for': ['hbls', 'handlbars', 'html', 'js'] }
 Plug 'mattn/emmet-vim'
 " transition between multi and single line code
 " gS to split into multiple lines
@@ -89,42 +84,58 @@ Plug 'andrewradev/splitjoin.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
 Plug 'leafgarland/typescript-vim'
-" Go
+"" Go
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'jodosha/vim-godebug', { 'for': 'go' }
 Plug 'tpope/vim-surround'
+"" fancy search and replace
 Plug 'wincent/scalpel'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'tpope/vim-fugitive'
 " Create persistent vim sessions
 " :ToggleWorkspace
+" bound to <Leader>s
 Plug 'thaerkh/vim-workspace'
 Plug 'junegunn/vim-easy-align'
-Plug 'nikvdp/ejs-syntax'
-Plug 'ntpeters/vim-better-whitespace'
-" Linter/fixer
+"Plug 'ntpeters/vim-better-whitespace'
+"" Linter/fixer
 Plug 'w0rp/ale'
 Plug 'cohama/agit.vim'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'Quramy/vim-js-pretty-template'
 Plug 'airblade/vim-gitgutter'
-Plug 'posva/vim-vue'
+"" Alternate bracket coloring
 Plug 'eapache/rainbow_parentheses.vim'
-" Clojure stuff
-" Connect to lein repl
-Plug 'tpope/vim-fireplace'
 
-"completions
+"" Clojure stuff
+"" Connect to lein repl
+Plug 'tpope/vim-fireplace'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+
+""completions
 Plug 'roxma/nvim-completion-manager'
 Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
 
+" Edit a text area in your browser
+" start with :GhostStart, then turn on the plugin
+" close the buffer when done, or :GhostStop
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+
+" Syntax
+Plug 'posva/vim-vue'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'nikvdp/ejs-syntax'
+Plug 'mustache/vim-mustache-handlebars', { 'for': ['hbls', 'handlbars', 'html', 'js'] }
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'othree/javascript-libraries-syntax.vim'
+
 call plug#end()
 " Strip white space on save
-autocmd BufEnter * EnableStripWhitespaceOnSave
+"autocmd BufEnter * EnableStripWhitespaceOnSave
 
-"set background=light
 " for rainbow_parentheses
 let g:rbpt_colorpairs = [
             \ ['brown',       'RoyalBlue3'],
@@ -145,7 +156,7 @@ let g:rbpt_colorpairs = [
             \ ['red',         'firebrick3'],
             \ ]
 
-
+" load raindow_parentheses by default
 let g:rbpt_loadcmd_toggle = 1
 
 au VimEnter * RainbowParenthesesToggle
@@ -153,31 +164,10 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"let g:deoplete#omni#functions = {}
-"let g:deoplete#omni#functions.javascript = [
-"\ 'tern#Complete',
-"\ 'jspc#omni'
-"\]
-
-"set completeopt=longest,menuone,preview
-"let g:deoplete#sources = {}
-"let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
-"let g:tern#command = ['tern']
-"let g:tern#arguments = ['--persistent']
-
 let g:UltiSnipsExpandTrigger="<C-j>"
-"inoremap <silent><expr> <TAB>
-"\ pumvisible() ? "\<C-n>" :
-"\ <SID>check_back_space() ? "\<TAB>" :
-"\ deoplete#mappings#manual_complete()
-"function! s:check_back_space() abort "{{{
-"let col = col('.') - 1
-"return !col || getline('.')[col - 1]  =~ '\s'
-"endfunction"}}}
 " or just disable the preview entirely
 set completeopt-=preview
+
 nnoremap <Leader>f :NERDTreeToggle<Enter>
 " Use tab to select autocompletion option
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -210,7 +200,7 @@ hi CursorLine gui=underline guibg=NONE guifg=NONE
 let g:airline#extensions#tabline#enabled     = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline_powerline_fonts                = 1
-set laststatus=2
+
 augroup omnifuncs
     autocmd!
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -237,13 +227,10 @@ let g:fzf_layout = { 'window': 'enew' }
 let g:fzf_layout = { 'window': '-tabnew' }
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
-set nobackup
-set noswapfile
 
 "fix some annoying stuff
 nnoremap <F1> <nop>
 nnoremap Q <nop>
-"nnoremap K <nop>
 
 " insert new line in normal mode
 map <Enter> o<ESC>
@@ -253,10 +240,8 @@ nnoremap <C-space> a
 imap <C-space> <Esc>
 vmap <C-space> <Esc>
 
-"call neomake#configure#automake('nw', 750)
 nnoremap <C-n> :bnext<CR>
-nnoremap <C-b> :bprev<CR>
-nnoremap <leader><w> :bd<CR>
+nnoremap <C-j> :bprev<CR>
 "nnoremap <C-w> :bd<CR>
 "" require jsx for files with js plugin
 let g:jsx_ext_required = 0
@@ -296,12 +281,12 @@ call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', '#151515')
 call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#151515')
 call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
 call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
+call NERDTreeHighlightFile('cs', 'Blue', 'none', 'Blue', '#151515')
 
 noremap <F3> :Autoformat<CR>
+
 " Vim Workspace
 let g:workspace_autosave_always = 1
-let g:sneak#label = 1
-
 
 " Key command to reload Clojure file in REPL
 au Filetype clojure nmap <c-c><c-c> :Require<cr>
