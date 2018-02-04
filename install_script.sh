@@ -154,6 +154,10 @@ if [ ! -d "$RBENV" ]; then
         $RCMD install "$rubyversion"
         $RCMD global "$rubyversion"
     } >> /dev/null
+    echo "Downloading rbenv-update..."
+    {
+      git clone https://github.com/rkh/rbenv-update.git "$(rbenv root)/plugins/rbenv-update"
+    } >> /dev/null
 fi
 
 if [ ! -d "$NODENV" ]; then
@@ -175,6 +179,10 @@ if [ ! -d "$NODENV" ]; then
     {
         $NCMD install "$LATESTSIX"
         $NCMD global "$LATESTSIX"
+    } >> /dev/null
+    echo "Downloading nodenv-update"
+    {
+      git clone https://github.com/nodenv/nodenv-update.git "$NODENV"/plugins/nodenv-update
     } >> /dev/null
 fi
 

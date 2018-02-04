@@ -15,14 +15,15 @@ set encoding=utf8
 set termencoding=utf-8
 set backspace=indent,eol,start
 " Set Proper Tabs
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set smarttab
 set shiftround
 set expandtab
 set ignorecase
 set smartcase
+set conceallevel=0
 set relativenumber
 nnoremap <F4> :set relativenumber!<CR>
 set guifont=M+\ 1m\ light\ Nerd\ Font\ Complete:h19
@@ -40,6 +41,8 @@ if empty(glob('~/.local/share/nvim/site/autoload'))
 endif
 
 call plug#begin('~/.vim/plugged')
+" Live markdown previewing
+Plug 'shime/vim-livedown'
 Plug 'ryanoasis/vim-devicons'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
@@ -131,6 +134,7 @@ Plug 'mustache/vim-mustache-handlebars', { 'for': ['hbls', 'handlbars', 'html', 
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'dart-lang/dart-vim-plugin'
 
 call plug#end()
 " Strip white space on save
@@ -240,7 +244,7 @@ nnoremap <C-space> a
 imap <C-space> <Esc>
 vmap <C-space> <Esc>
 
-nnoremap <C-n> :bnext<CR>
+nnoremap <C-k> :bnext<CR>
 nnoremap <C-j> :bprev<CR>
 "nnoremap <C-w> :bd<CR>
 "" require jsx for files with js plugin
@@ -293,3 +297,20 @@ au Filetype clojure nmap <c-c><c-c> :Require<cr>
 au Filetype clojure let g:AutoPairs = {'(':')', '[':']', '{':'}','"':'"', '`':'`'}
 nnoremap <leader>s :ToggleWorkspace<CR>
 nnoremap ; :
+
+" Live markdown preview
+nmap gm :LivedownToggle<CR>
+" should markdown preview get shown automatically upon opening markdown buffer
+let g:livedown_autorun = 0
+
+" should the browser window pop-up upon previewing
+let g:livedown_open = 1
+
+" the port on which Livedown server will run
+let g:livedown_port = 1337
+
+" the browser to use
+let g:livedown_browser = "firefox"
+
+" disable conceal by default in JSON
+let g:vim_json_syntax_conceal = 0
