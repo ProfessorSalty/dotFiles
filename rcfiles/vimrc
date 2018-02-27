@@ -43,6 +43,7 @@ endif
 call plug#begin('~/.vim/plugged')
 " Live markdown previewing
 Plug 'shime/vim-livedown'
+" Icons for NerdTree
 Plug 'ryanoasis/vim-devicons'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
@@ -57,6 +58,7 @@ Plug 'svermeulen/vim-easyclip'
 Plug 'alvan/vim-closetag'
 " Insert or delete brackets, parens, quotes in pairs
 Plug 'jiangmiao/auto-pairs'
+" Styles for airline
 Plug 'vim-airline/vim-airline-themes'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -67,6 +69,7 @@ Plug 'digitaltoad/vim-pug'
 " start with :Codi
 Plug 'metakirby5/codi.vim'
 Plug 'farmergreg/vim-lastplace'
+" Completion for function parameters
 Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'scrooloose/nerdcommenter'
 Plug 'Chiel92/vim-autoformat'
@@ -314,3 +317,6 @@ let g:livedown_browser = "firefox"
 
 " disable conceal by default in JSON
 let g:vim_json_syntax_conceal = 0
+
+" Set vim-jsx to pretty colors
+let g:vim_jsx_pretty_colorful_config = 1

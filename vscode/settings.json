@@ -76,5 +76,6 @@
         "<C-a>": false,
         "<C-f>": false
     },
-    "vim.disableAnnoyingNeovimMessage": true
+    "vim.disableAnnoyingNeovimMessage": true,
+    "material-icon-theme.showUpdateMessage": false
 }
