@@ -67,7 +67,7 @@ if [ $OS == "MAC" ]; then
     echo "Installing important packages..."
     {
         brew tap homebrew/science
-        brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag ctags leiningen
+        brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag ctags leiningen mitmproxy
         brew install wget --with-iri
         brew install vim --override-system-vi
         brew cask install gpgtools

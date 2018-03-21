@@ -1,0 +1,8 @@
+{
+  "alfredsnippet" : {
+    "snippet" : "<html lang=\"en\"\n      xmlns=\"http:\/\/www.w3.org\/1999\/xhtml\"\n      xmlns:th=\"http:\/\/www.thymeleaf.org\">",
+    "uid" : "8CD669E7-46DA-49B6-BBEF-AB4CA2B9B24E",
+    "name" : "Thymleaf declaration",
+    "keyword" : "thyme"
+  }
+}

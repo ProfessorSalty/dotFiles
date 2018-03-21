@@ -1,4 +1,4 @@
-filetype plugin indent on
+filetype plugin on
 " Disable intro message
 set shortmess=I
 set nobackup
@@ -41,109 +41,48 @@ if empty(glob('~/.local/share/nvim/site/autoload'))
 endif
 
 call plug#begin('~/.vim/plugged')
-"" Changes Vim working directory to project root (identified by presence of known directory or file).
-Plug 'airblade/vim-rooter'
-"" Live markdown previewing
+" Live markdown previewing
 Plug 'shime/vim-livedown'
-"" Icons for NerdTree
+" Icons for NerdTree
 Plug 'ryanoasis/vim-devicons'
-Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
-Plug 'majutsushi/tagbar'
-Plug 'lervag/vimtex'
 Plug 'vim-airline/vim-airline'
-"" Easily repeat non-native commands
+" Easily repeat non-native commands
 Plug 'tpope/vim-repeat'
-"" Change clipboard behavior to be more sane
+" Change clipboard behavior to be more sane
 Plug 'svermeulen/vim-easyclip'
-"" Close HTML/XML tags with <c-_> (control + underscore)
+" Close HTML/XML tags with <c-_> (control + underscore)
 Plug 'alvan/vim-closetag'
-"" Insert or delete brackets, parens, quotes in pairs
+" Insert or delete brackets, parens, quotes in pairs
 Plug 'jiangmiao/auto-pairs'
-"" Styles for airline
+" Styles for airline
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-"" Autocomplete
-Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] }
-Plug 'digitaltoad/vim-pug'
-"" Real time interpreter
-"" start with :Codi
-Plug 'metakirby5/codi.vim'
 Plug 'farmergreg/vim-lastplace'
-"" Completion for function parameters
-Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'scrooloose/nerdcommenter'
 Plug 'Chiel92/vim-autoformat'
-Plug 'moll/vim-node'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'danilo-augusto/vim-afterglow'
-"" visual indentation
+" visual indentation
 Plug 'thaerkh/vim-indentguides'
-Plug 'mattn/emmet-vim'
-"" transition between multi and single line code
-"" gS to split into multiple lines
-"" gJ to join into a single line
+" transition between multi and single line code
+" gS to split into multiple lines
+" gJ to join into a single line
 Plug 'andrewradev/splitjoin.vim'
-"" Typescript Plugins
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
-Plug 'leafgarland/typescript-vim'
-""" Go
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'jodosha/vim-godebug', { 'for': 'go' }
-Plug 'tpope/vim-surround'
-""" Completion engine
-Plug 'Shougo/deoplete.nvim'
-""" fancy search and replace
+"" fancy search and replace
 Plug 'wincent/scalpel'
-Plug 'heavenshell/vim-jsdoc'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'tpope/vim-fugitive'
-"" Create persistent vim sessions
-"" :ToggleWorkspace
-"" bound to <Leader>s
-"Plug 'thaerkh/vim-workspace'
 Plug 'junegunn/vim-easy-align'
-Plug 'ntpeters/vim-better-whitespace'
-""" Linter/fixer
-Plug 'w0rp/ale'
 Plug 'cohama/agit.vim'
 Plug 'airblade/vim-gitgutter'
-""" Alternate bracket coloring
+"" Alternate bracket coloring
 Plug 'eapache/rainbow_parentheses.vim'
-""" Java Stuff
-Plug 'artur-shaik/vim-javacomplete2'
 
-""" Clojure stuff
-""" Connect to lein repl
-Plug 'tpope/vim-fireplace'
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
-
-"""completions
-Plug 'roxma/nvim-completion-manager'
-Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
-
-"" Edit a text area in your browser
-"" start with :GhostStart, then turn on the plugin
-"" close the buffer when done, or :GhostStop
-Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
-
-"" Syntax
-Plug 'posva/vim-vue'
+" Syntax
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'Quramy/vim-js-pretty-template'
-Plug 'nikvdp/ejs-syntax'
-Plug 'mustache/vim-mustache-handlebars', { 'for': ['hbls', 'handlbars', 'html', 'js'] }
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'dart-lang/dart-vim-plugin'
 
 call plug#end()
 " Strip white space on save
@@ -177,7 +116,6 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-let g:UltiSnipsExpandTrigger="<C-j>"
 " or just disable the preview entirely
 set completeopt-=preview
 
@@ -214,16 +152,6 @@ let g:airline#extensions#tabline#enabled     = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline_powerline_fonts                = 1
 
-set omnifunc=syntaxcomplete#Complete
-augroup omnifuncs
-    autocmd!
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType java setlocal omnifunc=javacomplete#Complete
-augroup end
-
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let g:fzf_colors =
             \ { 'fg':      ['fg', 'Normal'],
@@ -259,15 +187,6 @@ vmap <C-space> <Esc>
 nnoremap <C-k> :bnext<CR>
 nnoremap <C-j> :bprev<CR>
 "nnoremap <C-w> :bd<CR>
-"" require jsx for files with js plugin
-let g:jsx_ext_required = 0
-let g:ale_change_sign_column_color = 1
-let g:ale_sign_column_always = 1
-let g:ale_change_sign_column_color  = 0
-inoremap <C-e> <C-o>$
-inoremap <C-f> <C-o>^
-
-nmap <F8> :TagbarToggle<CR>
 
 " NCM debug
 let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
@@ -304,37 +223,8 @@ noremap <F3> :Autoformat<CR>
 " Vim Workspace
 let g:workspace_autosave_always = 1
 
-" Key command to reload Clojure file in REPL
-au Filetype clojure nmap <c-c><c-c> :Require<cr>
-au Filetype clojure let g:AutoPairs = {'(':')', '[':']', '{':'}','"':'"', '`':'`'}
-nnoremap <leader>s :ToggleWorkspace<CR>
-nnoremap ; :
-
-" Live markdown preview
-nmap gm :LivedownToggle<CR>
-" should markdown preview get shown automatically upon opening markdown buffer
-let g:livedown_autorun = 0
-
-" should the browser window pop-up upon previewing
-let g:livedown_open = 1
-
-" the port on which Livedown server will run
-let g:livedown_port = 1337
-
-" the browser to use
-let g:livedown_browser = "firefox"
-
 " disable conceal by default in JSON
 let g:vim_json_syntax_conceal = 0
 
 " Set vim-jsx to pretty colors
 let g:vim_jsx_pretty_colorful_config = 1
-
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-"let g:deoplete#omni_patterns = {}
-"let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
-"let g:deoplete#auto_completion_start_length = 2
-"let g:deoplete#sources = {}
-"let g:deoplete#sources._ = []
-"let g:deoplete#file#enable_buffer_path = 1

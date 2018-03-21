@@ -8,4 +8,4 @@ fi
 
 source ~/.zpath
 export ANDROID_HOME=/usr/local/share/android-sdk
-export JAVA_HOME=/Library/Java/Home
+export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
