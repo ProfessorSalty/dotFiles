@@ -1,14 +1,17 @@
 {
-  "plugins": {
-    "es_modules": {},
-    "node": {},
-    "node-express": {}
-  },
   "libs": [
-    "ecma5",
-    "ecma6",
     "browser",
-    "jquery"
+    "jquery",
+    "react"
   ],
-  "ecmaVersion": 6
+  "plugins": {
+      "angular": {},
+      "doc_comment": null,
+      "es_modules": {},
+      "node": {}
+  },
+  "dontLoad": [
+      "node_modules/**"
+  ]
 }
+

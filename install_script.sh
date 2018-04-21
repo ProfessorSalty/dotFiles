@@ -67,9 +67,10 @@ if [ $OS == "MAC" ]; then
     echo "Installing important packages..."
     {
         brew tap homebrew/science
-        brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag ctags leiningen mitmproxy
+        brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag ctags leiningen mitmproxy cmake
         brew install wget --with-iri
         brew install vim --override-system-vi
+        brew install --with-toolchain llvm
         brew cask install gpgtools
         brew cask install sublime-text
     } > /dev/null
@@ -85,7 +86,7 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
         sudo apt-get update
         sudo apt-get dist-upgrade -yqq
         sudo apt-get install -yqq git
-        sudo apt-get install -yqq autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary exuberant-ctags gawk curl
+        sudo apt-get install -yqq autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev neovim python-neovim python3-neovim tmux zsh python postgresql postgresql-contrib tcl shellcheck python3-pip tree feh rofi xbacklight pulseaudio-utils compton xfce4-power-manager rxvt-unicode neofetch geary exuberant-ctags gawk curl cmake clang
         # install submlime text
         sudo apt-get install -yqq sublime-text
         # Go from snaps
@@ -102,7 +103,7 @@ elif [ "$DISTRO" == "MANJAROLINUX" ]; then
         curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg >> /dev/null
         echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf >> /dev/null
         sudo pacman -Syu sublime-text
-        sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc
+        sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc clang cmake
         yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
     } >> /dev/null
 fi
@@ -394,7 +395,7 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 
 chown -R "$USERPERMISSIONS" ~/.local
 
-sudo -u "$SUDO_USER" nvim +PlugInstall +qall
+sudo -E vim +PlugInstall +qall
 
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
