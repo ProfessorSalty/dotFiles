@@ -2,6 +2,7 @@ filetype plugin indent on
 set nolist
 " Disable intro message
 set shortmess=I
+set encoding=UTF-8
 set nobackup
 set noswapfile
 set number
@@ -24,7 +25,7 @@ set relativenumber
 set autoread
 
 nnoremap <F4> :set relativenumber!<CR>
-set guifont=Ubuntu\ Mono\ derivative\ Powerline:h19
+set guifont=M+\ 1m\ light\ Nerd\ Font\ Complete:h19
 " Always display the status line on the bottom window only
 set laststatus=1
 " open a new buffer without saving current changed buffers
