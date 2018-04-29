@@ -8,6 +8,11 @@ Host sm_local
 	User gregorysmith
 	port 55455
 
+Host sm_remote
+      HostName suckmy.stream
+      User gregorysmith
+      port 55455
+
 Host gregoftheweb.com
 	Hostname gregoftheweb.com
 	User=webadmin
