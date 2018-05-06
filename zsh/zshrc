@@ -1,3 +1,7 @@
+command_exists () {
+    type "$1" &> /dev/null ;
+}
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 # Git editor
@@ -38,6 +42,11 @@ alias niss="npm install --save --save-exact"
 alias nids="npm install --save-dev --save-exact"
 alias bowie="bower install --save"
 alias git="hub"
+
+if command_exists pip3; then
+  alias pip="pip3"
+fi
+
 ####Development stuff####
 alias tree="tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX"
 alias ipy='ipython qtconsole --ConsoleWidget.font_family="Consolas" --ConsoleWidget.font_size=13'
