@@ -5,6 +5,12 @@ set shortmess=I
 set encoding=UTF-8
 set nobackup
 set noswapfile
+" enable folding
+set foldenable
+" Open most folds by default
+set foldlevelstart=10
+" Sets the fold type to indentation
+set foldmethod=indent
 set number
 set ruler
 set mouse=a
@@ -15,13 +21,20 @@ set pastetoggle=<F2>
 set encoding=utf8
 set termencoding=utf-8
 set backspace=indent,eol,start
+" Sets number of spaces in each tab representation
+set tabstop=2
+" Sets number of spaces actually in each tab
+set softtabstop=2
 set smarttab
 set shiftwidth=2
 set autoindent
 set smartindent
 set shiftround
+" Change all tabs to spaces
 set expandtab
 set ignorecase
+" visual autocomplete for command menu
+set wildmenu
 set smartcase
 set relativenumber
 " search as you type
@@ -29,6 +42,8 @@ set incsearch
 " highlight searches
 set hlsearch           
 set autoread
+" Prevent wasteful redraws
+set lazyredraw
 nnoremap <F4> :set relativenumber!<CR>
 set guifont=M+\ 1m\ light\ Nerd\ Font\ Complete:h19
 " Always display the status line on the bottom window only
@@ -228,7 +243,7 @@ highlight clear CursorLine
 " Set line numbering black on white
 highlight CursorLineNR ctermbg=white ctermfg=black
 
-let $FZF_DEFAULT_COMMAND = 'ag -g "'
+"let $FZF_DEFAULT_COMMAND = 'ag -g "'
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -243,7 +258,7 @@ let g:fzf_colors =
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 
-nnoremap <silent> <leader><space> :GFiles<CR>
+nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
 
 " fix some annoying stuff
@@ -361,5 +376,18 @@ endfunc
 " Some pretty stuff
 highlight Comment cterm=italic
 
-nmap <Leader>p <Plug>(Prettier)
+nmap <Leader>p :ALEFix<CR>
+au FileType javascript, json nmap <Leader>p <Plug>(Prettier)
+
+" turn off search highlight
+nnoremap <leader><k> :nohlsearch<CR>
+" space open/closes folds
+nnoremap <space> za
+
+" highlight last inserted text
+nnoremap gV `[v`]
+
+let g:ale_fixers = {
+      \ 'python': ['black']
+      \}
 
