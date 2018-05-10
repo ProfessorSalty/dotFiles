@@ -105,7 +105,7 @@ elif [ "$DISTRO" == "MANJAROLINUX" ]; then
         #sudo pacman -Syu sublime-text
         sudo pacman -Syu git tmux feh rofi shellcheck python-pip zsh zsh-completions go postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc deepin-terminal
         #sudo yaourt -S --aur --noconfirm --force clang cmake 
-        yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
+        sudo pacman -Syu nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
     } >> /dev/null
 fi
 if ! type git &> /dev/null; then
