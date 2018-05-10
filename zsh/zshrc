@@ -47,6 +47,10 @@ if command_exists pip3; then
   alias pip="pip3"
 fi
 
+if command_exists python3; then
+  alias python="python3"
+fi
+
 ####Development stuff####
 alias tree="tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX"
 alias ipy='ipython qtconsole --ConsoleWidget.font_family="Consolas" --ConsoleWidget.font_size=13'

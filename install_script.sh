@@ -100,14 +100,15 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     } >> /dev/null
 elif [ "$DISTRO" == "MANJAROLINUX" ]; then
     {
-        curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg >> /dev/null
-        echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf >> /dev/null
-        sudo pacman -Syu sublime-text
-        sudo yaourt -S --aur --noconfirm --force tmux feh rofi neovim shellcheck python-pip zsh zsh-completions go python-neovim postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc clang cmake
+        #curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg >> /dev/null
+        #echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf >> /dev/null
+        #sudo pacman -Syu sublime-text
+        sudo yaourt -S --aur --noconfirm --force tmux feh rofi shellcheck python-pip zsh zsh-completions go postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc deepin-terminal
+        #sudo yaourt -S --aur --noconfirm --force clang cmake 
         yaourt -S --aur --noconfirm nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
     } >> /dev/null
 fi
-if [ -z $(which git) ]; then
+if ! type git &> /dev/null; then
     echo "Git is not installed for some reason"
     exit 1
 fi
