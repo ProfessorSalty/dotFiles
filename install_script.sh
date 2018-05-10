@@ -100,12 +100,10 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     } >> /dev/null
 elif [ "$DISTRO" == "MANJAROLINUX" ]; then
     {
-        #curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg >> /dev/null
-        #echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf >> /dev/null
-        #sudo pacman -Syu sublime-text
-        sudo pacman -Syu git tmux feh rofi shellcheck python-pip zsh zsh-completions go postgresql mariadb compton xorg-xbacklight hub redis powerline powerline-fonts xorg-xmodmap geary neofetch keepassxc deepin-terminal
+        sudo pacman -Syu git tmux shellcheck python-pip zsh zsh-completions go hub powerline powerline-fonts geary neofetch keepassxc gvim nextcloud-client ruby-build node-build wire-desktop guake
+        #required for ctags vim plugin
+        sudo pacman -Syu ctags
         #sudo yaourt -S --aur --noconfirm --force clang cmake 
-        sudo pacman -Syu nextcloud-client tidy-html5 ruby-build node-build tdrop wire-desktop polybar-git rxvt-unicode-cvs-patched-wideglyphs
     } >> /dev/null
 fi
 if ! type git &> /dev/null; then
@@ -188,22 +186,22 @@ if [ ! -d "$NODENV" ]; then
     } >> /dev/null
 fi
 
-if [ "$(which easy_install)" ] && [ -z "$(which pip)" ]; then
+if test easy_install && ! test pip; then
     #need to install pip
     sudo easy_install pip >> /dev/null
 fi
-if [ "$(which pip)" ]; then
+if test pip; then
     pip install --upgrade pip >> /dev/null
 fi
 
-if [ "$(which pip3)" ]; then
+if test pip3; then
     pip3 install --upgrade pip3 >> /dev/null
     # These are for nvim completion engine
-    pip3 install --user neovim jedi psutil setproctitle >> /dev/null
+    pip3 install --user jedi psutil setproctitle >> /dev/null
 fi
 
 echo "Installing NPM modules..."
-npm_config_loglevel=silent sudo "$NODENV/shims/npm" install -g esformatter esformatter-jsx tern stylelint_d less babel-core babel-cli babel-preset-es2015 eslint_d typescript js-beautify create-react-app @angular/cli vue-cli >> /dev/null
+npm_config_loglevel=silent sudo "$NODENV/shims/npm" install -g express-generator nativescript react-native-cli tern slint_d typescript create-react-app @angular/cli vue-cli >> /dev/null
 
 # TODO - fix for non-macOS systems
 #dotNet
