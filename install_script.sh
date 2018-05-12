@@ -346,18 +346,6 @@ if [ ! -f ~/.ssh/config ]; then
     ln -s "$DOTFILES"/ssh/config ~/.ssh/
 fi
 
-if [ $OS == "MAC" ] && [ ! -d /usr/local/var/mysql ]; then
-    echo "Setting up MySQL...."
-    unset TMPDIR
-    mkdir /usr/local/var
-    mysql_install_db --verbose --user="$(whoami)" --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
-fi
-
-if [ ! -d /usr/local/var/postgres ]; then
-    echo "Setting up PostGres...."
-    postgres -D /usr/local/var/postgres
-fi
-
 if [ $OS == "LINUX" ]; then
     echo "Linking i3 config files..."
     {
@@ -383,22 +371,23 @@ if [ ! -f "$XDG_CONFIG_HOME"/nvim/init.vim ]; then
     ln -s ~/.vimrc "$XDG_CONFIG_HOME"/nvim/init.vim
 fi
 if [ ! -d "$HOME"/.local/share/nvim/site/autoload ]; then
- curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> /dev/null
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &> /dev/null
 fi
+
+if [ ! -d "$HOME/.vim/autoload" ]; then
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &> /dev/null
+fi
+
+sudo -E vim +PlugInstall +qall
 
 if [ $OS == "MAC" ]; then
     # sets xcode for node
     sudo xcode-select -switch /usr/bin
 fi
 
-# install vim-plug
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> /dev/null
-
 chown -R "$USERPERMISSIONS" ~/.local
-
-sudo -E vim +PlugInstall +qall
 
 #Get the information we need first, if we need it
 if  [ -z "$(git config --global user.name)" ]; then
@@ -414,16 +403,6 @@ fi
 
 git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_global
-
-#make note to use mysql_secure_installation
-
-if [ "$DISTRO" == "UBUNTU" ]; then
-    echo "Installing MySQL Server..."
-    sudo apt-get -y -qq install mysql-server
-    #sudo mysql_secure_installation
-    echo "Installing hub..."
-    go get github.com/github/hub >> /dev/null
-fi
 
 touch "$HOME/.terminfo"
 echo "Setting up terminfo..."
