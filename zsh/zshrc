@@ -82,3 +82,7 @@ if [ -f /Users/gregorysmith/.tnsrc ]; then
     source /Users/gregorysmith/.tnsrc
 fi
 ###-tns-completion-end-###
+
+if [[  -z "$SKIP_PROFILE" ]]; then
+  source ~/.zprofile
+fi

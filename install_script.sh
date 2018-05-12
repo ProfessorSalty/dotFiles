@@ -103,6 +103,8 @@ elif [ "$DISTRO" == "MANJAROLINUX" ]; then
         sudo pacman -Syu git tmux shellcheck python-pip zsh zsh-completions go hub powerline powerline-fonts geary neofetch gvim guake 
         #required for ctags vim plugin
         sudo pacman -Syu ctags
+        #allows programs that access the keyring on startup to work
+        sudo pacman -Syu libgnome-keychain
         sudo pacman -S base-devel yaourt
         yaourt -S --aur --noconfirm --force ruby-build nodenv-node-build nextcloud-client wire-desktop bitwarden
         #yaourt -S --aur --noconfirm --force clang cmake 
