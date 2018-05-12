@@ -104,8 +104,8 @@ elif [ "$DISTRO" == "MANJAROLINUX" ]; then
         #required for ctags vim plugin
         sudo pacman -Syu ctags
         sudo pacman -S base-devel yaourt
-        sudo yaourt -S --aur --noconfirm --force ruby-build nodenv-node-build nextcloud-client wire-desktop
-        #sudo yaourt -S --aur --noconfirm --force clang cmake 
+        yaourt -S --aur --noconfirm --force ruby-build nodenv-node-build nextcloud-client wire-desktop
+        #yaourt -S --aur --noconfirm --force clang cmake 
     } >> /dev/null
 fi
 if ! type git; then
