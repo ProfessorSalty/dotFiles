@@ -3,7 +3,7 @@
 # TODO
 # Colorize the output
 if [ ! -d "$HOME/Projects/go" ]; then
-    mkdir -p ~/Projects/go/bin
+    mkdir -p "$HOME/Projects/go/bin"
 fi
 
 DOTFILES=$HOME/.dotFiles
@@ -104,7 +104,7 @@ elif [ "$DISTRO" == "MANJAROLINUX" ]; then
         #required for ctags vim plugin
         sudo pacman -Syu ctags
         sudo pacman -S base-devel yaourt
-        sudo yaourt -S --aur --noconfirm --force ruby-build node-build nextcloud-client wire-desktop
+        sudo yaourt -S --aur --noconfirm --force ruby-build nodenv-node-build nextcloud-client wire-desktop
         #sudo yaourt -S --aur --noconfirm --force clang cmake 
     } >> /dev/null
 fi
@@ -144,6 +144,7 @@ fi
 if [ ! -d "$RBENV" ]; then
     echo "Initializing rbenv..."
     {
+        echo "Cloning rbenv into $RBENV"
         git clone -q --depth=1 https://github.com/rbenv/rbenv.git "$RBENV"
         mkdir -p "$RBENV/plugins"
         RCMD=$RBENV/bin/rbenv
@@ -166,6 +167,7 @@ if [ ! -d "$NODENV" ]; then
     git clone -q --depth=1 https://github.com/nodenv/nodenv.git "$NODENV"
     echo "Initializing nodenv..."
     {
+        echo "Cloning nodenv into $NODENV"
         mkdir -p "$NODENV/plugins"
         NCMD=$NODENV/bin/nodenv
         git clone -q --depth=1 https://github.com/nodenv/node-build.git "$($NCMD root)/plugins/node-build"
