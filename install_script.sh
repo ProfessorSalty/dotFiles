@@ -100,11 +100,11 @@ elif [ "$DISTRO" == "UBUNTU" ]; then
     } >> /dev/null
 elif [ "$DISTRO" == "MANJAROLINUX" ]; then
     {
-        sudo pacman -Syu git tmux shellcheck python-pip zsh zsh-completions go hub powerline powerline-fonts geary neofetch keepassxc gvim guake gnome-todo bijiben
+        sudo pacman -Syu git tmux shellcheck python-pip zsh zsh-completions go hub powerline powerline-fonts geary neofetch gvim guake 
         #required for ctags vim plugin
         sudo pacman -Syu ctags
         sudo pacman -S base-devel yaourt
-        yaourt -S --aur --noconfirm --force ruby-build nodenv-node-build nextcloud-client wire-desktop
+        yaourt -S --aur --noconfirm --force ruby-build nodenv-node-build nextcloud-client wire-desktop bitwarden
         #yaourt -S --aur --noconfirm --force clang cmake 
     } >> /dev/null
 fi
