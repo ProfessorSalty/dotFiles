@@ -108,7 +108,7 @@ elif [ "$DISTRO" == "MANJAROLINUX" ]; then
         #sudo yaourt -S --aur --noconfirm --force clang cmake 
     } >> /dev/null
 fi
-if ! type git &> /dev/null; then
+if ! type git; then
     echo "Git is not installed for some reason"
     exit 1
 fi
