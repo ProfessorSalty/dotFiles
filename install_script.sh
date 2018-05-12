@@ -105,7 +105,7 @@ elif [ "$DISTRO" == "MANJAROLINUX" ]; then
         sudo pacman -Syu ctags
         #allows programs that access the keyring on startup to work
         sudo pacman -Syu libgnome-keyring
-        sudo pacman -S base-devel yaourt
+        sudo pacman -Syu base-devel yaourt
         yaourt -S --aur --noconfirm --force ruby-build nodenv-node-build nextcloud-client wire-desktop bitwarden
         #yaourt -S --aur --noconfirm --force clang cmake 
     } >> /dev/null
