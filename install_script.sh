@@ -12,7 +12,7 @@ XDG_CONFIG_HOME=$HOME/.config
 NODENV=$HOME/.nodenv
 RBENV=$HOME/.rbenv
 GOPATH=$HOME/Projects/go
-USERPERMISSIONS="$SUDO_USER:$SUDO_USER"
+USERPERMISSIONS="$USER:$USER"
 
 export GOPATH
 
@@ -205,7 +205,7 @@ if test pip3; then
 fi
 
 echo "Installing NPM modules..."
-npm_config_loglevel=silent sudo "$NODENV/shims/npm" install -g express-generator nativescript react-native-cli tern slint_d typescript create-react-app @angular/cli vue-cli >> /dev/null
+npm_config_loglevel=silent sudo "$NODENV/shims/npm" install -g express-generator nativescript react-native-cli tern eslint_d typescript create-react-app @angular/cli vue-cli >> /dev/null
 
 # TODO - fix for non-macOS systems
 #dotNet
@@ -425,6 +425,7 @@ if [ "$DISTRO" == "UBUNTU" ]; then
     go get github.com/github/hub >> /dev/null
 fi
 
+touch "$HOME/.terminfo"
 echo "Setting up terminfo..."
 for FILEPATH in $DOTFILES/terminfo; do
         tic -o "$HOME/.terminfo " "$FILEPATH"
@@ -432,5 +433,5 @@ done
 
 # set zsh as default
 echo "Setting zsh as default shell..."
-sudo -u "$SUDO_USER" chsh -s "$(which zsh)"
+sudo -u "$USER" chsh -s "$(which zsh)"
 echo "Install and setup complete.  Now run the setup script."
