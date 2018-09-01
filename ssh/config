@@ -4,7 +4,7 @@ Host *
     IdentityFile ~/.ssh/id_rsa
 
 Host sm_local
-	HostName 192.168.1.99
+	HostName 192.168.1.98
 	User gregorysmith
 	port 55455
 
@@ -17,3 +17,11 @@ Host gregoftheweb.com
 	Hostname gregoftheweb.com
 	User=webadmin
 	IdentityFile ~/.ssh/id_rsa
+
+Host agora
+  HostName 18.204.80.44
+  User greg
+
+Host messari
+  HostName 34.193.63.195
+  User greg

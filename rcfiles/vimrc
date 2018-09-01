@@ -8,7 +8,7 @@ set noswapfile
 " enable folding
 set foldenable
 " Open most folds by default
-set foldlevelstart=10
+set foldlevelstart=12
 " Sets the fold type to indentation
 set foldmethod=indent
 set number
@@ -96,6 +96,8 @@ Plug 'svermeulen/vim-easyclip'
 Plug 'jiangmiao/auto-pairs'
 " Auto close *ML tags
 Plug 'alvan/vim-closetag/'
+" Sort Typescript imports
+Plug 'ruanyl/vim-sort-imports'
 " Superb status line
 Plug 'vim-airline/vim-airline'
 " Styles for airline
@@ -116,6 +118,8 @@ Plug 'junegunn/fzf.vim'
 
 " Highlight patterns for EX commands
 Plug 'markonm/traces.vim'
+" Color schemes
+Plug 'trevordmiller/nova-vim'
 Plug 'danilo-augusto/vim-afterglow'
 " visual indentation
 Plug 'Yggdroot/indentLine'
@@ -127,7 +131,7 @@ Plug 'andrewradev/splitjoin.vim'
 
 " Typescript Plugins
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
+"Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
 Plug 'leafgarland/typescript-vim'
 
 " Go
@@ -155,7 +159,8 @@ Plug 'cohama/agit.vim'
 Plug 'mhinz/vim-signify'
 " Alternate bracket coloring
 Plug 'eapache/rainbow_parentheses.vim'
-
+" Ranger in vim 
+Plug 'francoiscabrol/ranger.vim'
 " Clojure stuff
 " Connect to lein repl
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
@@ -206,8 +211,7 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-nnoremap <Leader>f :NERDTreeToggle<Enter>
-
+let g:ranger_map_keys = 0
 " nerdtree-git
 let g:NERDTreeIndicatorMapCustom = {
       \ "Modified"  : "✹",
@@ -234,7 +238,7 @@ let g:airline#extensions#tabline#enabled     = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline_powerline_fonts                = 1
 
-let g:airline_theme='distinguished'
+let g:airline_theme = 'distinguished'
 
 " Enable cursor line position tracking:
 set cursorline
@@ -267,6 +271,7 @@ nnoremap Q <nop>
 
 " insert new line in normal mode
 map <Enter> o<ESC>
+
 map <S-Enter> O<ESC>
 " No more escape key!!
 nnoremap <C-space> a
@@ -315,22 +320,11 @@ call NERDTreeHighlightFile('cs', 'Blue', 'none', 'Blue', '#151515')
 " Key command to reload Clojure file in REPL
 au Filetype clojure nmap <c-c><c-c> :Require<cr>
 au Filetype clojure let g:AutoPairs = {'(':')', '[':']', '{':'}','"':'"', '`':'`'}
-nnoremap <leader>s :ToggleWorkspace<CR>
+
 nnoremap ; :
-
-" Live markdown preview
-nmap gm :LivedownToggle<CR>
-" should markdown preview get shown automatically upon opening markdown buffer
-let g:livedown_autorun = 0
-
-" should the browser window pop-up upon previewing
-let g:livedown_open = 1
-
-" the port on which Livedown server will run
-let g:livedown_port = 1337
-
-" the browser to use
-let g:livedown_browser = "firefox"
+vnoremap ; :
+nnoremap : ;
+vnoremap : ;
 
 " integer value [0|1]
 " This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
@@ -352,7 +346,7 @@ let g:AutoPairsMultilineClose = 0
 " Disable visual indentation for JSON files (to keep quotes)
 let g:indentLine_fileTypeExclude = ['json', 'markdown']
 " Start autocompletion after 4 chars
-let g:ycm_min_num_of_chars_for_completion = 4
+let g:ycm_min_num_of_chars_for_completion = 3
 let g:ycm_min_num_identifier_candidate_chars = 4
 let g:ycm_enable_diagnostic_highlighting = 0
 
@@ -376,8 +370,15 @@ endfunc
 " Some pretty stuff
 highlight Comment cterm=italic
 
-nmap <Leader>p :ALEFix<CR>
-au FileType javascript, json nmap <Leader>p <Plug>(Prettier)
+nnoremap <Leader>p :ALEFix<CR>
+let g:ale_linters = {}
+let g:ale_linters['typescript'] = ['tslint']
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['typescript'] = ['prettier']
+let g:ale_fixers['json'] = ['prettier']
+let g:ale_fixers['python'] =  ['black']
+let g:ale_fixers['sh'] =  ['shfmt']
 
 " turn off search highlight
 nnoremap <leader><k> :nohlsearch<CR>
@@ -387,7 +388,20 @@ nnoremap <space> za
 " highlight last inserted text
 nnoremap gV `[v`]
 
-let g:ale_fixers = {
-      \ 'python': ['black']
-      \}
+let g:javascript_plugin_flow = 1
+map <leader>r :Ranger<CR>
+nnoremap <Leader>f :NERDTreeToggle<Enter>
 
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
+
+nnoremap <silent> n n:call HLNext(0.4)<cr>
+nnoremap <silent> N N:call HLNext(0.4)<cr>
+
+function! HLNext (blinktime)
+  set invcursorline
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+  set invcursorline
+  redraw
+endfunction

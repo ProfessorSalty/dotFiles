@@ -1,7 +1,8 @@
 // Place your settings in this file to overwrite the default settings
 {
     "editor.fontSize": 20,
-    "editor.fontFamily": "SourceCodePro-Light",
+    "editor.fontFamily": "UbuntuMono Nerd",
+    "editor.tabSize": 2,
     "files.trimTrailingWhitespace": true,
     "files.exclude": {
         "**/.git": true,
@@ -12,7 +13,6 @@
         "**/*.class": true,
         "**/*.vm": true
     },
-    "eslint.autoFixOnSave": true,
     "window.zoomLevel": 0,
     "vsicons.projectDetection.autoReload": true,
     "extensions.autoUpdate": true,
@@ -32,15 +32,8 @@
     },
     "javascript.implicitProjectConfig.checkJs": true,
     "java.errors.incompleteClasspath.severity": "ignore",
-    "latex-workshop.latex.toolchain": [{
-        "command": "xelatex",
-        "args": [
-            "%DOC%.tex"
-        ]
-    }],
     "editor.minimap.enabled": false,
     "editor.wordBasedSuggestions": false,
-    "latex-workshop.version": "2.10.0",
     "editor.wordWrap": "on",
     "vim.easymotion": true,
     "vim.incsearch": true,
@@ -76,6 +69,10 @@
         "<C-a>": false,
         "<C-f>": false
     },
-    "vim.disableAnnoyingNeovimMessage": true,
-    "material-icon-theme.showUpdateMessage": false
+    "material-icon-theme.showUpdateMessage": false,
+    "gitlens.keymap": "chorded",
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true
+    },
+    "gitlens.historyExplorer.enabled": true
 }
