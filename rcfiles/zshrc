@@ -1,5 +1,13 @@
+# Skip all this for non-interactive shells
+[[ -z "$PS1" ]] && return
+
 export ZSH=$HOME/.oh-my-zsh
 export DOTFILES=$HOME/.dotFiles
+if [[ "$(which vim)" ]]; then
+  export EDITOR="vim"
+else
+  export EDITOR="vi"
+fi
 
 ZSH_THEME="spaceship"
 
@@ -26,11 +34,24 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 source $ZSH/oh-my-zsh.sh
 
+alias ls="ls -al --color=auto"
+####Package managers####
+alias nis="npm install --save"
+alias nid="npm install --save-dev"
+alias snig="sudo npm install -g"
 alias sudo='sudo '
+alias git="hub"
+
 bindkey '^N' clear-screen
 
-export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 
 # TODO https://github.com/MicahElliott/dotfiles/blob/master/config/zshrc
 source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+if [[  -z "$SKIP_PROFILE" ]]; then
+  source ~/.zprofile
+fi
