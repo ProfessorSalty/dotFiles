@@ -3,8 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>currentthemeuid</key>
-	<string>theme.bundled.frostyteal</string>
-	<key>theme</key>
-	<string>alfred.theme.custom.70AC9A49-3256-4B17-8C27-89405A65B16D</string>
+	<string>theme.urlimport.6DBE41ED-CADF-42CD-9706-08B80F518F90</string>
 </dict>
 </plist>

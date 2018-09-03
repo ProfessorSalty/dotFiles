@@ -2,21 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>hidecog</key>
-	<true/>
 	<key>hidehat</key>
 	<true/>
 	<key>hidemenu</key>
-	<true/>
-	<key>hideshortcuts</key>
 	<true/>
 	<key>saveposition</key>
 	<true/>
 	<key>showOnScreen</key>
 	<integer>1</integer>
-	<key>xPoint</key>
-	<integer>-1</integer>
-	<key>yPoint</key>
-	<integer>-1</integer>
 </dict>
 </plist>
