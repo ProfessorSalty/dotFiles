@@ -1,92 +1,57 @@
-command_exists () {
-    type "$1" &> /dev/null ;
-}
+# Skip all this for non-interactive shells
+[[ -z "$PS1" ]] && return
 
-# Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-# Git editor
-export EDITOR='vim'
 export DOTFILES=$HOME/.dotFiles
+if [[ "$(which vim)" ]]; then
+  export EDITOR="vim"
+else
+  export EDITOR="vi"
+fi
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#ZSH_THEME="theunraveler"
-source $HOME/.oh-my-zsh/themes/geometry/geometry.zsh
+ZSH_THEME="spaceship"
+
+SPACESHIP_PROMPT_ADD_NEWLINE="true"
+SPACESHIP_CHAR_SYMBOL=" \ue27a"
+SPACESHIP_CHAR_PREFIX="\ue231"
+SPACESHIP_CHAR_SUFFIX=(" ")
+SPACESHIP_CHAR_COLOR_SUCCESS="yellow"
+SPACESHIP_PROMPT_DEFAULT_PREFIX="$USER"
+SPACESHIP_USER_SHOW=”true”
+
+plugins=(
+  git
+  brew
+  npm
+  docker
+  zsh-syntax-highlighting
+)
+
 # This disables marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow sudo)
-
-# User configuration
-
 source $ZSH/oh-my-zsh.sh
 
-#aliases
-alias tmuxconfig="vim ~/.tmux.conf"
-alias zshconfig="vim ~/.zshrc"
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-alias ls="ls -al --color=auto"
+alias ls="ls -al"
 ####Package managers####
 alias nis="npm install --save"
 alias nid="npm install --save-dev"
 alias snig="sudo npm install -g"
-alias niss="npm install --save --save-exact"
-alias nids="npm install --save-dev --save-exact"
-alias bowie="bower install --save"
+alias sudo='sudo '
 alias git="hub"
 
-if command_exists pip3; then
-  alias pip="pip3"
-fi
-
-if command_exists python3; then
-  alias python="python3"
-fi
-
-####Development stuff####
-alias tree="tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX"
-alias ipy='ipython qtconsole --ConsoleWidget.font_family="Consolas" --ConsoleWidget.font_size=13'
-alias cract='create-react-app'
-####Hack####
-alias sudo='sudo '
 bindkey '^N' clear-screen
-function take() {
-    mkdir -p $1
-    cd $1
-}
-## increase job limit ##
-ulimit -n 2048
 
-if [[ $OSTYPE = "darwin"* ]]; then
-    source $DOTFILES/mac_commands.sh
-fi
-# make nvim default
-#if type nvim > /dev/null 2>&1; then
-  #alias vim='nvim'
-#fi
-# added by travis gem
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-###-tns-completion-start-###
-if [ -f /Users/gregorysmith/.tnsrc ]; then
-    source /Users/gregorysmith/.tnsrc
-fi
-###-tns-completion-end-###
+export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
+
+# TODO https://github.com/MicahElliott/dotfiles/blob/master/config/zshrc
+source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 if [[  -z "$SKIP_PROFILE" ]]; then
   source ~/.zprofile
 fi
-
-export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
