@@ -1,23 +1,23 @@
 filetype plugin indent on
-set nobackup
-set noswapfile
 set number
 set ruler
-set mouse=a
 set nocompatible
 syntax on
 set cursorline
 set wrap
 set pastetoggle=<F2>
 set backspace=indent,eol,start
-" Set Proper Tabs
+
 set shiftround
 set expandtab
 set ignorecase
+
 set smartcase
 set conceallevel=0
-set relativenumber
-nnoremap <F4> :set relativenumber!<CR>
+" relative line numbers tank performance :'(
+" set relativenumber
+" nnoremap <F4> :set relativenumber!<CR>
+
 " Enable emulated plugin
 set surround
 let mapleader = "\<Space>"
@@ -35,5 +35,3 @@ nnoremap ; :
 vnoremap ; :
 nnoremap : ;
 vnoremap : ;
-
-command bd :CloseActiveTab
