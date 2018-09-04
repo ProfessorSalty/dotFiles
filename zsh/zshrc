@@ -34,7 +34,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 source $ZSH/oh-my-zsh.sh
 
-alias ls="ls -al"
+alias ls="ls -alG"
 ####Package managers####
 alias nis="npm install --save"
 alias nid="npm install --save-dev"
