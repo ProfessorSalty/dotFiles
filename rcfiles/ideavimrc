@@ -14,9 +14,10 @@ set ignorecase
 
 set smartcase
 set conceallevel=0
-" relative line numbers tank performance :'(
-" set relativenumber
-" nnoremap <F4> :set relativenumber!<CR>
+" relative line numbers w/font ligatures 
+" tank performance :'(
+set relativenumber
+nnoremap <F4> :set relativenumber!<CR>
 
 " Enable emulated plugin
 set surround

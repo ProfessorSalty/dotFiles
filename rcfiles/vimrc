@@ -130,7 +130,7 @@ Plug 'andrewradev/splitjoin.vim'
 
 " Typescript Plugins
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-"Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
+Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
 Plug 'leafgarland/typescript-vim'
 
 " Go
@@ -231,11 +231,18 @@ let NERDTreeMinimalUI        = 1
 let NERDTreeDirArrows        = 1
 
 " airline
+let g:airline_theme = 'minimalist'
 let g:airline#extensions#tabline#enabled     = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline_powerline_fonts                = 1
 
-let g:airline_theme = 'lucius'
+" remove ugly triangles
+let g:airline_right_sep = ' '
+let g:airline_right_alt_sep = '|'
+let g:airline_left_sep = ' '
+let g:airline_left_alt_sep = '|'
+" change the way filepaths are shown in status and tabs
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " Enable cursor line position tracking:
 set cursorline
