@@ -108,7 +108,6 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'scrooloose/nerdcommenter'
 " <leader>p or :Prettier
 Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -376,7 +375,7 @@ endfunc
 
 nnoremap <Leader>p :ALEFix<CR>
 let g:ale_linters = {}
-let g:ale_linters['typescript'] = ['tslint']
+let g:ale_linters['typescript'] = ['tsserver', 'tslint']
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['typescript'] = ['prettier']
@@ -387,7 +386,7 @@ let g:ale_fixers['sh'] =  ['shfmt']
 " turn off search highlight
 nnoremap <leader>n :nohlsearch<CR>
 " space open/closes folds
-nnoremap <space> za
+"nnoremap <space> za
 
 " highlight last inserted text
 nnoremap gV `[v`]
@@ -409,3 +408,8 @@ function! HLNext (blinktime)
   set invcursorline
   redraw
 endfunction
+
+if !exists("g:ycm_semantic_triggers")
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']

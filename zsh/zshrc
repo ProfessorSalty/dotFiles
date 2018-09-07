@@ -52,6 +52,6 @@ export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 # TODO https://github.com/MicahElliott/dotfiles/blob/master/config/zshrc
 source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-if [[  -z "$SKIP_PROFILE" ]]; then
+if [[  -z "$_SKIP_PROFILE" ]]; then
   source ~/.zprofile
 fi
