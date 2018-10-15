@@ -32128,6 +32128,10 @@
 	<integer>262401</integer>
 	<key>HotkeyWindowFloatsAboveOtherWindows</key>
 	<true/>
+	<key>ILMediaBrowserImageSplitViewPosition</key>
+	<integer>140</integer>
+	<key>ILMediaBrowserMediaType</key>
+	<integer>1</integer>
 	<key>IRMemory</key>
 	<integer>4</integer>
 	<key>JobName</key>
@@ -32144,6 +32148,8 @@
 	<string>~/.dotFiles/iterm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
+	<key>NSNavPanelMediaBrowserTypeForOpenModeKey</key>
+	<integer>1</integer>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -32177,12 +32183,14 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
+	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
+	<string>652 679 616 174 0 0 1920 1080 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>530 493 620 392 0 0 1680 1050 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>519 164 918 512 0 0 1920 1080 </string>
+	<string>408 141 918 512 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 650 427 0 0 1920 1080 </string>
+	<string>0 0 650 427 0 0 1680 1050 </string>
 	<key>NeverWarnAboutShortLivedSessions_97C128AB-AAE1-4AB6-9605-49E35B0066A0</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_97C128AB-AAE1-4AB6-9605-49E35B0066A0_selection</key>
@@ -33189,8 +33197,6 @@
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
-			<key>Background Image Location</key>
-			<string></string>
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -33215,7 +33221,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>6.0706340296759072</real>
+			<real>23.535620546173369</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -33342,7 +33348,7 @@
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
-			<string>tmux attach -t dropdown || tmux -L 'dropdown' -f '/Users/gregorysmith/.dotFiles/tmux/dropdown.tmux.conf' new -s dropdown</string>
+			<string>tmux -2 attach -t dropdown || tmux -2 -L 'dropdown' -f '/Users/gregorysmith/.dotFiles/tmux/dropdown.tmux.conf' new -s dropdown</string>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -33649,7 +33655,7 @@
 			<key>Log Directory</key>
 			<string></string>
 			<key>Minimum Contrast</key>
-			<real>0.0</real>
+			<real>0.054731889204545456</real>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
@@ -33825,7 +33831,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.086774235293710006</real>
+			<real>0.12066343262873541</real>
 			<key>Triggers</key>
 			<array>
 				<dict>
@@ -34245,7 +34251,7 @@
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
-			<string>tmux attach -t vim || tmux -L 'vim' -f '/Users/gregorysmith/.tmux.conf' new -s vim</string>
+			<string>tmux -2 attach -t vim || tmux -2 -L 'vim' -f '/Users/gregorysmith/.tmux.conf' new -s vim</string>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -35685,6 +35691,8 @@
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>557679886.34115505</real>
 	<key>OnlyWhenMoreTabs</key>
@@ -35771,7 +35779,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-09-05T14:00:16Z</date>
+	<date>2018-09-18T22:01:11Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -35823,7 +35831,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.2.1beta3</string>
+	<string>3.2.1beta4</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

@@ -74,7 +74,7 @@ nmap <leader>v :vsp $MYVIMRC<CR>
 au FocusGained,BufEnter * :checktime
 au CursorHold,CursorHoldI * checktime
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
 " FocusGained and FocusLost autocommand events are not working in terminal vim. 
 " This plugin restores them when using vim inside Tmux.
@@ -129,7 +129,7 @@ Plug 'andrewradev/splitjoin.vim'
 
 " Typescript Plugins
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
+"Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
 Plug 'leafgarland/typescript-vim'
 
 " Go
@@ -168,6 +168,8 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 " Syntax
 Plug 'sheerun/vim-polyglot'
 call plug#end()
+
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 
 " Disable JSON conceallevel
 augroup jsonConceal
@@ -277,9 +279,9 @@ map <Enter> o<ESC>
 
 map <S-Enter> O<ESC>
 " No more escape key!!
-nnoremap <C-space> a
-imap <C-space> <Esc>
-vmap <C-space> <Esc>
+nnoremap <C-Space> a
+imap <C-Space> <Esc>
+vmap <C-Space> <Esc>
 
 nnoremap <C-k> :bnext<CR>
 nnoremap <C-j> :bprev<CR>
@@ -376,6 +378,7 @@ endfunc
 nnoremap <Leader>p :ALEFix<CR>
 let g:ale_linters = {}
 let g:ale_linters['typescript'] = ['tsserver', 'tslint']
+let g:ale_linters['javasript'] = ['eslint']
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['typescript'] = ['prettier']
@@ -413,3 +416,10 @@ if !exists("g:ycm_semantic_triggers")
   let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
+
+" Use <Enter> to select autocomplete entries
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+
+let g:ale_list_window_size = 10
+
+colorscheme afterglow
