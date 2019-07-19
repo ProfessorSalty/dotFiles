@@ -13,6 +13,7 @@ NODENV=$HOME/.nodenv
 RBENV=$HOME/.rbenv
 GOPATH=$HOME/Projects/go
 USERPERMISSIONS="$USER"
+OMZ="$HOME/.oh-my-zsh"
 
 export GOPATH
 
@@ -125,20 +126,27 @@ go get -u github.com/cweill/gotests/...
 go get -u mvdan.cc/sh/cmd/shfmt
 
 #get oh-my-zsh
-if [ ! -d ~/.oh-my-zsh ]; then
+if [ ! -d $"OMZ" ]; then
     echo "Installing oh-my-zsh..."
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
 #install spaceship prompt
-SP="$ZSH_CUSTOM/themes/spaceship-prompt"
+SP="$OMZ/themes/spaceship-prompt"
 if [ -d "$SP" ]; then
   rm -rf "$SP"
 fi
 
 git clone --dept=1 https://github.com/denysdovhan/spaceship-prompt.git "$SP"
-ln -s "$SP/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+SH="$OMZ/plugins/zsh-syntax-highlighting"
+if [ -d "$SH" ]; then
+    rm -rf "$SH"
+fi
+
+# link the theme file to the correct place
+ln -s "$SP/spaceship.zsh-theme" "$OMZ/themes/spaceship.zsh-theme"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${OMZ:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 if [ ! -d "$RBENV" ]; then
     echo "Initializing rbenv..."
@@ -188,6 +196,9 @@ if command -v nodenv > /dev/null 2>&1; then
     nodenv install -f "$NODEVERSION"
     nodenv global "$NODEVERSION"
 fi
+
+# install pip3
+bash <( curl -s https://bootstrap.pypa.io/get-pip.py )
 
 if command -v pip3 > /dev/null 2>&1; then
     pip3 install --upgrade pip3 >> /dev/null
