@@ -176,16 +176,16 @@ if [ ! -d "$NODENV" ]; then
 fi
 
 if command -v rbenv > /dev/null 2>&1; then
-    RUBYVERSION=$($RCMD install --list | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
+    RUBYVERSION=$(rbenv install --list | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
     echo "Downloading Ruby $RUBYVERSION..."
-    rbenv install "$RUBYVERSION"
+    rbenv install -f "$RUBYVERSION"
     rbenv global "$RUBYVERSION"
 fi
 
 if command -v nodenv > /dev/null 2>&1; then
-    NODEVERSION=$($NCMD install --list |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    NODEVERSION=$(nodenv install --list |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
     echo "Downloading Node $NODEVERSION..."
-    nodenv install "$NODEVERSION"
+    nodenv install -f "$NODEVERSION"
     nodenv global "$NODEVERSION"
 fi
 
