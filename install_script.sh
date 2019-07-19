@@ -66,10 +66,7 @@ if [ $OS == "MAC" ]; then
     brew update
     echo "Installing important packages..."
     brew tap homebrew/science
-    brew install coreutils moreutils findutils tidy-html5 hub gpg-agent mongodb reattach-to-user-namespace tmux zsh python tree shellcheck postgres mysql heroku-toolbelt redis go go-delve/delve/delve neofetch ag ctags leiningen mitmproxy cmake awscli
-    brew install wget --with-iri
-    brew install vim --override-system-vi
-    brew install --with-toolchain llvm
+    brew install coreutils moreutils findutils tidy-html5 hub reattach-to-user-namespace tmux tree shellcheck go neofetch ag ctags leiningen mitmproxy cmake awscli wget vim llvm
     brew cask install gpgtools
     echo "Cleaning up..."
     brew cleanup >> /dev/null
