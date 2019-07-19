@@ -12,7 +12,7 @@ XDG_CONFIG_HOME=$HOME/.config
 NODENV=$HOME/.nodenv
 RBENV=$HOME/.rbenv
 GOPATH=$HOME/Projects/go
-USERPERMISSIONS="$USER:$USER"
+USERPERMISSIONS="$USER"
 
 export GOPATH
 
@@ -64,8 +64,7 @@ if [ $OS == "MAC" ]; then
     fi
     echo "Updating Homebrew..."
     brew update
-    echo "Installing important packages..."
-    brew tap homebrew/science
+    echo "Installing important packages..."z
     brew install coreutils moreutils findutils tidy-html5 hub reattach-to-user-namespace tmux tree shellcheck go neofetch ag ctags leiningen mitmproxy cmake awscli wget vim llvm
     brew cask install gpgtools
     echo "Cleaning up..."
@@ -166,10 +165,10 @@ if [ ! -d "$NODENV" ]; then
     NODEVERSION=$($NCMD install --list |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
     echo "Downloading Node $NODEVERSION..."
     $NCMD install "$NODEVERSION"
-    LATESTSIX=$($NCMD install --list |  awk '/^[[:space:]]+6\.([[:digit:]]+\.)([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
-    echo "Downloading Node $LATESTSIX for compatibility"
-    $NCMD install "$LATESTSIX"
-    $NCMD global "$LATESTSIX"
+    LATESTTEN=$($NCMD install --list |  awk '/^[[:space:]]+10\.([[:digit:]]+\.)([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    echo "Downloading Node $LATESTTEN for compatibility"
+    $NCMD install "$LATESTTEN"
+    $NCMD global "$LATESTTEN"
     echo "Downloading nodenv-update"
     git clone https://github.com/nodenv/nodenv-update.git "$NODENV"/plugins/nodenv-update
 fi
@@ -328,4 +327,4 @@ if [ $OS == "MAC" ]; then
     sudo -u "$USER" chsh -s "$(which zsh)"
 fi
 
-echo "Install and setup complete.  Now run the setup script."
+echo "Install and setup complete."
