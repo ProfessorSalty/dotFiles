@@ -65,6 +65,7 @@ if [ $OS == "MAC" ]; then
     echo "Updating Homebrew..."
     brew update
     echo "Installing important packages..."
+    brew install python3 && cp /usr/local/bin/python3 /usr/local/bin/python
     brew install rbenv
     brew install nodenv
     brew install coreutils moreutils findutils tidy-html5 hub reattach-to-user-namespace tmux tree shellcheck go neofetch ag ctags leiningen mitmproxy cmake awscli wget vim llvm
@@ -174,25 +175,32 @@ if [ ! -d "$NODENV" ]; then
     git clone https://github.com/nodenv/nodenv-update.git "$NODENV"/plugins/nodenv-update
 fi
 
-if test easy_install && ! test pip; then
-    #need to install pip
-    sudo easy_install pip >> /dev/null
-fi
-if test pip; then
-    pip install --upgrade pip >> /dev/null
+if command -v rbenv > /dev/null 2>&1; then
+    RUBYVERSION=$($RCMD install --list | grep -v - | tail -1 | sed -e 's/^[[:space:]]*//')
+    echo "Downloading Ruby $RUBYVERSION..."
+    rbenv install "$RUBYVERSION"
+    rbenv global "$RUBYVERSION"
 fi
 
-if test pip3; then
+if command -v nodenv > /dev/null 2>&1; then
+    NODEVERSION=$($NCMD install --list |  awk '/^[[:space:]]+([[:digit:]]+\.){2,}([[:digit:]]+)$/'  | tail -1 | tr -d ' ')
+    echo "Downloading Node $NODEVERSION..."
+    nodenv install "$NODEVERSION"
+    nodenv global "$NODEVERSION"
+fi
+
+if command -v pip3 > /dev/null 2>&1; then
     pip3 install --upgrade pip3 >> /dev/null
+    cp "$(which pip3)" /usr/loca/bin/pip
     # These are for nvim completion engine
     pip3 install --user jedi psutil setproctitle >> /dev/null
 fi
 
 echo "Installing NPM modules..."
-npm_config_loglevel=silent sudo "$NODENV/shims/npm" install -g express-generator nativescript react-native-cli typescript create-react-app @angular/cli vue-cli >> /dev/null
+npm_config_loglevel=silent npm install -g express-generator nativescript react-native-cli typescript create-react-app @angular/cli vue-cli >> /dev/null
 
 echo "Installing important gems..."
-"$RBENV/shims/gem" install rubocop haml scss_lint rails bundler capistrano tmuxinator travis >> /dev/null
+gem install rubocop haml scss_lint rails bundler capistrano tmuxinator travis >> /dev/null
 
 echo "Installing Nerd patched fonts..."
 NF="$DOWNLOADS/nerdfonts"
