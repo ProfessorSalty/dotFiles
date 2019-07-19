@@ -323,7 +323,7 @@ done
 
 echo "Setting zsh as default shell..."
 if [ $OS == "MAC" ]; then
-    sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
+    sudo dscl . -create /Users/$USER UserShell "$(which zsh)"
    else
     sudo -u "$USER" chsh -s "$(which zsh)"
 fi
