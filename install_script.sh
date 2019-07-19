@@ -198,7 +198,7 @@ if command -v nodenv > /dev/null 2>&1; then
 fi
 
 # install pip3
-bash <( curl -s https://bootstrap.pypa.io/get-pip.py )
+python3 <( curl -s https://bootstrap.pypa.io/get-pip.py )
 
 if command -v pip3 > /dev/null 2>&1; then
     pip3 install --upgrade pip3 >> /dev/null
@@ -311,12 +311,18 @@ if [ $OS == "LINUX" ]; then
 fi
 
 # Install vim plugins via vim-plug
-sudo -E vim +PlugInstall +qall
+# sudo -E vim +PlugInstall +qall
 
 if [ $OS == "MAC" ]; then
     # sets xcode for node
     sudo xcode-select -switch /usr/bin
 fi
+
+echo "Installing spacevim..."
+bash <( curl -sLf https://spacevim.org/install.sh )
+
+echo "Installing spacemacs..."
+git clone -q --depth=1 https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 chown -R "$USERPERMISSIONS" ~/.local
 
