@@ -198,7 +198,7 @@ if command -v nodenv > /dev/null 2>&1; then
 fi
 
 # install pip3
-python3 <( curl -s https://bootstrap.pypa.io/get-pip.py )
+python <( curl -s https://bootstrap.pypa.io/get-pip.py )
 
 if command -v pip3 > /dev/null 2>&1; then
     pip3 install --upgrade pip3 >> /dev/null
@@ -208,10 +208,10 @@ if command -v pip3 > /dev/null 2>&1; then
 fi
 
 echo "Installing NPM modules..."
-npm_config_loglevel=silent npm install -g express-generator nativescript react-native-cli typescript create-react-app @angular/cli vue-cli >> /dev/null
+npm_config_loglevel=silent "$NODENV/shims/npm" install -g express-generator nativescript react-native-cli typescript create-react-app @angular/cli vue-cli >> /dev/null
 
 echo "Installing important gems..."
-gem install rubocop haml scss_lint rails bundler capistrano tmuxinator travis >> /dev/null
+"$RBENV/shims/gem" install rubocop haml scss_lint rails bundler capistrano tmuxinator travis >> /dev/null
 
 echo "Installing Nerd patched fonts..."
 NF="$DOWNLOADS/nerdfonts"
