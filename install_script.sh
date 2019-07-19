@@ -64,7 +64,9 @@ if [ $OS == "MAC" ]; then
     fi
     echo "Updating Homebrew..."
     brew update
-    echo "Installing important packages..."z
+    echo "Installing important packages..."
+    brew install rbenv
+    brew install nodenv
     brew install coreutils moreutils findutils tidy-html5 hub reattach-to-user-namespace tmux tree shellcheck go neofetch ag ctags leiningen mitmproxy cmake awscli wget vim llvm
     echo "Cleaning up..."
     brew cleanup >> /dev/null
