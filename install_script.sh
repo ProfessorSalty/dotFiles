@@ -66,7 +66,6 @@ if [ $OS == "MAC" ]; then
     brew update
     echo "Installing important packages..."z
     brew install coreutils moreutils findutils tidy-html5 hub reattach-to-user-namespace tmux tree shellcheck go neofetch ag ctags leiningen mitmproxy cmake awscli wget vim llvm
-    brew cask install gpgtools
     echo "Cleaning up..."
     brew cleanup >> /dev/null
 
